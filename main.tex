@@ -1,0 +1,127 @@
+\documentclass{book}
+
+\usepackage{fontspec}
+\usepackage{wallpaper}
+\usepackage{color}
+\usepackage{xunicode}
+\usepackage{xltxtra}
+\usepackage{graphicx}
+\usepackage[margin=2cm]{geometry}
+
+
+\newfontfamily\msjh{Microsoft JhengHei}
+\newfontfamily\kai{BiauKai}
+% \newfontfamily\arial{Arial}
+\XeTeXlinebreaklocale "zh"
+
+
+
+\begin{document}
+\title{Book}
+\author{Author}
+
+\maketitle
+\CenterWallPaper{0.4}{"ntu.jpg"}
+% \tableofcontents % uncomment this line to make toc
+
+\chapter{Introduction}
+Intro to \TeX\footnote{footnote}\marginpar{margin par}\\
+\textit{The TeX Book}\footnote{The TeX Book}\\
+\msjh 中文\rmfamily \\
+\kai 楷書\rmfamily \\
+\textcolor{blue}{blue}\\
+\fbox{float box}\\ \\
+baseline \raisebox{1ex}{upward}\raisebox{-1ex}{downward}\\\\
+math expression $ (y^m)^n $ \\\\
+
+
+\kai 
+尤其是她的勇敢與膽量；所以至少她，我們明白的只是底下流血的脛踝，從你襁褓時起，沒福見著你的父親，誰不曾在他生命的經途中葛
+德說的和著悲哀吞他的飯，裝一個獵戶；你再不必提心整理你的領結，但你要它們的時候，我自分不是無情，它們又不在口邊；像是長在
+大塊岩石底下的嫩草，因為草的和暖的顏色自然的喚起你童稚的活潑；在靜僻的道上你就會不自主的狂舞，去時自去：正如你生前我不知
+欣喜，你應得躲避她像你躲避青草裡一條美麗的花蛇！愛你，我說我要借這機會稍稍爬梳我年來的鬱積；但那也不見得容易：要說的話彷
+彿就在口邊，這才覺著父性的愛像泉眼似的在性靈裏汩汩的流出：只可惜是遲了，學一個太平軍的頭目，你離開了媽的懷抱，你在時我不
+知愛惜，并且假如我這番不到歐洲，明知是自苦的揶揄，還是有人成心種著的？是怨，最有資格指證或相詮釋，她們不僅永遠把你放在她
+們心坎的底裏，可以懂得我話裏意味的深淺，從你襁褓時起，自由永遠尋不到我們；但在這春夏間美秀的山中或鄉間你要是有機會獨身閒
+逛時，與自然同在一個脈搏裡跳動，近谷內不生煙，有時激起成章的波動，還不止是難，決不過暖；風息是溫馴的，是它們自己長著，小
+琴，他的恣態是自然的，而況揶揄還不止此，我只能問！大大記得最清楚，她們又講你怎樣喜歡拿著一根短棍站在桌上摹仿音樂會的導師，
+就這單純的呼吸已是無窮的愉快；空氣總是明淨的，活潑的靈魂；你來人間真像是短期的作客，我們渾樸的天真是像含羞草似的嬌柔，沒
+福見著你的父親，我也不易使他懂我的話，最難堪是逐步相追的嘲諷，我們還是不能選擇取由的途徑到那天我們無形的解差喝住的時候，
+只是這無恩的長路，去時自去：正如你生前我不知欣喜，他們承著你的體重卻不叫你記起你還有一雙腳在你的底下。你已經去了不再回來，
+你生前日常把弄的玩具小車，所以只有你單身奔赴大自然的懷抱時，一個不相識的小孩，在這裡出門散步去，有時激起成章的波動，摸著
+了你的寶貝，稍稍疏洩我的積愫，她的忍耐，他們是頂可愛的好友，約莫八九歲光景，即使有，只是這無恩的長路，性情的柔和，可以懂
+得我話裏意味的深淺，她們又講你怎樣喜歡拿著一根短棍站在桌上摹仿音樂會的導師，我問為什麼，不止是苦，她們又講你怎樣喜歡拿著
+一根短棍站在桌上摹仿音樂會的導師，不是寡恩，窮困時不窮困，迷失時有南針。這才覺著父性的愛像泉眼似的在性靈裏汩汩的流出：只
+可惜是遲了，再也不出聲不鬧：并且你有的是可驚的口味，給你應得的慈愛，極端的自私，小鵝，陽光的和暖與花草的美麗，即使有，它
+們又不在口邊；像是長在大塊岩石底下的嫩草，無形的解差永遠在後背催逼著我們趕道：為什麼受罪，我自分不是無情，不妨縱容你滿腮
+的苔蘚；你愛穿什麼就穿什麼；扮一個牧童，因為草的和暖的顏色自然的喚起你童稚的活潑；在靜僻的道上你就會不自主的狂舞，但已往
+的教訓，反是這般不近情的冷漠？
+\rm
+
+tabbing
+\begin{tabbing}
+  column1 \= column2 \= column3 \\
+  item1   \> item2   \> item3   \\
+\end{tabbing}
+
+tabular\\
+\begin{tabular}{|l|c|r|}
+  \hline
+  \multicolumn{3}{|c|}{Sample Tabular}\\
+  \hline
+  first & second & third \\
+  \cline{2-3}
+  left  & centered & right \\
+  \hline
+\end{tabular}
+\\\\
+one -\\
+two --\\
+three ---\\
+minus $ - $\\
+control\ space\\
+final\\
+\TeX\ ignore space behind it.\\
+\XeTeX\ does.\\
+'\TeX'\\
+Here is $\pi$ and $\Pi$\\
+the angle of whole circle is 2$\pi$.\\
+P\'olya\\
+
+
+
+
+
+\section{More}
+More Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec ligula a tortor mattis
+consectetur. Phasellus eget dictum quam. Pellentesque cursus, lacus ut rutrum suscipit, dolor sapien varius nisl, sed
+aliquam mi augue non magna. Maecenas dignissim aliquet porta. Sed elit purus, vestibulum a posuere ut, volutpat eget
+nibh. Phasellus eu dolor ante, a tincidunt massa. Pellentesque porttitor pharetra risus. Sed a sem neque. Etiam varius
+rutrum consequat. Donec sagittis nulla sed lectus tristique iaculis. Aliquam placerat sagittis enim nec
+aliquam. Phasellus in erat metus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+
+Nullam nisl erat, pulvinar a fermentum ut, tempus eget enim. Vivamus vel odio id urna ultricies sollicitudin. Curabitur
+lobortis augue rhoncus purus sollicitudin ornare. Nullam sit amet quam quis neque mollis elementum. Cras dapibus felis
+eu mi vulputate ut rutrum dui molestie. Ut at venenatis purus. Nunc eget lacus blandit enim pharetra congue posuere in
+arcu. Duis pharetra, mi vitae venenatis pellentesque, quam nulla vulputate dui, at facilisis tortor tortor non orci. Sed
+lectus erat, suscipit quis aliquam et, lobortis at lorem. Quisque feugiat neque eros. Nunc rutrum adipiscing dolor eu
+pulvinar. Nunc elit diam, tincidunt at vulputate ornare, eleifend id ante. Aliquam a augue augue, a hendrerit eros.
+
+Praesent lectus enim, tincidunt id volutpat sit amet, varius sit amet lectus. Nam bibendum consequat tellus accumsan
+pellentesque. Nullam enim dolor, eleifend eu faucibus non, convallis congue nibh. Pellentesque vel urna ac lorem congue
+vehicula non ut massa. Quisque a metus et est faucibus sollicitudin viverra ut purus. Nullam a leo sit amet ipsum
+sagittis volutpat ut at tortor. Nullam quis adipiscing arcu. Nulla facilisi. Integer at dui turpis. Suspendisse luctus
+rutrum dui ac mattis. In hac habitasse platea dictumst. Duis pharetra fringilla nulla, at molestie arcu fermentum
+eu. Integer id metus vel enim auctor rutrum.
+
+In hac habitasse platea dictumst. Pellentesque elementum dolor vel felis tincidunt in mollis lorem ornare. Fusce non
+ligula massa, varius tempus eros. Quisque nunc magna, facilisis at luctus ut, venenatis vel dolor. Mauris nec accumsan
+nulla. Fusce in lorem velit, non egestas mauris. Cras laoreet erat eu leo commodo aliquam. In eget mauris lacus, vitae
+scelerisque lacus. Proin id massa augue. Ut ac euismod risus. Integer vulputate turpis eu urna pulvinar sit amet ornare
+elit sagittis. Nunc mattis enim vel lectus mollis vitae viverra mauris sollicitudin. Proin id dui nunc. Ut ut quam
+iaculis est tincidunt venenatis. Nunc at felis in augue suscipit scelerisque. Pellentesque eget tellus at odio malesuada
+mollis aliquet ut magna. Suspendisse velit augue, rhoncus ut tempor non, tincidunt vel ligula. Proin elementum arcu sit
+amet eros hendrerit lacinia eget et lectus. Donec non justo vitae ipsum consequat scelerisque. Nunc tincidunt, lacus non
+fermentum molestie, tellus nibh aliquet diam, ac congue velit lacus eu diam.
+
+\end{document}
