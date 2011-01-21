@@ -1,7 +1,11 @@
 
 
+EXCLUDED_EXTENSION := log aux pdf toc
+
+.PHONY: all clean
+
 all:
 	xelatex main.tex
 
 clean:
-	rm -rf *.log *.aux *.pdf
+	rm $(foreach ext, $(EXCLUDED_EXTENSION), $(shell find . -name \*.$(ext)))
