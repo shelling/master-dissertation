@@ -1,7 +1,14 @@
 \section{The Algorithm}
 
-The Finite-Difference Time-Domain Method\\
-Maxwell's Equations
+In 1966, The algorithm of the FDTD method was first introduced by Yee.
+
+\subsection{The update equations}
+
+The update equations is the core of the FDTD method. In every interation on the timeline, the update equations refresh
+the value of field of every point in the simulation region.
+
+In this section, we are going to derive update equation from Maxwell's Equations.Here is the most well-known form of
+Maxwell's Equations:
 
 \begin{displaymath}
   \nabla \cdot D = \rho_{\nu}
@@ -16,5 +23,22 @@ Maxwell's Equations
   \nabla \times H = J + \frac{\partial D}{\partial t}
 \end{displaymath}
 
+It is a long established fact that a reader will be distracted by the readable content of a page when looking at its
+layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using
+'Content here, content here', making it look like readable English. Many desktop publishing packages and web page
+editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites
+still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose
+(injected humour and the like).
+
+There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form,
+by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of
+Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum
+generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the
+Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to
+generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition,
+injected humour, or non-characteristic words etc.
 
 
+
+\subsection{Reduction of dimensions}
+\subsection{Stability}
