@@ -4,30 +4,102 @@
 \subsubsection{Debye Media}
 
 \begin{displaymath}
-  \epsilon(\omega) = \epsilon_{\infty} + \frac{\Delta\epsilon_p}{1+j\omega\tau_p}
+  \epsilon_r(\omega) = \epsilon_{\infty} + \frac{\Delta\epsilon_p}{1+j\omega\tau_p}
 \end{displaymath}
 
 \subsubsection{Lorentz Media}
 
 
 \begin{displaymath}
-  \epsilon(\omega) = \epsilon_{\infty} + \frac{\Delta\epsilon_p\omega_p^2}{\omega_p^2 + 2j\omega\delta_p - \omega^2}
+  \epsilon_r(\omega) = \epsilon_{\infty} + \frac{\Delta\epsilon_p\omega_p^2}{\omega_p^2 + 2j\omega\delta_p - \omega^2}
 \end{displaymath}
 
 
 \subsubsection{Drude Media}
-
+\[
+\chi_p(\omega) = 
+\]
+The single pole permittivity is 
 \begin{displaymath}
-  \epsilon(\omega) = \epsilon_{\infty} - \frac{\omega_p^2}{\omega(\omega-j\nu_c)}
+  \epsilon_r(\omega) = \epsilon_{\infty} - \frac{\omega_p^2}{\omega(\omega-j\gamma_p)}
 \end{displaymath}
 
-where $\omega_p$ is the Drude pole frequency and $\nu_c$ is the electron oscillision frequency, also known as the
-inverse of the pole relaxation time.
+where $\omega_p$ is the Drude pole frequency and $\gamma_p$ is the inverse of the pole relaxation time, also known as the
+electron oscillision frequency.
+
+
 
 \subsection{Dispersion-Compatible Update Equations}
 
+In this section, we would introduce three algorithm to adjust the update equations to suit the dispersive material shown
+above.\\
+
+We would see that the update equations would have the same forms after transformming no matter which way we choose. It
+means, for some problems convenient to apply specified algorithm but not easy to apply another one, 
+
 \subsubsection{The Piecewise-Linear Recursive Convolution Method}
+\textbf{Debye Model}
+
+\textbf{Lorentz Model}
+
+\textbf{Drude Model}
 
 \subsubsection{The Auxiliary Differential Equation Method}
+The 
+
+By defining the $\chi$-related term as the phasor polorization current $J_p(\omega)$
+
+\textbf{Debye Model}
+
+\textbf{Lorentz Model}
+
+\textbf{Drude Model}
+\begin{displaymath}
+    \nabla \times H(\omega) = j\omega \epsilon_r(\omega)E(\omega) = j\omega\epsilon_0 \epsilon_{\infty} E(\omega) - j\omega\epsilon_0\frac{\omega_p^2}{\omega(\omega-j\gamma_p)}E(\omega)
+\end{displaymath}
+
+Defining the last term as $J_p$
+\begin{displaymath}
+  J_p(\omega) = -j\omega\epsilon_0\frac{\omega_p^2}{\omega(\omega-j\gamma_p)}E(\omega)
+\end{displaymath}
+
+Rearrange
+\begin{displaymath}
+  \omega^2J_p(\omega) - j\omega\gamma_pJ_p(\omega) = -j\omega\epsilon_0\omega_p^2 E(\omega)
+\end{displaymath}
+
+Performming inverse Fourier transformation
+\begin{displaymath}
+  \frac{\partial^2 J_p}{\partial t^2} + \gamma_p \frac{\partial J_p}{\partial t} = \epsilon_0\omega_p^2\frac{\partial E}{\partial t}
+\end{displaymath}
+
+Integrating once
+\begin{displaymath}
+  \frac{\partial J_p}{\partial t} + \gamma_p J_p = \epsilon_0 \omega_p^2 E(\omega)
+\end{displaymath}
+
+This is the ADE for $J_p$ for Drude Model
+
+Apply the semi-implicit scheme
+\begin{displaymath}
+  \Huge(\frac{J_p^{n+1} - J_p^n}{\Delta t}\Huge) + \gamma_{p}\Huge(\frac{J_p^{n+1} + J_p^n}{2}\Huge) = \epsilon_0\omega_p^2\Huge(\frac{E^{n+1} + E^n}{2}\Huge)
+\end{displaymath}
+
+Solving
+\begin{displaymath}
+  J_p^{n+1} = \Huge(\frac{1-\gamma_p\Delta t /2}{1+\gamma_p\Delta t /2}\Huge)J_p^n + \Huge(\frac{\omega_p^2\epsilon_0\Delta t /2}{1+\gamma_p\Delta t /2}\Huge)(E^{n+1}+E^n)
+\end{displaymath}
+
+
+\begin{displaymath}
+  E^{n+1} = \Huge(\frac{2\epsilon_0\epsilon_{\infty} - \Delta t \beta_p}{2\epsilon_0\epsilon_{\infty} + \Delta t \beta_p}\Huge)E^n + \Huge(\frac{2\Delta t}{2\epsilon_0\epsilon_{\infty} + \Delta t \beta_p}\Huge)\Huge(\nabla\times H^{n+1/2} - \frac{1}{2}(1+k_p)J_p^n\Huge)
+\end{displaymath}
+
+
 
 \subsubsection{The Z Transform Method}
+\textbf{Debye Model}
+
+\textbf{Lorentz Model}
+
+\textbf{Drude Model}
