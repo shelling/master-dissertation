@@ -1,6 +1,6 @@
 
 
-EXCLUDED_EXTENSION := log aux pdf toc
+EXCLUDED_EXTENSION := log aux pdf toc ilg ind
 
 .PHONY: all clean
 
