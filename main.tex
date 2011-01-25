@@ -12,6 +12,7 @@
 \usepackage{amsmath}
 \usepackage{amsthm}
 \usepackage{url}
+\usepackage{makeidx}
 
 
 
@@ -23,6 +24,7 @@
 \XeTeXlinebreaklocale "zh"
 \setlength{\parskip}{1em plus0.2em minus0em}
 \pagestyle{plain}
+\makeindex
 
 
 
@@ -74,6 +76,7 @@
 
 \backmatter
 
-\chapter{References}
+\printindex
+\addcontentsline{toc}{chapter}{Index}
 
 \end{document}
