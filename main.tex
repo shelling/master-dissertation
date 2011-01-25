@@ -11,36 +11,39 @@
 \usepackage{parskip}
 
 
+
+\setmonofont[SizeFeatures={Size={9}}]{Monaco}
 \newfontfamily\msjh{Microsoft JhengHei}
 \newfontfamily\kai{BiauKai}
-\setmonofont[SizeFeatures={Size={9}}]{Monaco}
 \newfontfamily\arial{Arial}
+
 \XeTeXlinebreaklocale "zh"
 \setlength{\parskip}{1em plus0.2em minus0em}
-
+\pagestyle{plain}
 
 
 
 \begin{document}
-\pagestyle{plain}
-\pagenumbering{roman}
 \fontsize{12}{2em}\selectfont
+
+
+\frontmatter
 
 \input{preamble/cover}
 \input{preamble/acknowledgement}
 \input{preamble/abstract}
-
 \tableofcontents
 
 
 
+
+
+\mainmatter
+
+
 \chapter{Introduction}
-
-\pagenumbering{arabic}
-
 \input{introduction/motivations}
 \input{introduction/chapter-outline}
-
 
 
 \chapter{The Finite-Different Time-Domain Method}
@@ -53,15 +56,20 @@
 \input{the-finite-difference-time-domain-method/the-yafdtd-framework}
 
 
-
 \chapter{Modeling of Curved Surface}
-
 
 
 \chapter{Modeling of Plasmonic Waveguides}
 
 
-
 \chapter{Conclusion}
+
+
+
+
+
+\backmatter
+
+\chapter{References}
 
 \end{document}
