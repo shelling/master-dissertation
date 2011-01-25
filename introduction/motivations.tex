@@ -30,23 +30,33 @@ mollis aliquet ut magna. Suspendisse velit augue, rhoncus ut tempor non, tincidu
 amet eros hendrerit lacinia eget et lectus. Donec non justo vitae ipsum consequat scelerisque. Nunc tincidunt, lacus non
 fermentum molestie, tellus nibh aliquet diam, ac congue velit lacus eu diam.
 
+\[
+\begin{bmatrix}
+  1& 1& 3\\
+  4& 5& 6\\
+  7& 8& 9
+\end{bmatrix}
+\]
+
+\[
+\begin{pmatrix}
+  1& 1& 3\\
+  4& 5& 6\\
+  7& 8& 9
+\end{pmatrix}
+\]
+
 Intro to \TeX\footnote{footnote}\marginpar{margin par}\\
 \textit{The TeX Book}\footnote{The TeX Book}\\
-{\msjh 中文}\\
-{\kai 楷書}\\
-{\arial Arial}\\
-\textcolor{blue}{blue}\\
-\fbox{float box}\\ \\
-baseline \raisebox{1ex}{upward}\raisebox{-1ex}{downward}\\\\
-math expression $ (y^m)^n $ \\\\
-
+{\msjh 中文} {\kai 楷書} {\arial Arial} \textcolor{blue}{blue} \fbox{float box}\\
+baseline \raisebox{1ex}{upward}\raisebox{-1ex}{downward}\\
+math expression $ (y^m)^n $
 tabbing
 \begin{tabbing}
   column1 \= column2 \= column3 \\
-  item1   \> item2   \> item3   \\
+  item1   \> item2   \> item3
 \end{tabbing}
-
-tabular\\
+tabular\\[1em]
 \begin{tabular}{|l|c|r|}
   \hline
   \multicolumn{3}{|c|}{Sample Tabular}\\
@@ -56,11 +66,8 @@ tabular\\
   left  & centered & right \\
   \hline
 \end{tabular}
-\\\\
-one -\\
-two --\\
-three ---\\
-minus $ - $\\
+
+one - two -- three --- minus $ - $
 control\ space\\
 final\\
 \TeX\ ignore space behind it.\\
