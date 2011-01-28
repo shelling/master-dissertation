@@ -1,36 +1,52 @@
 \section{Dispersive Material}
 
-\subsection{Isotropic Dispersive Material}
-\subsubsection{Debye Media}
 
-\begin{displaymath}
-  \epsilon_r(\omega) = \epsilon_{\infty} + \frac{\Delta\epsilon_p}{1+j\omega\tau_p}
-\end{displaymath}
+\subsection{Isotropic Dispersive Material}
+
+
+\subsubsection{Debye Media}
+\begin{equation}
+  \chi_p(\omega) = \frac{\Delta\epsilon_p}{1+j\omega\tau_p}  
+\end{equation}
+\begin{equation}
+  \chi_p(t) = \frac{\Delta \epsilon_p}{\tau_p} e^{-\frac{t}{\tau_p}}U(t)  
+\end{equation}
+\begin{equation}
+  \epsilon_r(\omega) = \epsilon_{\infty} + \sum_{p=1}^P \frac{\Delta\epsilon_p}{1+j\omega\tau_p}  
+\end{equation}
+
+
 
 \subsubsection{Lorentz Media}
-
-
-\begin{displaymath}
-  \epsilon_r(\omega) = \epsilon_{\infty} + \frac{\Delta\epsilon_p\omega_p^2}{\omega_p^2 + 2j\omega\delta_p - \omega^2}
-\end{displaymath}
+\begin{equation}
+  \chi_p(\omega) = \frac{\Delta\epsilon_p\omega_p^2}{\omega_p^2 + 2j\omega\delta_p - \omega^2}  
+\end{equation}
+\begin{equation}
+  \chi_p(t) = \frac{\Delta \epsilon_p \omega_p^2}{\sqrt{\omega_p^2 - \delta_p^2}}e^{-\delta_p t}\sin\left(\sqrt{\omega_p^2-\delta_p^2}\ t\right)U(t)
+\end{equation}
+\begin{equation}
+  \epsilon_r(\omega) = \epsilon_{\infty} + \sum_{p=1}^P \frac{\Delta\epsilon_p\omega_p^2}{\omega_p^2 + 2j\omega\delta_p - \omega^2}  
+\end{equation}
 
 
 \subsubsection{Drude Media}
-\[
-\chi_p(\omega) = 
-\]
+\begin{equation}
+  \chi_p(\omega) = -\frac{\omega_p^2}{\omega^2 - j\omega\gamma_p}  
+\end{equation}
+\begin{equation}
+  \chi_p(t) = -\frac{\omega_p^2}{\gamma_p}\left(1-e^{-\gamma_p t}\right) U(t)
+\end{equation}
+where U(t) is Heaviside
 The single pole permittivity is 
-\begin{displaymath}
-  \epsilon_r(\omega) = \epsilon_{\infty} - \frac{\omega_p^2}{\omega(\omega-j\gamma_p)}
-\end{displaymath}
-
+\begin{equation}
+  \epsilon_r(\omega) = \epsilon_{\infty} - \sum_{p=1}^P \frac{\omega_p^2}{\omega(\omega-j\gamma_p)}
+\end{equation}
 where $\omega_p$ is the Drude pole frequency and $\gamma_p$ is the inverse of the pole relaxation time, also known as the
 electron oscillision frequency.
 
 
 
 \subsection{Dispersion-Compatible Update Equations}
-
 In this section, we would introduce three algorithm to adjust the update equations to suit the dispersive material shown
 above.
 
@@ -51,56 +67,56 @@ The
 
 By defining the $\chi$-related term as the phasor polorization current $J_p(\omega)$.
 \paragraph{{\msjh Debye Model - ADE}}
-\begin{displaymath}
+\begin{equation}
   \nabla \times H(\omega)
-\end{displaymath}
+\end{equation}
 
 \paragraph{{\msjh Lorentz Model - ADE}}
-\begin{displaymath}
+\begin{equation}
   \nabla \times
-\end{displaymath}
+\end{equation}
 
 \paragraph{{\msjh Drude Model - ADE}}
-\begin{displaymath}
+\begin{equation}
     \nabla \times H(\omega) = j\omega \epsilon_r(\omega)E(\omega) = j\omega\epsilon_0 \epsilon_{\infty} E(\omega) - j\omega\epsilon_0\frac{\omega_p^2}{\omega(\omega-j\gamma_p)}E(\omega)
-\end{displaymath}
+\end{equation}
 
 Defining the last term as $J_p$
-\begin{displaymath}
+\begin{equation}
   J_p(\omega) = -j\omega\epsilon_0\frac{\omega_p^2}{\omega(\omega-j\gamma_p)}E(\omega)
-\end{displaymath}
+\end{equation}
 
 Rearrange
-\begin{displaymath}
+\begin{equation}
   \omega^2J_p(\omega) - j\omega\gamma_pJ_p(\omega) = -j\omega\epsilon_0\omega_p^2 E(\omega)
-\end{displaymath}
+\end{equation}
 
 Performming inverse Fourier transformation
-\begin{displaymath}
+\begin{equation}
   \frac{\partial^2 J_p}{\partial t^2} + \gamma_p \frac{\partial J_p}{\partial t} = \epsilon_0\omega_p^2\frac{\partial E}{\partial t}
-\end{displaymath}
+\end{equation}
 
 Integrating once
-\begin{displaymath}
+\begin{equation}
   \frac{\partial J_p}{\partial t} + \gamma_p J_p = \epsilon_0 \omega_p^2 E(\omega)
-\end{displaymath}
+\end{equation}
 
 This is the ADE for $J_p$ for Drude Model
 
 Apply the semi-implicit scheme
-\begin{displaymath}
+\begin{equation}
   \Huge(\frac{J_p^{n+1} - J_p^n}{\Delta t}\Huge) + \gamma_{p}\Huge(\frac{J_p^{n+1} + J_p^n}{2}\Huge) = \epsilon_0\omega_p^2\Huge(\frac{E^{n+1} + E^n}{2}\Huge)
-\end{displaymath}
+\end{equation}
 
 Solving
-\begin{displaymath}
+\begin{equation}
   J_p^{n+1} = \Huge(\frac{1-\gamma_p\Delta t /2}{1+\gamma_p\Delta t /2}\Huge)J_p^n + \Huge(\frac{\omega_p^2\epsilon_0\Delta t /2}{1+\gamma_p\Delta t /2}\Huge)(E^{n+1}+E^n)
-\end{displaymath}
+\end{equation}
 
 
-\begin{displaymath}
+\begin{equation}
   E^{n+1} = \Huge(\frac{2\epsilon_0\epsilon_{\infty} - \Delta t \beta_p}{2\epsilon_0\epsilon_{\infty} + \Delta t \beta_p}\Huge)E^n + \Huge(\frac{2\Delta t}{2\epsilon_0\epsilon_{\infty} + \Delta t \beta_p}\Huge)\Huge(\nabla\times H^{n+1/2} - \frac{1}{2}(1+k_p)J_p^n\Huge)
-\end{displaymath}
+\end{equation}
 
 
 
