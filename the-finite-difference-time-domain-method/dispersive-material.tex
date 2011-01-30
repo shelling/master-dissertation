@@ -105,7 +105,10 @@ Solving
   J_p^{n+1} = \left(\frac{1-\gamma_p\Delta t /2}{1+\gamma_p\Delta t /2}\right)J_p^n + \left(\frac{\omega_p^2\epsilon_0\Delta t /2}{1+\gamma_p\Delta t /2}\right)\left(E^{n+1}+E^n\right)
 \end{equation}
 \begin{equation}
-  E^{n+1} = \left(\frac{2\epsilon_0\epsilon_{\infty} - \Delta t \beta_p}{2\epsilon_0\epsilon_{\infty} + \Delta t \beta_p}\right)E^n + \left(\frac{2\Delta t}{2\epsilon_0\epsilon_{\infty} + \Delta t \beta_p}\right)\left(\nabla\times H^{n+1/2} - \frac{1}{2}(1+k_p)J_p^n\right)
+  \begin{split}
+    E^{n+1} & = \left(\frac{2\epsilon_0\epsilon_{\infty} - \Delta t \beta_p}{2\epsilon_0\epsilon_{\infty} + \Delta t \beta_p}\right)E^n \\
+    & + \left(\frac{2\Delta t}{2\epsilon_0\epsilon_{\infty} + \Delta t \beta_p}\right)\left(\nabla\times H^{n+1/2} - \frac{1}{2}(1+k_p)J_p^n\right)
+  \end{split}
 \end{equation}
 
 
