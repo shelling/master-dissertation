@@ -1,8 +1,20 @@
 \section{Dispersive Material}
+This section conerns of how to retrieve the update equations could apply in dispersive material. What would be discussed
+below are only about material having dispersive electic permittivity. The material having dispersive magnetic
+permeability could be investigated via duality.
 
+In fundamental Electromagnetics, an indispersive material having a electrical polarization $P$ when there is a foreign
+electric field and the phasor of electric flux would become $D(\omega) = \epsilon_0 E(\omega) + P$. $P$ was also defined
+as $\epsilon_0 \chi_e E(\omega)$, so that we could rewrite $D(\omega)$ as $\epsilon_0 (1+\chi_e)E(\omega)$ and give the middle term a notation
+$\epsilon_r$ named relative permittivity.
 
-\subsection{Isotropic Dispersive Material}
-
+By definition, dispersive material is the material having different electic permeability when encountering EM wave
+having different frequency that means the relative permittivity should be a function of frequency ordinarily coming with
+image part. So, $\epsilon_r^*(\omega)$ was given as the notation of dispersive electic permittivity and the phasor of
+electic flux in dispersive material was defined as $D(\omega) = \epsilon_0 \epsilon_r^*(\omega)E(\omega)$.
+\subsection{Common Isotropic Dispersive Material}
+The dispersive permittivity is defined as $\epsilon_r^*(\omega) = \epsilon_{\infty} + \chi_p(\omega)$, where
+$\epsilon_{\infty}$ is ... and $\chi_p(\omega)$ is ...
 
 \subsubsection{Debye Media}
 \begin{equation}
@@ -58,11 +70,11 @@ Piecewise-Linear Recursive Convolution (PLRC) Method
 
 Apply PLRC to frequency-independent material having definition as
 \begin{displaymath}
-  \epsilon_r^{*} = \epsilon_{\infty} + \frac{\sigma}{j \omega \epsilon_0}
+  \epsilon_r^{*}(\omega) = \epsilon_{\infty} + \frac{\sigma}{j \omega \epsilon_0}
 \end{displaymath}
 \begin{displaymath}
   \begin{split}
-    D(\omega) & = \epsilon_0 \epsilon_r^{*} E(\omega)\\
+    D(\omega) & = \epsilon_0 \epsilon_r^{*}(\omega) E(\omega)\\
     & = \epsilon_0 \epsilon_{\infty} E(\omega) + \frac{\sigma}{j\omega}E(\omega)
   \end{split}
 \end{displaymath}
@@ -85,6 +97,36 @@ Apply PLRC to frequency-independent material having definition as
 \end{gather*}
 
 \paragraph{{\msjh Debye Model - PLRC}}
+\begin{displaymath}
+  \epsilon_r^*(\omega) = \epsilon_{\infty} + \frac{\sigma}{j\omega \epsilon_0} + \frac{\Delta \epsilon_p}{1+j\omega \tau_p}
+\end{displaymath}
+\begin{displaymath}
+  \begin{split}
+    D(\omega) & = \epsilon_0 \epsilon_r^*(\omega) E(\omega)\\
+    & = \epsilon_0 \epsilon_{\infty} E(\omega) + \frac{\sigma}{j\omega} E(\omega) + \frac{\Delta \epsilon_p}{1+j\omega \tau_p}E(\omega)
+  \end{split}
+\end{displaymath}
+\begin{displaymath}
+  D(t) = \epsilon_0 \epsilon_{\infty} E(t) + \sigma \int_0^t E(t')dt' + \epsilon_0 \int_0^t \frac{\Delta \epsilon_p}{\tau_p}e^{-\frac{t'-t}{\tau_p}}E(t')dt'
+\end{displaymath}
+\begin{displaymath}
+  \begin{split}
+    D^n & = \epsilon_0 \epsilon_{\infty}E^n + \sigma \Delta t \sum_{i=0}^{n}E^i + \epsilon_0 \frac{\Delta \epsilon_p}{\tau_p}\Delta t \sum_{i=0}^{n} e^{-\frac{n-i}{\tau_p}\Delta t} E^i\\
+    & = \epsilon_0 \epsilon_{\infty} E^n + \left[\sigma \Delta t\ E^n + \sigma \Delta t \sum_{i=0}^{n-1}E^i\right]\\
+    & + \left[\epsilon_0 \frac{\Delta \epsilon_p}{\tau_p}\Delta t\ E^n + \epsilon_0 \frac{\Delta \epsilon_p}{\tau_p} \Delta t \sum_{i=0}^{n-1}e^{-\frac{n-i}{\tau_p}\Delta t}E^i\right]\\
+    & = \left(\epsilon_0 \epsilon_{\infty} + \sigma \Delta t + \epsilon_0 \frac{\Delta \epsilon_p}{\tau_p} \Delta t\right)E^n + \sigma \Delta t \sum_{i=0}^{n-1}E^i + \epsilon_0 \frac{\Delta \epsilon_p}{\tau_p}\Delta t \sum_{i=0}^{n-1}e^{-\frac{n-i}{\tau_p}\Delta t}E^i
+  \end{split}
+\end{displaymath}
+\begin{displaymath}
+  \begin{split}
+    E^n & = \frac{\displaystyle D^n - \sigma \Delta t \sum_{i=0}^{n-1}E^i - \epsilon_0 \frac{\Delta \epsilon_p}{\tau_p}\Delta t \sum_{i=0}^{n-1}e^{-\frac{n-i}{\tau_p}\Delta t}E^i }{\displaystyle\epsilon_0 \epsilon_{\infty} + \sigma \Delta t + \epsilon_0 \frac{\Delta \epsilon_p}{\tau_p} \Delta t}\\
+    & = \frac{\displaystyle D^n - I^{n-1} - J^{n-1} }{\displaystyle\epsilon_0 \epsilon_{\infty} + \sigma \Delta t + \epsilon_0 \frac{\Delta \epsilon_p}{\tau_p} \Delta t}\\
+  \end{split}
+\end{displaymath}
+
+
+
+
 
 \paragraph{{\msjh Lorentz Model - PLRC}}
 
@@ -96,15 +138,15 @@ The
 By defining the $\chi$-related term as the phasor polorization current $J_p(\omega)$.
 \paragraph{{\msjh Debye Model - ADE}}
 \begin{equation}
-  \nabla \times H(\omega) = 
+  D(\omega) = \epsilon_0\epsilon_r^*(\omega)E(\omega)
 \end{equation}
 \paragraph{{\msjh Lorentz Model - ADE}}
 \begin{equation}
-  \nabla \times H(\omega) = 
+  D(\omega) = \epsilon_0\epsilon_r^*(\omega)E(\omega)
 \end{equation}
 \paragraph{{\msjh Drude Model - ADE}}
 \begin{equation}
-  \nabla \times H(\omega) = j\omega \epsilon_r(\omega)E(\omega) = j\omega\epsilon_0 \epsilon_{\infty} E(\omega) - j\omega\epsilon_0\frac{\omega_p^2}{\omega(\omega-j\gamma_p)}E(\omega)
+  D(\omega) = \epsilon_0\epsilon_r^*(\omega)E(\omega) = \epsilon_0 \epsilon_{\infty} E(\omega) - \epsilon_0\frac{\omega_p^2}{\omega(\omega-j\gamma_p)}E(\omega)
 \end{equation}
 Defining the last term as $J_p$, the phasor polarization current in physics,
 \begin{equation}
