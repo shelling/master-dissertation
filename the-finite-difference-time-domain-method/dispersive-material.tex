@@ -56,6 +56,34 @@ means, for some problems convenient to apply specified algorithm but not easy to
 \subsubsection{The Piecewise-Linear Recursive Convolution Method}
 Piecewise-Linear Recursive Convolution (PLRC) Method
 
+Apply PLRC to frequency-independent material having definition as
+\begin{displaymath}
+  \epsilon_r^{*} = \epsilon_{\infty} + \frac{\sigma}{j \omega \epsilon_0}
+\end{displaymath}
+\begin{displaymath}
+  \begin{split}
+    D(\omega) & = \epsilon_0 \epsilon_r^{*} E(\omega)\\
+    & = \epsilon_0 \epsilon_{\infty} E(\omega) + \frac{\sigma}{j\omega}E(\omega)
+  \end{split}
+\end{displaymath}
+\begin{displaymath}
+  D(t) = \epsilon_0 \epsilon_{\infty}E(t) + \sigma \int_0^t E(t')dt'
+\end{displaymath}
+\begin{displaymath}
+  \begin{split}
+    D^n & = \epsilon_0 \epsilon_{\infty} E^n + \sigma \Delta t \sum_{i=0}^{n}E^i\\
+    & = \epsilon_0 \epsilon_{\infty} E^n + \sigma \Delta t E^n + \sigma \Delta t \sum_{i=0}^{n-1}E^i\\
+    & = (\epsilon_0 \epsilon_{\infty} + \sigma \Delta t) E^n + \sigma \Delta t \sum_{i=0}^{n-1}E^i
+  \end{split}
+\end{displaymath}
+\begin{displaymath}
+  E^n = \frac{\displaystyle D^n - \sigma \Delta t \sum_{i=0}^{n-1}E^i}{\epsilon_0 \epsilon_{\infty} + \sigma \Delta t}
+\end{displaymath}
+\begin{gather*}
+  E^n = \frac{D^n - I^n}{\epsilon_0 \epsilon_{\infty} + \sigma \Delta t}\\
+  I^n = I^{n-1} + \sigma \Delta t\ E^n
+\end{gather*}
+
 \paragraph{{\msjh Debye Model - PLRC}}
 
 \paragraph{{\msjh Lorentz Model - PLRC}}
