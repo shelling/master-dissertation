@@ -151,8 +151,13 @@ By defining the $\chi$-related term as the phasor polorization current $J_p(\ome
 
 \paragraph{{\msjh Lorentz Model - ADE}}
 \begin{equation}
-  D(\omega) = \epsilon_0\epsilon_r^*(\omega)E(\omega)
+  \begin{split}
+    \nabla \times H & = j\omega D(\omega)\\
+    & = j\omega \epsilon_0\epsilon_r^*(\omega)E(\omega)\\
+    & = j\omega \epsilon_0\epsilon_{\infty}E(\omega) + j\omega \frac{\Delta \epsilon_p \omega_p^2}{\omega_p^2+2j\omega\delta_p-\omega^2}E(\omega)
+  \end{split}
 \end{equation}
+
 \paragraph{{\msjh Drude Model - ADE}}
 \begin{equation}
   \begin{split}
