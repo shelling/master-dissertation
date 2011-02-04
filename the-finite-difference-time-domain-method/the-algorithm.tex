@@ -64,15 +64,20 @@ update equations and constitute relations in general frequency-independent lossy
   \frac{\partial}{\partial t}\widetilde{B} = -\frac{1}{\sqrt{\mu_0\epsilon_0}}\nabla\times\widetilde{E}\label{eq:up_b}\\
   \widetilde{B}(\omega) = \left(\mu_r + \frac{\sigma_h}{j\omega\mu_0}\right)H = \mu_r^*(\omega)H(\omega)\label{eq:cr_b}
 \end{gather}
-It's obviously separating constitute relations from updating of electric flux $D$ and magnetic flux $B$. The
+It's obvious separating constitute relations from updating of electric flux $D$ and magnetic flux $B$. The
 material-related coefficients were collected into constitute relations to handle different objects, so that no matter
-what object was changed in region of simulation Eq.\ref{eq:up_d} and Eq.\ref{eq:up_b} keep in this form.  
+what object was changed in region of simulation Eq.\ref{eq:up_d} and Eq.\ref{eq:up_b} keep in this form.
 
 For example, The formulas can be simpilified to describe loseless dielectric media by setting $\sigma_e$, $\sigma_h$ as
 zero in Eq.\ref{eq:cr_d} and Eq.\ref{eq:cr_b} to be
 \begin{gather*}
   \widetilde{D}(\omega) = \epsilon_r\cdot\widetilde{E}(\omega)\\
   \widetilde{B}(\omega) = \mu_r\cdot H(\omega)
+\end{gather*}
+Performing inverse Fourier Transformation
+\begin{gather*}
+  \widetilde{D}(t) = \epsilon_r\cdot\widetilde{E}(t)\\
+  \widetilde{B}(t) = \mu_r\cdot H(t)
 \end{gather*}
 but Eq.\ref{eq:up_d} and Eq.\ref{eq:up_b} need not any modification.
 
@@ -81,8 +86,28 @@ Or to describe freespace by setting $\sigma_e$, $\sigma_h$ as zero and $\epsilon
   \widetilde{D}(\omega) = \widetilde{E}(\omega)\\
   \widetilde{B}(\omega) = H(\omega)
 \end{gather*}
-More advantages would be shown when handling perfecly matched layer and dispersive material which would be discussed in \ref{subsec:pml} and
-\ref{sec:dispersive} respectively.
+Performing inverse Fourier Transformation again
+\begin{gather*}
+  \widetilde{D}(t) = \widetilde{E}(t)\\
+  \widetilde{B}(t) = H(t)
+\end{gather*}
+In general, every material has its own $\epsilon_r^*(\omega)$ varying through whole frequency spectrum duo to its own
+characters. By applying some mathematical trick Eq.\ref{eq:cr_d} and Eq.\ref{eq:cr_b} can be specialized for different
+material to retrieve $E$ from $D$ in every time step but Eq.\ref{eq:up_d} and Eq.\ref{eq:up_b} can be applied directly
+on every kinds of material. That's the best advanteage separating constitute relations out of the two update equations
+would be introduce in \ref{sec:dispersive}.
+
+This way also shows some advantagewhen handling perfecly matched layer which would be discussed in \ref{subsec:pml}.
+
+Extend to Cartesian coordinate system.
+\begin{gather}
+  \frac{\partial}{\partial t}\widetilde{D}_x = \frac{1}{\sqrt{\mu_0\epsilon_0}}\left(\frac{\partial H_z}{\partial y} - \frac{\partial H_y}{\partial z}\right)\\
+  \frac{\partial}{\partial t}\widetilde{D}_y = \frac{1}{\sqrt{\mu_0\epsilon_0}}\left(\frac{\partial H_x}{\partial z} - \frac{\partial H_z}{\partial x}\right)\\
+  \frac{\partial}{\partial t}\widetilde{D}_z = \frac{1}{\sqrt{\mu_0\epsilon_0}}\left(\frac{\partial H_y}{\partial x} - \frac{\partial H_x}{\partial y}\right)\\
+  \frac{\partial}{\partial t}\widetilde{B}_x =-\frac{1}{\sqrt{\mu_0\epsilon_0}}\left(\frac{\partial \widetilde{E}_z}{\partial y} - \frac{\partial \widetilde{E}_y}{\partial z}\right)\\
+  \frac{\partial}{\partial t}\widetilde{B}_y =-\frac{1}{\sqrt{\mu_0\epsilon_0}}\left(\frac{\partial \widetilde{E}_x}{\partial z} - \frac{\partial \widetilde{E}_z}{\partial x}\right)\\
+  \frac{\partial}{\partial t}\widetilde{B}_z =-\frac{1}{\sqrt{\mu_0\epsilon_0}}\left(\frac{\partial \widetilde{E}_y}{\partial x} - \frac{\partial \widetilde{E}_x}{\partial y}\right)
+\end{gather}
 
 \subsection{Reduction of dimensions}
 There are three selections to choose a one dimension EM string: $\mathrm{TEM_x}$ ($\mathrm{E_{y}}$, $\mathrm{H_{z}}$,
