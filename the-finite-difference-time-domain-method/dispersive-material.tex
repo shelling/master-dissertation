@@ -24,7 +24,7 @@ $\epsilon_{\infty}$ is ... and $\chi_p(\omega)$ is ...
   \chi_p(t) = \frac{\Delta \epsilon_p}{\tau_p} e^{-\frac{t}{\tau_p}}U(t)  
 \end{equation}
 \begin{equation}
-  \epsilon_r(\omega) = \epsilon_{\infty} + \sum_{p=1}^P \frac{\Delta\epsilon_p}{1+j\omega\tau_p}  
+  \epsilon_r^*(\omega) = \epsilon_{\infty} + \sum_{p=1}^P \frac{\Delta\epsilon_p}{1+j\omega\tau_p}  
 \end{equation}
 
 
@@ -37,7 +37,7 @@ $\epsilon_{\infty}$ is ... and $\chi_p(\omega)$ is ...
   \chi_p(t) = \frac{\Delta \epsilon_p \omega_p^2}{\sqrt{\omega_p^2 - \delta_p^2}}e^{-\delta_p t}\sin\left(\sqrt{\omega_p^2-\delta_p^2}\ t\right)U(t)
 \end{equation}
 \begin{equation}
-  \epsilon_r(\omega) = \epsilon_{\infty} + \sum_{p=1}^P \frac{\Delta\epsilon_p\omega_p^2}{\omega_p^2 + 2j\omega\delta_p - \omega^2}  
+  \epsilon_r^*(\omega) = \epsilon_{\infty} + \sum_{p=1}^P \frac{\Delta\epsilon_p\omega_p^2}{\omega_p^2 + 2j\omega\delta_p - \omega^2}  
 \end{equation}
 
 
@@ -51,7 +51,7 @@ $\epsilon_{\infty}$ is ... and $\chi_p(\omega)$ is ...
 where U(t) is Heaviside
 The single pole permittivity is 
 \begin{equation}
-  \epsilon_r(\omega) = \epsilon_{\infty} - \sum_{p=1}^P \frac{\omega_p^2}{\omega(\omega-j\gamma_p)}
+  \epsilon_r^*(\omega) = \epsilon_{\infty} - \sum_{p=1}^P \frac{\omega_p^2}{\omega(\omega-j\gamma_p)}
 \end{equation}
 where $\omega_p$ is the Drude pole frequency and $\gamma_p$ is the inverse of the pole relaxation time, also known as the
 electron oscillision frequency.
@@ -91,8 +91,9 @@ Apply PLRC to frequency-independent material having definition as
 \begin{displaymath}
   E^n = \frac{\displaystyle D^n - \sigma \Delta t \sum_{i=0}^{n-1}E^i}{\epsilon_0 \epsilon_{\infty} + \sigma \Delta t}
 \end{displaymath}
+Finally, the update equations becomes
 \begin{gather*}
-  E^n = \frac{D^n - I^n}{\epsilon_0 \epsilon_{\infty} + \sigma \Delta t}\\
+  E^n = \frac{D^n - I^{n-1}}{\epsilon_0 \epsilon_{\infty} + \sigma \Delta t}\\
   I^n = I^{n-1} + \sigma \Delta t\ E^n
 \end{gather*}
 

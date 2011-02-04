@@ -11,11 +11,11 @@ In this section, we are going to derive update equation from Maxwell's Equations
 Maxwell's Equations\index{Maxwell's Equations}:
 \begin{gather}
   \label{eq:maxwell}
-  \begin{array}{@{}rcl@{}}
-    \nabla \cdot D & = & \rho_{\nu}\\
-    \nabla \times E & = & {\displaystyle -\frac{\partial B}{\partial t}}\\
-    \nabla \cdot B & = & 0\\
-    \nabla \times H & = & {\displaystyle J + \frac{\partial D}{\partial t}}
+  \begin{array}{@{}rclr@{}}
+    \nabla \cdot D & = & \rho_{\nu} & (Gaussian's Law)\\
+    \nabla \times E & = & {\displaystyle -\frac{\partial B}{\partial t}} & (Faraday's Law)\\
+    \nabla \cdot B & = & 0 & \\
+    \nabla \times H & = & {\displaystyle J + \frac{\partial D}{\partial t}} & (Ampere's Law)
   \end{array}
 \end{gather}
 It is a long established fact that a reader will be distracted by the readable content of a page when looking at its
@@ -32,6 +32,29 @@ generators on the Internet tend to repeat predefined chunks as necessary, making
 Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to
 generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition,
 injected humour, or non-characteristic words etc.
+\begin{gather}
+    \frac{\partial B}{\partial t} =  - \nabla \times E - M\\
+    \frac{\partial D}{\partial t} = \nabla \times H - J
+\end{gather}
+in terms of E and H
+\begin{gather}
+  \mu\frac{\partial H}{\partial t} = - \nabla \times E - \sigma_hH\\
+  \epsilon\frac{\partial E}{\partial t} = \nabla \times H - \sigma_eE
+\end{gather}
+gather coefficient 
+\begin{gather}
+  \frac{\partial H}{\partial t} = - \frac{1}{\mu_r\mu_0}\nabla\times E - \frac{\sigma_h}{\mu_r\mu_0}H\\
+  \frac{\partial E}{\partial t} = \frac{1}{\epsilon_r\epsilon_0}\nabla\times H - \frac{\sigma_e}{\epsilon_r\epsilon_0}E
+\end{gather}
+turn to Gaussian Unit 
+\begin{equation}
+  \begin{array}{@{}l@{}}
+    {\displaystyle\widetilde{E} = \sqrt{\frac{\epsilon_0}{\mu_0}}E}\\
+    {\displaystyle\widetilde{D} = \frac{1}{\sqrt{\epsilon_0\mu_0}}D}\\
+    {\displaystyle\widetilde{B} = \frac{1}{\mu_0}B}
+  \end{array}
+\end{equation}
+
 
 
 
