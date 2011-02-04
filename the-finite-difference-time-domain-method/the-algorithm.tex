@@ -12,10 +12,10 @@ Maxwell's Equations\index{Maxwell's Equations}:
 \begin{gather}
   \label{eq:maxwell}
   \begin{array}{@{}rclr@{}}
-    \nabla \cdot D & = & \rho_{\nu} & (Gaussian's Law)\\
-    \nabla \times E & = & {\displaystyle -\frac{\partial B}{\partial t}} & (Faraday's Law)\\
+    \nabla \cdot D & = & \rho_{\nu} & (Gaussian's\ Law)\\
+    \nabla \times E & = & {\displaystyle -\frac{\partial B}{\partial t}} & (Faraday's\ Law)\\
     \nabla \cdot B & = & 0 & \\
-    \nabla \times H & = & {\displaystyle J + \frac{\partial D}{\partial t}} & (Ampere's Law)
+    \nabla \times H & = & {\displaystyle J_s + \frac{\partial D}{\partial t}} & (Ampere's\ Law)
   \end{array}
 \end{gather}
 It is a long established fact that a reader will be distracted by the readable content of a page when looking at its
@@ -33,18 +33,18 @@ Internet. It uses a dictionary of over 200 Latin words, combined with a handful 
 generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition,
 injected humour, or non-characteristic words etc.
 \begin{gather}
-    \frac{\partial B}{\partial t} =  - \nabla \times E - M\\
-    \frac{\partial D}{\partial t} = \nabla \times H - J
+  \frac{\partial D}{\partial t} = \nabla \times H - J\\
+  \frac{\partial B}{\partial t} =  - \nabla \times E - M
 \end{gather}
 in terms of E and H
 \begin{gather}
-  \mu\frac{\partial H}{\partial t} = - \nabla \times E - \sigma_hH\\
-  \epsilon\frac{\partial E}{\partial t} = \nabla \times H - \sigma_eE
+  \epsilon\frac{\partial E}{\partial t} = \nabla \times H - \sigma_eE\\
+  \mu\frac{\partial H}{\partial t} = - \nabla \times E - \sigma_hH
 \end{gather}
 gather coefficient 
 \begin{gather}
-  \frac{\partial H}{\partial t} = - \frac{1}{\mu_r\mu_0}\nabla\times E - \frac{\sigma_h}{\mu_r\mu_0}H\\
-  \frac{\partial E}{\partial t} = \frac{1}{\epsilon_r\epsilon_0}\nabla\times H - \frac{\sigma_e}{\epsilon_r\epsilon_0}E
+  \frac{\partial E}{\partial t} = \frac{1}{\epsilon_r\epsilon_0}\nabla\times H - \frac{\sigma_e}{\epsilon_r\epsilon_0}E\\
+  \frac{\partial H}{\partial t} = - \frac{1}{\mu_r\mu_0}\nabla\times E - \frac{\sigma_h}{\mu_r\mu_0}H
 \end{gather}
 turn to Gaussian Unit 
 \begin{equation}
@@ -56,25 +56,41 @@ turn to Gaussian Unit
   \end{array}
 \end{equation}
 \begin{gather}
-  \frac{\partial H}{\partial t} = - \frac{1}{\mu_r\sqrt{\mu_0\epsilon_0}}\nabla\times\widetilde{E} - \frac{\sigma_h}{\mu_r\mu_0}H\\
-  \frac{\partial \widetilde{E}}{\partial t} = \frac{1}{\epsilon_r\sqrt{\mu_0\epsilon_0}}\nabla\times H - \frac{\sigma_e}{\epsilon_r\epsilon_0}\widetilde{E}
+  \frac{\partial \widetilde{E}}{\partial t} = \frac{1}{\epsilon_r\sqrt{\mu_0\epsilon_0}}\nabla\times H - \frac{\sigma_e}{\epsilon_r\epsilon_0}\widetilde{E}\\
+  \frac{\partial H}{\partial t} = - \frac{1}{\mu_r\sqrt{\mu_0\epsilon_0}}\nabla\times\widetilde{E} - \frac{\sigma_h}{\mu_r\mu_0}H
 \end{gather}
 \begin{gather}
-  \left(\mu_r\frac{\partial}{\partial t} + \frac{\sigma_h}{\mu_0}\right)H = - \frac{1}{\sqrt{\mu_0\epsilon_0}}\nabla\times\widetilde{E}\\
-  \left(\epsilon_r\frac{\partial}{\partial t} + \frac{\sigma_e}{\epsilon_0}\right)\widetilde{E} = \frac{1}{\sqrt{\mu_0\epsilon_0}}\nabla\times H
+  \left(\epsilon_r\frac{\partial}{\partial t} + \frac{\sigma_e}{\epsilon_0}\right)\widetilde{E} = \frac{1}{\sqrt{\mu_0\epsilon_0}}\nabla\times H\\
+  \left(\mu_r\frac{\partial}{\partial t} + \frac{\sigma_h}{\mu_0}\right)H = - \frac{1}{\sqrt{\mu_0\epsilon_0}}\nabla\times\widetilde{E}
 \end{gather}
-$\frac{\partial}{\partial t} = j\omega$
+$\frac{\partial}{\partial t} \rightarrow j\omega$
 \begin{gather}
-  j\omega\left(\mu_r + \frac{\sigma_h}{j\omega\mu_0}\right)H = - c\ \nabla\times\widetilde{E}\\
-  j\omega\left(\epsilon_r + \frac{\sigma_e}{j\omega\epsilon_0}\right)\widetilde{E} = c\ \nabla\times H
+  j\omega\left(\epsilon_r + \frac{\sigma_e}{j\omega\epsilon_0}\right)\widetilde{E} = c\ \nabla\times H\\
+  j\omega\left(\mu_r + \frac{\sigma_h}{j\omega\mu_0}\right)H = - c\ \nabla\times\widetilde{E}
 \end{gather}
+update equations and constitute relations in general frequency-independent lossy dielectric media under Gaussian Units.
 \begin{gather}
-    j\omega\widetilde{B} = -c\ \nabla\times\widetilde{E}\\
-    \widetilde{B} = \left(\mu_r + \frac{\sigma_h}{j\omega\mu_0}\right)H = \mu_r^*(\omega)H\\
-    j\omega\widetilde{D} = c\ \nabla\times H \\
-    \widetilde{D} = \left(\epsilon_r + \frac{\sigma_e}{j\omega\epsilon_0}\right)\widetilde{E} = \epsilon_r^*(\omega)\widetilde{E}\\
+  \frac{\partial}{\partial t}\widetilde{D} = \frac{1}{\sqrt{\mu_0\epsilon_0}}\nabla\times H\label{eq:up_d}\\
+  \widetilde{D}(\omega) = \left(\epsilon_r + \frac{\sigma_e}{j\omega\epsilon_0}\right)\widetilde{E} = \epsilon_r^*(\omega)\widetilde{E}(\omega)\label{eq:cr_d}\\
+  \frac{\partial}{\partial t}\widetilde{B} = -\frac{1}{\sqrt{\mu_0\epsilon_0}}\nabla\times\widetilde{E}\label{eq:up_b}\\
+  \widetilde{B}(\omega) = \left(\mu_r + \frac{\sigma_h}{j\omega\mu_0}\right)H = \mu_r^*(\omega)H(\omega)\label{eq:cr_b}
 \end{gather}
+It's obviously separating constitute relations from updating of electric flux $D$ and magnetic flux $B$. The formulas
+can be simpilified to describe loseless dielectric media by setting $\sigma_e$, $\sigma_h$ as zero in Eq.\ref{eq:cr_d}
+and Eq.\ref{eq:cr_b} to be
+\begin{gather*}
+  \widetilde{D}(\omega) = \epsilon_r\cdot\widetilde{E}(\omega)\\
+  \widetilde{B}(\omega) = \mu_r\cdot H(\omega)
+\end{gather*}
+but Eq.\ref{eq:up_d} and Eq.\ref{eq:up_b} need not any modification.
 
+Or to describe freespace by setting $\sigma_e$, $\sigma_h$ as zero and $\epsilon_r$, $\mu_r$ as one 
+\begin{gather*}
+  \widetilde{D}(\omega) = \widetilde{E}(\omega)\\
+  \widetilde{B}(\omega) = H(\omega)
+\end{gather*}
+More advantages would be shown when handling perfecly matched layer and dispersive material which would be discussed in \ref{subsec:pml} and
+\ref{sec:dispersive} respectively.
 
 
 
@@ -83,16 +99,30 @@ $\frac{\partial}{\partial t} = j\omega$
 
 
 \subsection{Reduction of dimensions}
+There are three selections to choose a one dimension EM string: $\mathrm{TEM_x}$ ($\mathrm{E_{y}}$, $\mathrm{H_{z}}$,
+$\mathrm{k_x}$), $\mathrm{TEM_y}$ ($\mathrm{E_z}$, $\mathrm{H_x}$, $\mathrm{k_y}$), and $\mathrm{TEM_z}$
+($\mathrm{E_x}$, $\mathrm{H_y}$, $\mathrm{k_z}$). Similarly, $\mathrm{TEM_z}$ is the default choice when saying TEM.
+\begin{displaymath}
+  \frac{\partial}{\partial x}\ \frac{\partial}{\partial y} \rightarrow 0
+\end{displaymath}
 
 There are 6 selections for us to choose a two dimensions EM plane: $\mathrm{TM_{x}} $, $\mathrm{TE_{x}}$,
 $\mathrm{TM_{y}}$, $\mathrm{TE_{y}}$, $\mathrm{TM_{z}}$, $\mathrm{TE_{z}}$. By default, the choice in this thesis follow
 the book of Taflove using $\mathrm{TM_{z}}$ ($\mathrm{E_x}$, $\mathrm{E_y}$, and $\mathrm{H_z}$) and $\mathrm{TE_{z}}$
 ($\mathrm{H_x}$, $\mathrm{H_y}$, and $\mathrm{E_z}$) as convention when saying TM and TE.
+\begin{displaymath}
+  \frac{\partial}{\partial z} \rightarrow 0
+\end{displaymath}
 
-There are three selections to choose a one dimension EM string: $\mathrm{TEM_x}$ ($\mathrm{E_{y}}$, $\mathrm{H_{z}}$,
-$\mathrm{k_x}$), $\mathrm{TEM_y}$ ($\mathrm{E_z}$, $\mathrm{H_x}$, $\mathrm{k_y}$), and $\mathrm{TEM_z}$
-($\mathrm{E_x}$, $\mathrm{H_y}$, $\mathrm{k_z}$). Similarly, $\mathrm{TEM_z}$ is the default choice when saying TEM.
 
 
 \subsection{Stability}
 Courant Conditions, Courant Number
+\begin{equation}
+  \Delta t \le \frac{\Delta x}{\sqrt{n}\cdot c_0}
+\end{equation}
+where n is the dimension of the simulation. For the convenience of designing mentioned latter, throughout this thesis we determine
+$\Delta t$ by
+\begin{equation}
+  \Delta t = \frac{\Delta x}{2 \cdot c_0}
+\end{equation}

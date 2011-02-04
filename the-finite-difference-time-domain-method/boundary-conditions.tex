@@ -1,4 +1,5 @@
 \section{Boundary Conditions}
+\label{sec:bcs}
 There kinds of Boundary Conditions are applied in this research: Analytic Absorbing Boundary Conditions, Perfectly
 Matched Layer Absorbing Boundary Conditions and Periodic Boundary Conditions.
 \subsection{Analytic Absorbing Boundary Conditions}
@@ -6,6 +7,7 @@ Matched Layer Absorbing Boundary Conditions and Periodic Boundary Conditions.
 The Absorbing Boundary Conditions were proposed
 
 \subsection{Perfectly Matched Layer Absorbing Boundary Conditions}
+\label{subsec:pml}
 
 For 2-D and 3-D simulation, the ABC discussed above is no longer useful due to the reason the ABC can only absorb
 normally incident wave.
@@ -16,6 +18,17 @@ the implementation of Berenger's PML
 aka Split-Field PML
 \subsubsection{Unaxial PML}
 the implementations of Unaxial PML
+
+\begin{equation}
+  \bar{\bar{s}} = 
+  \begin{bmatrix}
+    \displaystyle\frac{s_ys_z}{s_x}& 0& 0\\
+    0& \displaystyle\frac{s_xs_z}{s_y}& 0\\
+    0& 0& \displaystyle\frac{s_xs_y}{s_z}
+  \end{bmatrix}
+\end{equation}
+
+
 \subsubsection{Convolution PML}
 the implementations of Convolution PML
 
