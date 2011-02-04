@@ -12,26 +12,15 @@ Maxwell's Equations\index{Maxwell's Equations}:
 \begin{gather}
   \label{eq:maxwell}
   \begin{array}{@{}rclr@{}}
-    \nabla \cdot D & = & \rho_{\nu} & (Gaussian's\ Law)\\
-    \nabla \times E & = & {\displaystyle -\frac{\partial B}{\partial t}} & (Faraday's\ Law)\\
+    \nabla \cdot D & = & \rho_{\nu} & \mathrm{(Gaussian's\ Law)}\\
+    \nabla \times E & = & {\displaystyle -\frac{\partial B}{\partial t}} & \mathrm{(Faraday's\ Law)}\\
     \nabla \cdot B & = & 0 & \\
-    \nabla \times H & = & {\displaystyle J_s + \frac{\partial D}{\partial t}} & (Ampere's\ Law)
+    \nabla \times H & = & {\displaystyle J_s + \frac{\partial D}{\partial t}} & \mathrm{(Amp\`ere's\ Law)}
   \end{array}
 \end{gather}
-It is a long established fact that a reader will be distracted by the readable content of a page when looking at its
-layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using
-'Content here, content here', making it look like readable English. Many desktop publishing packages and web page
-editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites
-still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose
-(injected humour and the like).
+the equations shown above is for general lossy dielectric media.
 
-There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form,
-by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of
-Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum
-generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the
-Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to
-generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition,
-injected humour, or non-characteristic words etc.
+for getting sysmetrical form, novel magnetic current $M$ was added into Faraday's Law
 \begin{gather}
   \frac{\partial D}{\partial t} = \nabla \times H - J\\
   \frac{\partial B}{\partial t} =  - \nabla \times E - M
@@ -75,9 +64,12 @@ update equations and constitute relations in general frequency-independent lossy
   \frac{\partial}{\partial t}\widetilde{B} = -\frac{1}{\sqrt{\mu_0\epsilon_0}}\nabla\times\widetilde{E}\label{eq:up_b}\\
   \widetilde{B}(\omega) = \left(\mu_r + \frac{\sigma_h}{j\omega\mu_0}\right)H = \mu_r^*(\omega)H(\omega)\label{eq:cr_b}
 \end{gather}
-It's obviously separating constitute relations from updating of electric flux $D$ and magnetic flux $B$. The formulas
-can be simpilified to describe loseless dielectric media by setting $\sigma_e$, $\sigma_h$ as zero in Eq.\ref{eq:cr_d}
-and Eq.\ref{eq:cr_b} to be
+It's obviously separating constitute relations from updating of electric flux $D$ and magnetic flux $B$. The
+material-related coefficients were collected into constitute relations to handle different objects, so that no matter
+what object was changed in region of simulation Eq.\ref{eq:up_d} and Eq.\ref{eq:up_b} keep in this form.  
+
+For example, The formulas can be simpilified to describe loseless dielectric media by setting $\sigma_e$, $\sigma_h$ as
+zero in Eq.\ref{eq:cr_d} and Eq.\ref{eq:cr_b} to be
 \begin{gather*}
   \widetilde{D}(\omega) = \epsilon_r\cdot\widetilde{E}(\omega)\\
   \widetilde{B}(\omega) = \mu_r\cdot H(\omega)
@@ -91,12 +83,6 @@ Or to describe freespace by setting $\sigma_e$, $\sigma_h$ as zero and $\epsilon
 \end{gather*}
 More advantages would be shown when handling perfecly matched layer and dispersive material which would be discussed in \ref{subsec:pml} and
 \ref{sec:dispersive} respectively.
-
-
-
-
-
-
 
 \subsection{Reduction of dimensions}
 There are three selections to choose a one dimension EM string: $\mathrm{TEM_x}$ ($\mathrm{E_{y}}$, $\mathrm{H_{z}}$,
