@@ -48,12 +48,36 @@ gather coefficient
 \end{gather}
 turn to Gaussian Unit 
 \begin{equation}
+  \label{eq:gaussian_unit}
   \begin{array}{@{}l@{}}
     {\displaystyle\widetilde{E} = \sqrt{\frac{\epsilon_0}{\mu_0}}E}\\
     {\displaystyle\widetilde{D} = \frac{1}{\sqrt{\epsilon_0\mu_0}}D}\\
     {\displaystyle\widetilde{B} = \frac{1}{\mu_0}B}
   \end{array}
 \end{equation}
+\begin{gather}
+  \frac{\partial H}{\partial t} = - \frac{1}{\mu_r\sqrt{\mu_0\epsilon_0}}\nabla\times\widetilde{E} - \frac{\sigma_h}{\mu_r\mu_0}H\\
+  \frac{\partial \widetilde{E}}{\partial t} = \frac{1}{\epsilon_r\sqrt{\mu_0\epsilon_0}}\nabla\times H - \frac{\sigma_e}{\epsilon_r\epsilon_0}\widetilde{E}
+\end{gather}
+\begin{gather}
+  \left(\mu_r\frac{\partial}{\partial t} + \frac{\sigma_h}{\mu_0}\right)H = - \frac{1}{\sqrt{\mu_0\epsilon_0}}\nabla\times\widetilde{E}\\
+  \left(\epsilon_r\frac{\partial}{\partial t} + \frac{\sigma_e}{\epsilon_0}\right)\widetilde{E} = \frac{1}{\sqrt{\mu_0\epsilon_0}}\nabla\times H
+\end{gather}
+$\frac{\partial}{\partial t} = j\omega$
+\begin{gather}
+  j\omega\left(\mu_r + \frac{\sigma_h}{j\omega\mu_0}\right)H = - c\ \nabla\times\widetilde{E}\\
+  j\omega\left(\epsilon_r + \frac{\sigma_e}{j\omega\epsilon_0}\right)\widetilde{E} = c\ \nabla\times H
+\end{gather}
+\begin{gather}
+    j\omega\widetilde{B} = -c\ \nabla\times\widetilde{E}\\
+    \widetilde{B} = \left(\mu_r + \frac{\sigma_h}{j\omega\mu_0}\right)H = \mu_r^*(\omega)H\\
+    j\omega\widetilde{D} = c\ \nabla\times H \\
+    \widetilde{D} = \left(\epsilon_r + \frac{\sigma_e}{j\omega\epsilon_0}\right)\widetilde{E} = \epsilon_r^*(\omega)\widetilde{E}\\
+\end{gather}
+
+
+
+
 
 
 
