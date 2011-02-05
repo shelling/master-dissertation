@@ -134,10 +134,15 @@ Discrete
   \frac{\widetilde{D}_x|_k^{n+1/2} - \widetilde{D}_x|_k^{n-1/2}}{\Delta t} = -c_0\cdot\frac{H_y|_{k+1/2}^n - H_y|_{k-1/2}^n}{\Delta z}\\
   \frac{\widetilde{B}_y|_{k+1/2}^{n+1} - \widetilde{B}_y|_{k+1/2}^n}{\Delta t} = -c_0\cdot\frac{E_x|_{k+1}^{n+1/2} - E_x|_{k}^{n+1/2}}{\Delta z}
 \end{gather}
+That is
+\begin{gather}
+  \widetilde{D}_x|_k^{n+1/2} = \widetilde{D}_x|_k^{n-1/2} - \frac{c_0\Delta t}{\Delta z}\left( H_y|_{k+1/2}^n - H_y|_{k-1/2}^n \right)\\
+  \widetilde{B}_y|_{k+1/2}^{n+1} = \widetilde{B}_y|_{k+1/2}^{n} = - \frac{c_0\Delta t}{\Delta z}\left( E_x|_{k+1}^{n+1/2} - E_x|_{k}^{n+1/2} \right)
+\end{gather}
 Here is the code
 \begin{code}
-  code here
-  lines
+  dx[k] = dx[k] + 0.5 * ( hy[k-1] - hy[k] )
+  hy[k] = hy[k] + 0.5 * ( ex[k] - ex[k+1] )
 \end{code}
 
 

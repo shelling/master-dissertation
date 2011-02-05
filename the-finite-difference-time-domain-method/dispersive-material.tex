@@ -14,8 +14,12 @@ having different frequency that means the relative permittivity should be a func
 image part. So, $\epsilon_r^*(\omega)$ was given as the notation of dispersive electic permittivity and the phasor of
 electic flux in dispersive material was defined as $D(\omega) = \epsilon_0 \epsilon_r^*(\omega)E(\omega)$.
 \subsection{Common Isotropic Dispersive Material}
-The dispersive permittivity is defined as $\epsilon_r^*(\omega) = \epsilon_{\infty} + \chi_p(\omega)$, where
-$\epsilon_{\infty}$ is ... and $\chi_p(\omega)$ is ...
+The dispersive permittivity is defined as $\epsilon_r^*(\omega) = \epsilon_r + \chi_p(\omega)$, where
+$\epsilon_r$ is ... and $\chi_p(\omega)$ is ...
+\subsubsection{General Lossy Media}
+\begin{equation}
+  \epsilon_r^*(\omega) = \epsilon_0 + \frac{\sigma_e}{j\omega\epsilon_0}
+\end{equation}
 
 \subsubsection{Debye Media}
 \begin{equation}
@@ -25,7 +29,7 @@ $\epsilon_{\infty}$ is ... and $\chi_p(\omega)$ is ...
   \chi_p(t) = \frac{\Delta \epsilon_p}{\tau_p} e^{-\frac{t}{\tau_p}}U(t)  
 \end{equation}
 \begin{equation}
-  \epsilon_r^*(\omega) = \epsilon_{\infty} + \sum_{p=1}^P \frac{\Delta\epsilon_p}{1+j\omega\tau_p}  
+  \epsilon_r^*(\omega) = \epsilon_r + \frac{\sigma_e}{j\omega\epsilon_0} + \sum_{p=1}^P \frac{\Delta\epsilon_p}{1+j\omega\tau_p}  
 \end{equation}
 
 
@@ -38,7 +42,7 @@ $\epsilon_{\infty}$ is ... and $\chi_p(\omega)$ is ...
   \chi_p(t) = \frac{\Delta \epsilon_p \omega_p^2}{\sqrt{\omega_p^2 - \delta_p^2}}e^{-\delta_p t}\sin\left(\sqrt{\omega_p^2-\delta_p^2}\ t\right)U(t)
 \end{equation}
 \begin{equation}
-  \epsilon_r^*(\omega) = \epsilon_{\infty} + \sum_{p=1}^P \frac{\Delta\epsilon_p\omega_p^2}{\omega_p^2 + 2j\omega\delta_p - \omega^2}  
+  \epsilon_r^*(\omega) = \epsilon_r + \sum_{p=1}^P \frac{\Delta\epsilon_p\omega_p^2}{\omega_p^2 + 2j\omega\delta_p - \omega^2}  
 \end{equation}
 
 
@@ -52,7 +56,7 @@ $\epsilon_{\infty}$ is ... and $\chi_p(\omega)$ is ...
 where U(t) is Heaviside
 The single pole permittivity is 
 \begin{equation}
-  \epsilon_r^*(\omega) = \epsilon_{\infty} - \sum_{p=1}^P \frac{\omega_p^2}{\omega(\omega-j\gamma_p)}
+  \epsilon_r^*(\omega) = \epsilon_r - \sum_{p=1}^P \frac{\omega_p^2}{\omega(\omega-j\gamma_p)}
 \end{equation}
 where $\omega_p$ is the Drude pole frequency and $\gamma_p$ is the inverse of the pole relaxation time, also known as the
 electron oscillision frequency.
@@ -71,60 +75,96 @@ Piecewise-Linear Recursive Convolution (PLRC) Method
 
 Apply PLRC to frequency-independent material having definition as
 \begin{displaymath}
-  \epsilon_r^{*}(\omega) = \epsilon_{\infty} + \frac{\sigma}{j \omega \epsilon_0}
+  \epsilon_r^{*}(\omega) = \epsilon_r + \frac{\sigma}{j \omega \epsilon_0}
 \end{displaymath}
 \begin{displaymath}
   \begin{split}
     D(\omega) & = \epsilon_0 \epsilon_r^{*}(\omega) E(\omega)\\
-    & = \epsilon_0 \epsilon_{\infty} E(\omega) + \frac{\sigma}{j\omega}E(\omega)
+    & = \epsilon_0 \epsilon_r E(\omega) + \frac{\sigma}{j\omega}E(\omega)
   \end{split}
 \end{displaymath}
 \begin{displaymath}
-  D(t) = \epsilon_0 \epsilon_{\infty}E(t) + \sigma \int_0^t E(t')dt'
+  D(t) = \epsilon_0 \epsilon_rE(t) + \sigma \int_0^t E(t')dt'
 \end{displaymath}
 \begin{displaymath}
   \begin{split}
-    D^n & = \epsilon_0 \epsilon_{\infty} E^n + \sigma \Delta t \sum_{i=0}^{n}E^i\\
-    & = \epsilon_0 \epsilon_{\infty} E^n + \sigma \Delta t E^n + \sigma \Delta t \sum_{i=0}^{n-1}E^i\\
-    & = (\epsilon_0 \epsilon_{\infty} + \sigma \Delta t) E^n + \sigma \Delta t \sum_{i=0}^{n-1}E^i
+    D^n & = \epsilon_0 \epsilon_r E^n + \sigma \Delta t \sum_{i=0}^{n}E^i\\
+    & = \epsilon_0 \epsilon_r E^n + \sigma \Delta t E^n + \sigma \Delta t \sum_{i=0}^{n-1}E^i\\
+    & = (\epsilon_0 \epsilon_r + \sigma \Delta t) E^n + \sigma \Delta t \sum_{i=0}^{n-1}E^i
   \end{split}
 \end{displaymath}
 \begin{displaymath}
-  E^n = \frac{\displaystyle D^n - \sigma \Delta t \sum_{i=0}^{n-1}E^i}{\epsilon_0 \epsilon_{\infty} + \sigma \Delta t}
+  E^n = \frac{\displaystyle D^n - \sigma \Delta t \sum_{i=0}^{n-1}E^i}{\epsilon_0 \epsilon_r + \sigma \Delta t}
 \end{displaymath}
 Finally, the update equations becomes
 \begin{gather*}
-  E^n = \frac{D^n - I^{n-1}}{\epsilon_0 \epsilon_{\infty} + \sigma \Delta t}\\
+  E^n = \frac{D^n - I^{n-1}}{\epsilon_0 \epsilon_r + \sigma \Delta t}\\
   I^n = I^{n-1} + \sigma \Delta t\ E^n
 \end{gather*}
 
 \paragraph{{\msjh Debye Model - PLRC}}
 \begin{displaymath}
-  \epsilon_r^*(\omega) = \epsilon_{\infty} + \frac{\sigma}{j\omega \epsilon_0} + \frac{\Delta \epsilon_p}{1+j\omega \tau_p}
+  \epsilon_r^*(\omega) = \epsilon_r + \frac{\sigma}{j\omega \epsilon_0} + \frac{\Delta \epsilon_p}{1+j\omega \tau_p}
 \end{displaymath}
 \begin{displaymath}
   \begin{split}
     D(\omega) & = \epsilon_0 \epsilon_r^*(\omega) E(\omega)\\
-    & = \epsilon_0 \epsilon_{\infty} E(\omega) + \frac{\sigma}{j\omega} E(\omega) + \frac{\Delta \epsilon_p}{1+j\omega \tau_p}E(\omega)
+    & = \epsilon_0 \epsilon_r E(\omega) + \frac{\sigma}{j\omega} E(\omega) + \frac{\Delta \epsilon_p}{1+j\omega \tau_p}E(\omega)
   \end{split}
 \end{displaymath}
 \begin{displaymath}
-  D(t) = \epsilon_0 \epsilon_{\infty} E(t) + \sigma \int_0^t E(t')dt' + \epsilon_0 \int_0^t \frac{\Delta \epsilon_p}{\tau_p}e^{-\frac{t'-t}{\tau_p}}E(t')dt'
+  D(t) = \epsilon_0 \epsilon_r E(t) + \sigma \int_0^t E(t')dt' + \epsilon_0 \int_0^t \frac{\Delta \epsilon_p}{\tau_p}e^{-\frac{t'-t}{\tau_p}}E(t')dt'
 \end{displaymath}
-\begin{displaymath}
+\begin{equation}
+  D^n = \epsilon_0 \epsilon_rE^n + \sigma \Delta t \sum_{i=0}^{n}E^i + \epsilon_0 \frac{\Delta \epsilon_p}{\tau_p}\Delta t \sum_{i=0}^{n} e^{-\frac{n-i}{\tau_p}\Delta t} E^i
+\end{equation}
+The second term, dissipated displacement, can be given a notation $I^n$
+The third term, phasor polarization displacement, $J_p^n$
+This two terms can be rewrite in recursive form.
+\begin{equation}
+  I^n = \sigma\Delta tE^n + \sigma\Delta t\sum_{i=0}^{n-1}E^i = \sigma\Delta t\cdot E^n + I^{n-1}
+\end{equation}
+$J_p^n$ is slightly complex.
+\begin{equation}
   \begin{split}
-    D^n & = \epsilon_0 \epsilon_{\infty}E^n + \sigma \Delta t \sum_{i=0}^{n}E^i + \epsilon_0 \frac{\Delta \epsilon_p}{\tau_p}\Delta t \sum_{i=0}^{n} e^{-\frac{n-i}{\tau_p}\Delta t} E^i\\
-    & = \epsilon_0 \epsilon_{\infty} E^n + \left[\sigma \Delta t\ E^n + \sigma \Delta t \sum_{i=0}^{n-1}E^i\right]\\
-    &\quad + \left[\epsilon_0 \frac{\Delta \epsilon_p}{\tau_p}\Delta t\ E^n + \epsilon_0 \frac{\Delta \epsilon_p}{\tau_p} \Delta t \sum_{i=0}^{n-1}e^{-\frac{n-i}{\tau_p}\Delta t}E^i\right]\\
-    & = \left(\epsilon_0 \epsilon_{\infty} + \sigma \Delta t + \epsilon_0 \frac{\Delta \epsilon_p}{\tau_p} \Delta t\right)E^n + \sigma \Delta t \sum_{i=0}^{n-1}E^i + \epsilon_0 \frac{\Delta \epsilon_p}{\tau_p}\Delta t \sum_{i=0}^{n-1}e^{-\frac{n-i}{\tau_p}\Delta t}E^i
+    J_p^n & = \epsilon_0\frac{\Delta\epsilon_p}{\tau_p}\Delta t \sum_{i=0}^ne^{-\frac{n-i}{\tau_p}\Delta t}E^i\\
+    & = \epsilon_0\frac{\Delta\epsilon_p}{\tau_p}\Delta t \left( E^n + \sum_{i=0}^{n-1}e^{-\frac{n-i}{\tau_p}\Delta t}E^i\right)
   \end{split}
-\end{displaymath}
-\begin{displaymath}
+\end{equation}
+and 
+\begin{equation}
   \begin{split}
-    E^n & = \frac{\displaystyle D^n - \sigma \Delta t \sum_{i=0}^{n-1}E^i - \epsilon_0 \frac{\Delta \epsilon_p}{\tau_p}\Delta t \sum_{i=0}^{n-1}e^{-\frac{n-i}{\tau_p}\Delta t}E^i }{\displaystyle\epsilon_0 \epsilon_{\infty} + \sigma \Delta t + \epsilon_0 \frac{\Delta \epsilon_p}{\tau_p} \Delta t}\\
-    & = \frac{\displaystyle D^n - I^{n-1} - J^{n-1} }{\displaystyle\epsilon_0 \epsilon_{\infty} + \sigma \Delta t + \epsilon_0 \frac{\Delta \epsilon_p}{\tau_p} \Delta t}\\
+    J_p^{n-1} & = \epsilon_0\frac{\Delta\epsilon_p}{\tau_p}\Delta t \sum_{i=0}^{n-1}e^{-\frac{n-1-i}{\tau_p}\Delta t}E^i\\
+    & = \epsilon_0\frac{\Delta\epsilon_p}{\tau_p}\Delta t \left( e^{\frac{\Delta t}{\tau_p}} \right) \sum_{i=0}^{n-1}e^{-\frac{n-i}{\tau_p}\Delta t}E^i
   \end{split}
-\end{displaymath}
+\end{equation}
+substituted into $J_p^n$
+\begin{equation}
+  J_p^n = \epsilon_0\frac{\Delta\epsilon_p}{\tau_p}\Delta t E^n + e^{-\frac{\Delta t}{\tau_p}} J_p^{n-1}
+\end{equation}
+\begin{equation}
+  \begin{split}
+    D & = \epsilon_0 \epsilon_r E^n + \left[\sigma \Delta t\cdot E^n + I^{n-1}\right] + \left[\epsilon_0 \frac{\Delta \epsilon_p}{\tau_p}\Delta t\ E^n + e^{-\frac{\Delta t}{\tau_p}} J_p^{n-1}\right]\\
+    & = \left(\epsilon_0 \epsilon_r + \sigma \Delta t + \epsilon_0 \frac{\Delta \epsilon_p}{\tau_p} \Delta t\right)E^n + I^{n-1} + e^{-\frac{\Delta t}{\tau_p}} J_p^{n-1}
+  \end{split}
+\end{equation}
+Finally the discrete constitute relations in time domain becomes
+\begin{gather}
+  \begin{array}{@{}l@{}}
+    E^n =  \frac{\displaystyle D^n - I^{n-1} - e^{-\frac{\Delta t}{\tau_p}}J_p^{n-1} }{\displaystyle\epsilon_0 \epsilon_r + \sigma \Delta t + \epsilon_0 \frac{\Delta \epsilon_p}{\tau_p} \Delta t}\\    
+    I^n = \sigma\Delta t\cdot E^n + I^{n-1}\\
+    J_p^n = \epsilon_0\frac{\Delta\epsilon_p}{\tau_p}\Delta t\cdot E^n + e^{-\frac{\Delta t}{\tau_p}} J_p^{n-1}
+  \end{array}
+\end{gather}
+implement
+\begin{code}
+  dx[k] = dx[k] + 0.5 * ( hy[k-1] - hy[k])
+  ex[k] = ( dx[k] - i[k] - exp(-dt/tau_p) * j[k] ) 
+  * ( epsilon_0 * epsilon_r[k] + sigma_e[k] * dt +  )
+  i[k] = i[k] + sigma_e[k] 
+  j[k] = j[k] + del
+\end{code}
+
 
 
 
@@ -132,7 +172,11 @@ Finally, the update equations becomes
 
 \paragraph{{\msjh Lorentz Model - PLRC}}
 
+
 \paragraph{{\msjh Drude Model - PLRC}}
+\begin{equation}
+  D(\omega) = \epsilon_0\epsilon_r^*(\omega)E(\omega) = \epsilon_0\epsilon_rE(\omega) - \epsilon_0\frac{\omega_p^2}{\omega^2-j\omega\tau_p}E(\omega)
+\end{equation}
 
 \subsubsection{The Auxiliary Differential Equation Method}
 The 
@@ -141,36 +185,73 @@ By defining the $\chi$-related term as the phasor polorization current $J_p(\ome
 \paragraph{{\msjh Debye Model - ADE}}
 \begin{equation}
   \begin{split}
-    \nabla \times H & = j\omega D(\omega)\\
-    & = j\omega \epsilon_0\epsilon_r^*(\omega)E(\omega)\\
-    & = j\omega \epsilon_0 \epsilon_{\infty}E(\omega) + \sigma E(\omega) + j\omega \epsilon_0 \frac{\Delta \epsilon_p}{1+j\omega \tau_p}E(\omega)
+    D(\omega) & = \epsilon_0\epsilon_r^*(\omega)E(\omega)\\
+    & =  \epsilon_0 \epsilon_rE(\omega) + \frac{\sigma}{j\omega} E(\omega) + \epsilon_0 \frac{\Delta \epsilon_p}{1+j\omega \tau_p}E(\omega)\label{eq:debye_ade_start}
   \end{split}
 \end{equation}
 \begin{equation}
-  J_p(\omega) = j\omega \epsilon_0 \frac{\Delta \epsilon_p}{1+j\omega \tau_p}E(\omega)
+  J_p(\omega) = \epsilon_0 \frac{\Delta \epsilon_p}{1+j\omega \tau_p}E(\omega)
 \end{equation}
+This is the ADE of Debye Model
+\begin{equation}
+  J_p(\omega) + j\omega\tau_{p}J_p(\omega) = \epsilon_0\Delta\epsilon_p E(\omega)
+\end{equation}
+\begin{equation}
+  \left( \frac{J_p^n - J_p^{n-1}}{2} \right) + \tau_p \left( \frac{J_p^n - J_p^{n-1}}{\Delta t}\right) = \epsilon_0\Delta\epsilon_p E^n
+\end{equation}
+Solving $J_p$
+\begin{equation}
+  J_p^n = \frac{\left(1-\frac{\Delta t}{2\tau_p}\right)}{\left(1+\frac{\Delta t}{2\tau_p}\right)}J_p^{n-1} 
+  + \frac{\epsilon_0\left(\frac{\Delta\epsilon_p}{\tau_p}\right)\Delta t}{\left(1+\frac{\Delta t}{2\tau_p}\right)} E^n
+\end{equation}
+It should be noted
+\begin{equation}
+  \begin{array}{@{}lp{0.5cm}r@{}}
+    \frac{\displaystyle1-\delta}{\displaystyle1+\delta} \cong e^{-2\delta} && if\ \delta \ll 1
+  \end{array}
+\end{equation}
+\begin{equation}
+  \frac{\left(1-\frac{\displaystyle\Delta t}{\displaystyle2\tau_p}\right)}{\left(1+\frac{\displaystyle\Delta t}{\displaystyle2\tau_p}\right)} \cong e^{-\frac{\Delta t}{\tau_p}}\quad  because\ 1 \gg \frac{\Delta t}{2\tau_p}
+\end{equation}
+That is 
+\begin{equation}
+  J_p^n \cong e^{-\frac{\Delta t}{\tau_p}}J^{n-1} + \epsilon_0 \frac{\Delta\epsilon_p}{\tau_p}\Delta t\cdot E^n
+\end{equation}
+And by performming inverse Fourier transform on Eq.\ref{eq:debye_ade_start}
+\begin{equation}
+  D(t) = \epsilon_0\epsilon_rE(t) + \sigma \int_0^t E(t')dt' + J_p(t)
+\end{equation}
+\begin{equation}
+  \begin{split}
+    D^n & = \epsilon_0\epsilon_rE^n + \sigma\Delta t\sum_{i=0}^n E^i + J_p^n\\
+    & = \epsilon_0\epsilon_rE^n + \sigma\Delta tE^n + I^{n-1} + \epsilon_0\frac{\Delta\epsilon_p}{\tau_p}\Delta t\cdot E^n + e^{-\frac{\Delta t}{\tau_p}}J^{n-1}
+  \end{split}
+\end{equation}
+The same result as recursive convolution.
+
+
+
+
 
 
 \paragraph{{\msjh Lorentz Model - ADE}}
 \begin{equation}
   \begin{split}
-    \nabla \times H & = j\omega D(\omega)\\
-    & = j\omega \epsilon_0\epsilon_r^*(\omega)E(\omega)\\
-    & = j\omega \epsilon_0\epsilon_{\infty}E(\omega) + j\omega \frac{\Delta \epsilon_p \omega_p^2}{\omega_p^2+2j\omega\delta_p-\omega^2}E(\omega)
+    D(\omega) & = \epsilon_0\epsilon_r^*(\omega)E(\omega)\\
+    & = \epsilon_0\epsilon_rE(\omega) + \epsilon_0 \frac{\Delta \epsilon_p \omega_p^2}{\omega_p^2+2j\omega\delta_p-\omega^2}E(\omega)
   \end{split}
 \end{equation}
 
 \paragraph{{\msjh Drude Model - ADE}}
 \begin{equation}
   \begin{split}
-    \nabla \times H & = j\omega D(\omega)\\
-    & = j\omega \epsilon_0\epsilon_r^*(\omega)E(\omega)\\
-    & = j\omega \epsilon_0 \epsilon_{\infty} E(\omega) - j\omega \epsilon_0\frac{\omega_p^2}{\omega(\omega-j\gamma_p)}E(\omega)
+    D(\omega) & = \epsilon_0\epsilon_r^*(\omega)E(\omega)\\
+    & = \epsilon_0 \epsilon_r E(\omega) - \epsilon_0\frac{\omega_p^2}{\omega(\omega-j\gamma_p)}E(\omega)
   \end{split}
 \end{equation}
 Defining the last term as $J_p$, the phasor polarization current in physics,
 \begin{equation}
-  J_p(\omega) = -j\omega\epsilon_0\frac{\omega_p^2}{\omega(\omega-j\gamma_p)}E(\omega)
+  J_p(\omega) = -\epsilon_0\frac{\omega_p^2}{\omega(\omega-j\gamma_p)}E(\omega)
 \end{equation}
 Rearrange
 \begin{equation}
@@ -178,11 +259,11 @@ Rearrange
 \end{equation}
 Performming inverse Fourier transformation
 \begin{equation}
-  \frac{\partial^2 J_p}{\partial t^2} + \gamma_p \frac{\partial J_p}{\partial t} = \epsilon_0\omega_p^2\frac{\partial E}{\partial t}
+  \frac{\partial^2 J_p(t)}{\partial t^2} + \gamma_p \frac{\partial J_p(t)}{\partial t} = \epsilon_0\omega_p^2\frac{\partial E(t)}{\partial t}
 \end{equation}
 Integrating once
 \begin{equation}
-  \frac{\partial J_p}{\partial t} + \gamma_p J_p = \epsilon_0 \omega_p^2 E(\omega)
+  \frac{\partial J_p(t)}{\partial t} + \gamma_p J_p(t) = \epsilon_0 \omega_p^2 E(t)
 \end{equation}
 This is the ADE for $J_p$ for Drude Model
 
@@ -196,16 +277,16 @@ Solving
 \end{equation}
 \begin{equation}
   \begin{split}
-    E^{n+1} & = \left(\frac{2\epsilon_0\epsilon_{\infty} - \Delta t \beta_p}{2\epsilon_0\epsilon_{\infty} + \Delta t \beta_p}\right)E^n \\
-    & + \left(\frac{2\Delta t}{2\epsilon_0\epsilon_{\infty} + \Delta t \beta_p}\right)\left(\nabla\times H^{n+1/2} - \frac{1}{2}(1+k_p)J_p^n\right)
+    E^{n+1} & = \left(\frac{2\epsilon_0\epsilon_r - \Delta t \beta_p}{2\epsilon_0\epsilon_r + \Delta t \beta_p}\right)E^n \\
+    & + \left(\frac{2\Delta t}{2\epsilon_0\epsilon_r + \Delta t \beta_p}\right)\left(\nabla\times H^{n+1/2} - \frac{1}{2}(1+k_p)J_p^n\right)
   \end{split}
 \end{equation}
 
 
 
 \subsubsection{The Z Transform Method}
-\paragraph{Debye Model - ZT}
+\paragraph{\msjh Debye Model - ZT}
 
-\paragraph{Lorentz Model - ZT}
+\paragraph{\msjh Lorentz Model - ZT}
 
-\paragraph{Drude Model - ZT}
+\paragraph{\msjh Drude Model - ZT}
