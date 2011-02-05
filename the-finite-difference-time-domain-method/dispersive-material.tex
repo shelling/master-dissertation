@@ -175,8 +175,16 @@ implement
 
 \paragraph{{\msjh Drude Model - PLRC}}
 \begin{equation}
-  D(\omega) = \epsilon_0\epsilon_r^*(\omega)E(\omega) = \epsilon_0\epsilon_rE(\omega) - \epsilon_0\frac{\omega_p^2}{\omega^2-j\omega\tau_p}E(\omega)
+  D(\omega) = \epsilon_0\epsilon_r^*(\omega)E(\omega) = \epsilon_0\epsilon_rE(\omega) - \epsilon_0\frac{\omega_p^2}{\omega^2-j\omega\gamma_p}E(\omega)
 \end{equation}
+\begin{equation}
+  D(t) = \epsilon_0\epsilon_rE(t) + \epsilon_0\int_0^t -\frac{\omega_p^2}{\gamma_p}(1 - e^{-\gamma_p(t'-t)})E(t')dt'
+\end{equation}
+\begin{equation}
+  D^n = \epsilon_0\epsilon_rE^n + \epsilon_0\frac{\omega_p^2}{\gamma_p}\Delta t\sum_{i=0}^{n}E^i + \epsilon_0\frac{\omega_p^2}{\gamma_p}\Delta t \sum_{i=0}^{n}e^{-\gamma_p(n-i)\Delta t} E^i
+\end{equation}
+
+
 
 \subsubsection{The Auxiliary Differential Equation Method}
 The 
