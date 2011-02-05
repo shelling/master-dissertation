@@ -101,21 +101,42 @@ This way also shows some advantagewhen handling perfecly matched layer which wou
 
 Extend to Cartesian coordinate system.
 \begin{gather}
-  \frac{\partial}{\partial t}\widetilde{D}_x = \frac{1}{\sqrt{\mu_0\epsilon_0}}\left(\frac{\partial H_z}{\partial y} - \frac{\partial H_y}{\partial z}\right)\\
-  \frac{\partial}{\partial t}\widetilde{D}_y = \frac{1}{\sqrt{\mu_0\epsilon_0}}\left(\frac{\partial H_x}{\partial z} - \frac{\partial H_z}{\partial x}\right)\\
-  \frac{\partial}{\partial t}\widetilde{D}_z = \frac{1}{\sqrt{\mu_0\epsilon_0}}\left(\frac{\partial H_y}{\partial x} - \frac{\partial H_x}{\partial y}\right)\\
-  \frac{\partial}{\partial t}\widetilde{B}_x =-\frac{1}{\sqrt{\mu_0\epsilon_0}}\left(\frac{\partial \widetilde{E}_z}{\partial y} - \frac{\partial \widetilde{E}_y}{\partial z}\right)\\
-  \frac{\partial}{\partial t}\widetilde{B}_y =-\frac{1}{\sqrt{\mu_0\epsilon_0}}\left(\frac{\partial \widetilde{E}_x}{\partial z} - \frac{\partial \widetilde{E}_z}{\partial x}\right)\\
-  \frac{\partial}{\partial t}\widetilde{B}_z =-\frac{1}{\sqrt{\mu_0\epsilon_0}}\left(\frac{\partial \widetilde{E}_y}{\partial x} - \frac{\partial \widetilde{E}_x}{\partial y}\right)
+  \frac{\partial}{\partial t}\widetilde{D}_x = \frac{1}{\sqrt{\mu_0\epsilon_0}}\left(\frac{\partial H_z}{\partial y} - \frac{\partial H_y}{\partial z}\right)\label{eq:up_d_x}\\
+  \frac{\partial}{\partial t}\widetilde{D}_y = \frac{1}{\sqrt{\mu_0\epsilon_0}}\left(\frac{\partial H_x}{\partial z} - \frac{\partial H_z}{\partial x}\right)\label{eq:up_d_y}\\
+  \frac{\partial}{\partial t}\widetilde{D}_z = \frac{1}{\sqrt{\mu_0\epsilon_0}}\left(\frac{\partial H_y}{\partial x} - \frac{\partial H_x}{\partial y}\right)\label{eq:up_d_z}\\
+  \frac{\partial}{\partial t}\widetilde{B}_x =-\frac{1}{\sqrt{\mu_0\epsilon_0}}\left(\frac{\partial \widetilde{E}_z}{\partial y} - \frac{\partial \widetilde{E}_y}{\partial z}\right)\label{eq:up_b_x}\\
+  \frac{\partial}{\partial t}\widetilde{B}_y =-\frac{1}{\sqrt{\mu_0\epsilon_0}}\left(\frac{\partial \widetilde{E}_x}{\partial z} - \frac{\partial \widetilde{E}_z}{\partial x}\right)\label{eq:up_b_y}\\
+  \frac{\partial}{\partial t}\widetilde{B}_z =-\frac{1}{\sqrt{\mu_0\epsilon_0}}\left(\frac{\partial \widetilde{E}_y}{\partial x} - \frac{\partial \widetilde{E}_x}{\partial y}\right)\label{eq:up_b_z}
 \end{gather}
 
-\subsection{Reduction of dimensions}
+\subsection{Reduction in Dimensions}
 There are three selections to choose a one dimension EM string: $\mathrm{TEM_x}$ ($\mathrm{E_{y}}$, $\mathrm{H_{z}}$,
 $\mathrm{k_x}$), $\mathrm{TEM_y}$ ($\mathrm{E_z}$, $\mathrm{H_x}$, $\mathrm{k_y}$), and $\mathrm{TEM_z}$
-($\mathrm{E_x}$, $\mathrm{H_y}$, $\mathrm{k_z}$). Similarly, $\mathrm{TEM_z}$ is the default choice when saying TEM.
+($\mathrm{E_x}$, $\mathrm{H_y}$, $\mathrm{k_z}$). Similarly, $\mathrm{TEM_z}$ is the default choice when saying
+TEM. Following the definition of TEM, Eq.\ref{eq:up_d_x} and Eq.\ref{eq:up_b_y} were picked out for reduction of 1-D
+case.
+\begin{gather*}
+  \frac{\partial}{\partial t}\widetilde{D}_x = \frac{1}{\sqrt{\mu_0\epsilon_0}}\left(\frac{\partial H_z}{\partial y} - \frac{\partial H_y}{\partial z}\right)\\
+  \frac{\partial}{\partial t}\widetilde{B}_y =-\frac{1}{\sqrt{\mu_0\epsilon_0}}\left(\frac{\partial \widetilde{E}_x}{\partial z} - \frac{\partial \widetilde{E}_z}{\partial x}\right)
+\end{gather*}
+The choice implies
 \begin{displaymath}
-  \frac{\partial}{\partial x}\ \frac{\partial}{\partial y} \rightarrow 0
+  \frac{\partial}{\partial x} \rightarrow 0\quad
+  \frac{\partial}{\partial y} \rightarrow 0
 \end{displaymath}
+apply
+\begin{gather}
+  \frac{\partial}{\partial t}\widetilde{D}_x = \frac{1}{\sqrt{\mu_0\epsilon_0}}\left( - \frac{\partial H_y}{\partial z}\right)\\
+  \frac{\partial}{\partial t}\widetilde{B}_y =-\frac{1}{\sqrt{\mu_0\epsilon_0}}\left(\frac{\partial \widetilde{E}_x}{\partial z} \right)
+\end{gather}
+Discrete
+\begin{gather}
+  \frac{\widetilde{D}_x|_k^{n+1/2} - \widetilde{D}_x|_k^{n-1/2}}{\Delta t} = -c_0\cdot\frac{H_y|_{k+1/2}^n - H_y|_{k-1/2}^n}{\Delta z}\\
+  \frac{\widetilde{B}_y|_{k+1/2}^{n+1} - \widetilde{B}_y|_{k+1/2}^n}{\Delta t} = -c_0\cdot\frac{E_x|_{k+1}^{n+1/2} - E_x|_{k}^{n+1/2}}{\Delta z}
+\end{gather}
+
+
+
 
 There are 6 selections for us to choose a two dimensions EM plane: $\mathrm{TM_{x}} $, $\mathrm{TE_{x}}$,
 $\mathrm{TM_{y}}$, $\mathrm{TE_{y}}$, $\mathrm{TM_{z}}$, $\mathrm{TE_{z}}$. By default, the choice in this thesis follow
