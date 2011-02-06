@@ -65,18 +65,34 @@ electron oscillision frequency.
 
 
 \subsection{Dispersion-Compatible Update Equations}
-In this section, we would introduce three algorithm to adjust the update equations to suit the dispersive material shown
-above.
+For the analysis of dispersive materials shown above, numbers of algorithms have already been proposed in literature.
+Most of these frequency-dependent algorithms can be categorized into three types: 
+\begin{inparaenum}[(1)]
+\item the Recursive Convolution (RC) method
+\item the Auxiliary Differential Equation (ADE) method
+\item the Z-transform (ZT) method
+\end{inparaenum}.
+
+The RC method is the most basic method. The pros and cons are easy to understand with background of engineering
+mathematics and difficult to handle complex material with multiple poles.
+
+The ADE method offer high flexibility in fitting arbitrary permittivity functions, modeling nonlinear effects and
+arbitrary numbers of poles.
+
+Any of these methods focuses on tranforming the dispersive relations between $D(\omega))$ and $E(\omega)$ in frequency domain
+back to the time doamin for discretization. By applying different discretizing scheme at each step, many varieties of
+them were given. Following words are trying to give an overview and examples as many as possible to be a reference
+during implementing.
 
 \subsubsection{The Recursive Convolution Method}
-There are many varieties using convolution including 
+There are many varieties published using convolution including 
 \begin{inparaenum}[(1)]
 \item Recursive Convolution (RC) Method
 \item Piecewise-Linear Recursive Convolution (PLRC) Method
 \item Trapezoidal Recursive Convolution(TRC) Method
 \end{inparaenum}
 
-
+\paragraph{\msjh Simple Conductive Media - RC}
 Apply RC to simple conductive material having definition as
 \begin{displaymath}
   \epsilon_r^{*}(\omega) = \epsilon_r + \frac{\sigma}{j \omega \epsilon_0}
@@ -193,16 +209,49 @@ implement
 
 
 \subsubsection{The Auxiliary Differential Equation Method}
-The 
+The central idea of the Auxiliary Differential Equation (ADE) Method is to detach the phasor polarization displacement
+$J_p(\omega)$, that is, $\chi_p(\omega)E(\omega)$, from original dispersive relation.
+\begin{equation}
+  \begin{split}
+    D(\omega) &= \epsilon_0\epsilon_r^*(\omega)E(\omega)\\
+    & = \epsilon_0\epsilon_rE(\omega) + \epsilon_0\chi_p(\omega)E(\omega)\\
+    & = \epsilon_0\epsilon_rE(\omega) + J_p(\omega)
+  \end{split}
+\end{equation}
+After solving $J_p$ individually, it can attend the updating loop, and then $E$ can be solved via 
+\begin{equation}
+  E^n = \frac{D^n - J_p^n}{\epsilon_0\epsilon_r}
+\end{equation}
+Starting with the most general form of $\chi_p(\omega)$, the phasor polarization displacement can be written as
+\begin{equation}
+  J_p(\omega) = \frac{a}{b + j\omega c - d\omega^2}E(\omega)
+\end{equation}
+Rearranging and performming inverse Fourier transform 
+\begin{equation}
+  bJ_p(\omega) + c \frac{\partial}{\partial t}J_p(\omega) + d \frac{\partial ^2}{\partial t^2}J_p(\omega) = aE(t)
+\end{equation}
+apply leapfrog scheme 
+\begin{equation}
+  bJ_p^{n-1} + c \frac{J_p^n - J_p^{n-1}}{2\Delta t} + d \frac{J_p^n + 2J_p^{n-1} + J_p^{n-2}}{(\Delta t)^2} = aE^{n-1}
+\end{equation}
+Solving 
+\begin{equation}
+  J_p^n = 
+\end{equation}
 
-By defining the $\chi$-related term as the phasor polorization displacement $J_p(\omega)$.
 \paragraph{{\msjh Debye Model - ADE}}
+Debye Model is fun case can be induced the same form of $J_p(t)$ as RC if the semi-implicit scheme was chose. However,
+leapfrog scheme provide better accruacy. Just for verifying, result of apply semi-implicit scheme was also derived
+here. In real wrold implementation, leapfrog was picked out.
+
+Starting with constitute relation as before
 \begin{equation}
   \begin{split}
     D(\omega) & = \epsilon_0\epsilon_r^*(\omega)E(\omega)\\
     & =  \epsilon_0 \epsilon_rE(\omega) + \frac{\sigma}{j\omega} E(\omega) + \epsilon_0 \frac{\Delta \epsilon_p}{1+j\omega \tau_p}E(\omega)\label{eq:debye_ade_start}
   \end{split}
 \end{equation}
+detach $J_p$
 \begin{equation}
   J_p(\omega) = \epsilon_0 \frac{\Delta \epsilon_p}{1+j\omega \tau_p}E(\omega)
 \end{equation}
@@ -214,9 +263,6 @@ performming IFT
 \begin{equation}
   J_p(t) + \tau_p\frac{\partial}{\partial t}J_p(t) = \epsilon_0\Delta\epsilon_p E(t)
 \end{equation}
-Both semi-implicit and leapfrog scheme can be chose.
-semi-implicit has accuracy the same as RC.
-leapfrog has better accuracy.
 apply semi-implicit scheme
 \begin{equation}
   \left( \frac{J_p^n - J_p^{n-1}}{2} \right) + \tau_p \left( \frac{J_p^n - J_p^{n-1}}{\Delta t}\right) = \epsilon_0\Delta\epsilon_p E^n
