@@ -31,13 +31,12 @@ sum
   u(x_i+\Delta x) + u(x_i-\Delta x) = \left.2u\right|_{x_i} + (\Delta x)^2\cdot\left.\frac{\partial ^2 u}{\partial x^2}\right|_{x_i} + ...
 \end{equation}
 \begin{equation}
-  \left.\frac{\partial^2 u}{\partial x^2}\right|_{x_i} = \frac{u(x_i+\Delta x) - 2u(x_i) + u(x_i-\Delta x)}{2\Delta x} = \frac{u^{i+1} - 2u^i + u^{i-1}}{2\Delta x} % + O[(\Delta x)^2]
+  \left.\frac{\partial^2 u}{\partial x^2}\right|_{x_i} = \frac{u(x_i+\Delta x) - 2u(x_i) + u(x_i-\Delta x)}{(\Delta x)^2} = \frac{u^{i+1} - 2u^i + u^{i-1}}{(\Delta x)^2} % + O[(\Delta x)^2]
 \end{equation}
-
-
-
-
 \subsubsection{Semi-Implicit Scheme}
+\begin{equation}
+  \left.\frac{\partial u}{\partial x}\right|_{x_i} = \frac{u(x_i+\Delta x) - u(x_i)}{\Delta x}
+\end{equation}
 
 \subsection{The Update Equations}
 
