@@ -67,13 +67,13 @@ electron oscillision frequency.
 In this section, we would introduce three algorithm to adjust the update equations to suit the dispersive material shown
 above.
 
-We would see that the update equations would have the same forms after transformming no matter which way we choose. It
-means, for some problems convenient to apply specified algorithm but not easy to apply another one, 
-
-\subsubsection{The Piecewise-Linear Recursive Convolution Method}
+\subsubsection{The Recursive Convolution Method}
+There are many varieties using convolution including
+Recursive Convolution (RC) Method
 Piecewise-Linear Recursive Convolution (PLRC) Method
+Trapezoidal Recursive Convolution(TRC) Method
 
-Apply PLRC to frequency-independent material having definition as
+Apply RC to simple conductive material having definition as
 \begin{displaymath}
   \epsilon_r^{*}(\omega) = \epsilon_r + \frac{\sigma}{j \omega \epsilon_0}
 \end{displaymath}
@@ -109,7 +109,7 @@ implementation
 \end{code}
 
 
-\paragraph{{\msjh Debye Model - PLRC}}
+\paragraph{{\msjh Debye Model - RC}}
 \begin{displaymath}
   \epsilon_r^*(\omega) = \epsilon_r + \frac{\sigma}{j\omega \epsilon_0} + \frac{\Delta \epsilon_p}{1+j\omega \tau_p}
 \end{displaymath}
@@ -172,10 +172,10 @@ implement
 
 
 
-\paragraph{{\msjh Lorentz Model - PLRC}}
+\paragraph{{\msjh Lorentz Model - RC}}
 
 
-\paragraph{{\msjh Drude Model - PLRC}}
+\paragraph{{\msjh Drude Model - RC}}
 \begin{equation}
   D(\omega) = \epsilon_0\epsilon_r^*(\omega)E(\omega) = \epsilon_0\epsilon_rE(\omega) - \epsilon_0\frac{\omega_p^2}{\omega^2-j\omega\gamma_p}E(\omega)
 \end{equation}
