@@ -2,7 +2,44 @@
 
 In 1966, The algorithm of the FDTD method was first introduced by Yee.
 
-\subsection{The update equations}
+\subsection{Finite Difference}
+The first thing being concerned is how to discrete space and time in FDTD, in other word, how to turn differential
+equations to algerba equations.
+\subsubsection{Explicit Leapfrog Scheme}
+Laylor's series expansion 
+\begin{equation}
+  u(x_i+\Delta x) = u|_{x_i} + 
+  \Delta x\cdot\left.\frac{\partial u}{\partial x}\right|_{x_i} + 
+  \frac{(\Delta x)^2}{2}\cdot\left.\frac{\partial ^2 u}{\partial x^2}\right|_{x_i} + 
+  \frac{(\Delta x)^3}{6}\cdot\left.\frac{\partial ^3 u}{\partial x^3}\right|_{x_i} + ...
+\end{equation}
+\begin{equation}
+  u(x_i-\Delta x) = u|_{x_i} -
+  \Delta x\cdot\left.\frac{\partial u}{\partial x}\right|_{x_i} + 
+  \frac{(\Delta x)^2}{2}\cdot\left.\frac{\partial ^2 u}{\partial x^2}\right|_{x_i} -
+  \frac{(\Delta x)^3}{6}\cdot\left.\frac{\partial ^3 u}{\partial x^3}\right|_{x_i} + ...
+\end{equation}
+difference 
+\begin{equation}
+  u(x_i+\Delta x) - u(x_i-\Delta x) = 2\Delta x\cdot\left.\frac{\partial u}{\partial x}\right|_{x_i}+...
+\end{equation}
+\begin{equation}
+  \left.\frac{\partial u}{\partial x}\right|_{x_i} = \frac{u(x_i+\Delta x) - u(x_i-\Delta x)}{2\Delta x} = \frac{u^{i+1} - u^{i-1}}{2\Delta x} + O[(\Delta x)^3]
+\end{equation}
+sum 
+\begin{equation}
+  u(x_i+\Delta x) + u(x_i-\Delta x) = \left.2u\right|_{x_i} + (\Delta x)^2\cdot\left.\frac{\partial ^2 u}{\partial x^2}\right|_{x_i} + ...
+\end{equation}
+\begin{equation}
+  \left.\frac{\partial^2 u}{\partial x^2}\right|_{x_i} = \frac{u(x_i+\Delta x) - 2u(x_i) + u(x_i-\Delta x)}{2\Delta x} = \frac{u^{i+1} - 2u^i + u^{i-1}}{2\Delta x} % + O[(\Delta x)^2]
+\end{equation}
+
+
+
+
+\subsubsection{Semi-Implicit Scheme}
+
+\subsection{The Update Equations}
 
 The update equations is the core of the FDTD method. In every interation on the timeline, the update equations refresh
 the value of field of every point in the simulation region.
