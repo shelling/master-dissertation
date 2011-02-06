@@ -14,9 +14,10 @@ having different frequency that means the relative permittivity should be a func
 image part. So, $\epsilon_r^*(\omega)$ was given as the notation of dispersive electic permittivity and the phasor of
 electic flux in dispersive material was defined as $D(\omega) = \epsilon_0 \epsilon_r^*(\omega)E(\omega)$.
 \subsection{Common Isotropic Dispersive Material}
-The dispersive permittivity is defined as $\epsilon_r^*(\omega) = \epsilon_r + \chi_p(\omega)$, where
+The dispersive permittivity is defined as $\epsilon_r^*(\omega) = \epsilon_r + \sigma_e / j\omega\epsilon_0 + \chi_p(\omega)$, where
 $\epsilon_r$ is ... and $\chi_p(\omega)$ is ...
-\subsubsection{General Lossy Media}
+\subsubsection{Simple Lossy Media}
+Simple Lossy Media is a material with constant electric conductivity $\sigma_e$ and without $\chi_p(\omega)$
 \begin{equation}
   \epsilon_r^*(\omega) = \epsilon_0 + \frac{\sigma_e}{j\omega\epsilon_0}
 \end{equation}
@@ -68,10 +69,13 @@ In this section, we would introduce three algorithm to adjust the update equatio
 above.
 
 \subsubsection{The Recursive Convolution Method}
-There are many varieties using convolution including
-Recursive Convolution (RC) Method
-Piecewise-Linear Recursive Convolution (PLRC) Method
-Trapezoidal Recursive Convolution(TRC) Method
+There are many varieties using convolution including 
+\begin{inparaenum}[(1)]
+\item Recursive Convolution (RC) Method
+\item Piecewise-Linear Recursive Convolution (PLRC) Method
+\item Trapezoidal Recursive Convolution(TRC) Method
+\end{inparaenum}
+
 
 Apply RC to simple conductive material having definition as
 \begin{displaymath}
@@ -125,7 +129,7 @@ implementation
 \begin{equation}
   D^n = \epsilon_0 \epsilon_rE^n + \sigma \Delta t \sum_{i=0}^{n}E^i + \epsilon_0 \frac{\Delta \epsilon_p}{\tau_p}\Delta t \sum_{i=0}^{n} e^{-\frac{n-i}{\tau_p}\Delta t} E^i
 \end{equation}
-The second term, dissipated displacement, $I^n$ , the same as general lossy media.
+The second term, dissipated displacement, $I^n$ , the same as simple conductive media.
 The third term, phasor polarization displacement, $J_p^n$. $J_p^n$ is slightly complex in recursive form.
 \begin{equation}
   \begin{split}
@@ -191,7 +195,7 @@ implement
 \subsubsection{The Auxiliary Differential Equation Method}
 The 
 
-By defining the $\chi$-related term as the phasor polorization current $J_p(\omega)$.
+By defining the $\chi$-related term as the phasor polorization displacement $J_p(\omega)$.
 \paragraph{{\msjh Debye Model - ADE}}
 \begin{equation}
   \begin{split}
@@ -206,6 +210,14 @@ This is the ADE of Debye Model
 \begin{equation}
   J_p(\omega) + j\omega\tau_{p}J_p(\omega) = \epsilon_0\Delta\epsilon_p E(\omega)
 \end{equation}
+performming IFT 
+\begin{equation}
+  J_p(t) + \tau_p\frac{\partial}{\partial t}J_p(t) = \epsilon_0\Delta\epsilon_p E(t)
+\end{equation}
+Both semi-implicit and leapfrog scheme can be chose.
+semi-implicit has accuracy the same as RC.
+leapfrog has better accuracy.
+apply semi-implicit scheme
 \begin{equation}
   \left( \frac{J_p^n - J_p^{n-1}}{2} \right) + \tau_p \left( \frac{J_p^n - J_p^{n-1}}{\Delta t}\right) = \epsilon_0\Delta\epsilon_p E^n
 \end{equation}
@@ -237,7 +249,7 @@ And by performming inverse Fourier transform on Eq.\ref{eq:debye_ade_start}
     & = \epsilon_0\epsilon_rE^n + \sigma\Delta t\cdot E^n + I^{n-1} + \epsilon_0\frac{\Delta\epsilon_p}{\tau_p}\Delta t\cdot E^n + e^{-\frac{\Delta t}{\tau_p}}J^{n-1}
   \end{split}
 \end{equation}
-The same result as recursive convolution.
+The same result as Recursive Convolution Method.
 
 
 
@@ -265,7 +277,7 @@ Defining the last term as $J_p$, the phasor polarization current in physics,
 \end{equation}
 Rearrange
 \begin{equation}
-  \omega^2J_p(\omega) - j\omega\gamma_pJ_p(\omega) = -j\omega\epsilon_0\omega_p^2 E(\omega)
+  \omega^2J_p(\omega) - j\omega\gamma_pJ_p(\omega) = -\epsilon_0\omega_p^2 E(\omega)
 \end{equation}
 Performming inverse Fourier transformation
 \begin{equation}
