@@ -73,8 +73,9 @@ Most of these frequency-dependent algorithms can be categorized into three types
 \item the Z-transform (ZT) method
 \end{inparaenum}.
 
-The RC method is the most basic method. The pros and cons are easy to understand with background of engineering
-mathematics and difficult to handle complex material with multiple poles.
+The RC method is the most basic method inheriting the convolution theorem in Laplace transform and Fourier
+transform. The pros and cons are easy to understand with background of engineering mathematics and difficult to handle
+complex material with multiple poles.
 
 The ADE method offer high flexibility in fitting arbitrary permittivity functions, modeling nonlinear effects and
 arbitrary numbers of poles.
@@ -214,15 +215,21 @@ $J_p(\omega)$, that is, $\chi_p(\omega)E(\omega)$, from original dispersive rela
 \begin{equation}
   \begin{split}
     D(\omega) &= \epsilon_0\epsilon_r^*(\omega)E(\omega)\\
-    & = \epsilon_0\epsilon_rE(\omega) + \epsilon_0\chi_p(\omega)E(\omega)\\
-    & = \epsilon_0\epsilon_rE(\omega) + J_p(\omega)
+    & = \epsilon_0\epsilon_rE(\omega) + \epsilon_0\sum_{p=1}^P\chi_p(\omega)E(\omega)\\
+    & = \epsilon_0\epsilon_rE(\omega) + \sum_{p=1}^{P}J_p(\omega)
   \end{split}
 \end{equation}
-After solving $J_p$ individually, it can attend the updating loop, and then $E$ can be solved via 
+For muiltipole material composed of different dispersions, $J_p$ were solved for each pole individually to attend the
+updating loop, and then $E$ can be solved via rearrangment of previous relation.
 \begin{equation}
-  E^n = \frac{D^n - J_p^n}{\epsilon_0\epsilon_r}
+  E^n = \frac{1}{\epsilon_0\epsilon_r}\left(D^n - \sum_{p=1}^PJ_p^n\right)
 \end{equation}
-Starting with the most general form of $\chi_p(\omega)$, the phasor polarization displacement can be written as
+Primitive ADE method shown in literature require deriving formulations for each dispersion type, however, a generalized
+way \textit{Alsunaidi et al.} proposed finds its strength in unifying the formulation of different dispersion models
+into one form.
+
+Starting with the most general form of $\chi_p(\omega)$, the phasor polarization displacement can be written
+as
 \begin{equation}
   J_p(\omega) = \frac{a}{b + j\omega c - d\omega^2}E(\omega)
 \end{equation}
@@ -236,13 +243,20 @@ apply leapfrog scheme
 \end{equation}
 Solving 
 \begin{equation}
-  J_p^n = 
+  J_p^n = \frac{4d-2b(\Delta t)^2}{2d+c\Delta t}J_p^{n-1} + \frac{-2d+c\Delta t}{2d+c\Delta t}J_p^{n-2} + \frac{2a(\Delta t)^2}{2d+c\Delta t}E^{n-1}
 \end{equation}
+which can be written in the form 
+\begin{equation}
+  J_p^n = C_1 J_p^{n-1} + C_2 J_p^{n-2} + C_3 E^{n-1}
+\end{equation}
+where $C_1$, $C_2$ and $C_3$ can be found for any form of dispersion relation.
+
+
 
 \paragraph{{\msjh Debye Model - ADE}}
 Debye Model is fun case can be induced the same form of $J_p(t)$ as RC if the semi-implicit scheme was chose. However,
 leapfrog scheme provide better accruacy. Just for verifying, result of apply semi-implicit scheme was also derived
-here. In real wrold implementation, leapfrog was picked out.
+here. In the real wrold implementation yaFDTD, leapfrog was picked out.
 
 Starting with constitute relation as before
 \begin{equation}
@@ -302,15 +316,54 @@ The same result as Recursive Convolution Method.
 
 
 
-\paragraph{{\msjh Lorentz Model - ADE}}
+\paragraph{\msjh Lorentz Model - ADE} Lorentz pole totally matches the general form used in previous introduction of ADE method.
+The coefficients are as following.
+\begin{equation*}
+  \begin{array}{@{}llll@{}}
+    a = \epsilon_0\Delta\epsilon_p\omega_p^2 &
+    b = \omega_p^2 &
+    c = 2\delta_p &
+    d = 1
+  \end{array}
+\end{equation*}
+substitute into ...
+\begin{gather*}
+  \begin{array}{@{}lll@{}}
+    C_1 = \frac{\displaystyle 2-\omega_p^2\Delta t^2}{\displaystyle 1+\delta_p\Delta t} &
+    C_2 = \frac{\displaystyle -1 + \delta_p\Delta t}{\displaystyle 1+\delta_p\Delta t} &
+    C_3 = \frac{\displaystyle \epsilon_0\Delta\epsilon_p\omega_p^2\Delta t^2}{\displaystyle 1+\delta_p\Delta t}
+  \end{array}
+\end{gather*}
+Formal derivation is also written down here.
 \begin{equation}
   \begin{split}
     D(\omega) & = \epsilon_0\epsilon_r^*(\omega)E(\omega)\\
     & = \epsilon_0\epsilon_rE(\omega) + \epsilon_0 \frac{\Delta \epsilon_p \omega_p^2}{\omega_p^2+2j\omega\delta_p-\omega^2}E(\omega)
   \end{split}
 \end{equation}
+\begin{equation}
+  J_p(\omega) = \epsilon_0 \frac{\Delta \epsilon_p \omega_p^2}{\omega_p^2+2j\omega\delta_p-\omega^2}E(\omega)
+\end{equation}
+rearrange and IFT
+\begin{equation}
+  \omega_p^2J_p(t) + 2\delta_p\frac{\partial}{\partial t}J_p(t) + \frac{\partial^2}{\partial t^2}J_p(t) = \epsilon_0\Delta\epsilon_p\omega_p^2E(t)
+\end{equation}
+apply leapfrog scheme 
+\begin{equation}
+  \omega_p^2J_p^{n-1} + \delta_p\frac{J_p^n - J_p^{n-2}}{\Delta t} + \frac{J_p^n - 2 J_p^{n-1} + J_p^{n-2}}{\Delta t^2} = \epsilon_0\Delta\epsilon_p\omega_p^2E^{n-1}
+\end{equation}
+rearrange 
+\begin{equation}
+  J_p^n = 
+  \frac{ 2-\omega_p^2\Delta t^2}{ 1+\delta_p\Delta t} J_p^{n-1} +
+  \frac{ -1 + \delta_p\Delta t}{ 1+\delta_p\Delta t} J_p^{n-2} + 
+  \frac{ \epsilon_0\Delta\epsilon_p\omega_p^2\Delta t^2}{ 1+\delta_p\Delta t} E^{n-1}
+\end{equation}
+as the result showed by general form of $C_1$, $C_2$, $C_3$.
 
-\paragraph{{\msjh Drude Model - ADE}}
+
+
+\paragraph{\msjh Drude Model - ADE} Drude pole lacks the b coefficient when comparing to general form.
 \begin{equation}
   \begin{split}
     D(\omega) & = \epsilon_0\epsilon_r^*(\omega)E(\omega)\\
@@ -323,32 +376,36 @@ Defining the last term as $J_p$, the phasor polarization current in physics,
 \end{equation}
 Rearrange
 \begin{equation}
-  \omega^2J_p(\omega) - j\omega\gamma_pJ_p(\omega) = -\epsilon_0\omega_p^2 E(\omega)
+  j\omega\gamma_pJ_p(\omega) - \omega^2J_p(\omega) = \epsilon_0\omega_p^2 E(\omega)
 \end{equation}
 Performming inverse Fourier transformation
 \begin{equation}
   \frac{\partial^2 J_p(t)}{\partial t^2} + \gamma_p \frac{\partial J_p(t)}{\partial t} = \epsilon_0\omega_p^2\frac{\partial E(t)}{\partial t}
 \end{equation}
-Integrating once
+This is the ADE for $J_p$ for Drude Model. Then apply leapfrog scheme as general solution.
 \begin{equation}
-  \frac{\partial J_p(t)}{\partial t} + \gamma_p J_p(t) = \epsilon_0 \omega_p^2 E(t)
+  \gamma_p\frac{J_p^n-J_p^{n-2}}{2\Delta t} + \frac{J_p^n - 2J_p^{n-1} + J_p^{n-2}}{(\Delta t)^2} = \epsilon_0\omega_p^2E^{n-1}
 \end{equation}
-This is the ADE for $J_p$ for Drude Model
+rearrange 
+\begin{equation}
+  J_p^n = \frac{4}{2+ \gamma_p\Delta t} J_p^{n-1} + \frac{-2+\gamma_p\Delta t}{2+\gamma_p\Delta t}J_p^{n-2} + \frac{2\epsilon_0\omega_p^2(\Delta t)^2}{2+\gamma_p\Delta t}E^{n-1}
+\end{equation}
 
-Apply the semi-implicit scheme
-\begin{equation}
-  \left(\frac{J_p^{n+1} - J_p^n}{\Delta t}\right) + \gamma_{p}\left(\frac{J_p^{n+1} + J_p^n}{2}\right) = \epsilon_0\omega_p^2\left(\frac{E^{n+1} + E^n}{2}\right)
-\end{equation}
-Solving
-\begin{equation}
-  J_p^{n+1} = \left(\frac{1-\gamma_p\Delta t /2}{1+\gamma_p\Delta t /2}\right)J_p^n + \left(\frac{\omega_p^2\epsilon_0\Delta t /2}{1+\gamma_p\Delta t /2}\right)\left(E^{n+1}+E^n\right)
-\end{equation}
-\begin{equation}
-  \begin{split}
-    E^{n+1} & = \left(\frac{2\epsilon_0\epsilon_r - \Delta t \beta_p}{2\epsilon_0\epsilon_r + \Delta t \beta_p}\right)E^n \\
-    & + \left(\frac{2\Delta t}{2\epsilon_0\epsilon_r + \Delta t \beta_p}\right)\left(\nabla\times H^{n+1/2} - \frac{1}{2}(1+k_p)J_p^n\right)
-  \end{split}
-\end{equation}
+
+
+All coefficients of different dispersion types are summarized here
+\begin{center}
+  \begin{tabular}[c]{|r|l|c|c|c|}
+    \hline
+    Dispersion Type & $\chi_p(\omega)$ & $C_1$ & $C_2$ & $C_3$ \\
+    \hline
+    Lorentz & $\frac{\Delta \epsilon_p \omega_p^2}{\sqrt{\omega_p^2 - \delta_p^2}}e^{-\delta_p t}\sin\left(\sqrt{\omega_p^2-\delta_p^2}\ t\right)$ & $\frac{2-\omega_p^2\Delta t^2}{1+\delta_p\Delta t}$ & $\frac{-1 + \delta_p\Delta t}{1+\delta_p\Delta t}$  & $\frac{\epsilon_0\Delta\epsilon_p\omega_p^2\Delta t^2}{1+\delta_p\Delta t}$ \\
+    \hline
+    Drude & $\frac{\epsilon_0\omega_p^2}{j\omega\gamma_p-\omega^2}$ & $\frac{ 4}{ 2+\gamma_p\Delta t}$ & $\frac{ -2+\gamma_p\Delta t}{ 2+\gamma_p\Delta t}$ & $\frac{ 2\epsilon_0\omega_p^2\Delta t}{ 2+\gamma_p \Delta t}$\\
+    \hline
+  \end{tabular}
+\end{center}
+
 
 
 
