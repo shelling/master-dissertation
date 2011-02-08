@@ -214,15 +214,15 @@ The central idea of the Auxiliary Differential Equation (ADE) Method is to detac
 $J_p(\omega)$, that is, $\chi_p(\omega)E(\omega)$, from original dispersive relation.
 \begin{equation}
   \begin{split}
-    D(\omega) &= \epsilon_0\epsilon_r^*(\omega)E(\omega)\\
-    & = \epsilon_0\epsilon_rE(\omega) + \epsilon_0\sum_{p=1}^P\chi_p(\omega)E(\omega)\\
-    & = \epsilon_0\epsilon_rE(\omega) + \sum_{p=1}^{P}J_p(\omega)
+    \widetilde{D}(\omega) &= \epsilon_r^*(\omega)\widetilde{E}(\omega)\\
+    & = \epsilon_r\widetilde{E}(\omega) + \sum_{p=1}^P\chi_p(\omega)\widetilde{E}(\omega)\\
+    & = \epsilon_r\widetilde{E}(\omega) + \sum_{p=1}^{P}J_p(\omega)
   \end{split}
 \end{equation}
 For muiltipole material composed of different dispersions, $J_p$ were solved for each pole individually to attend the
 updating loop, and then $E$ can be solved via rearrangment of previous relation.
 \begin{equation}
-  E^n = \frac{1}{\epsilon_0\epsilon_r}\left(D^n - \sum_{p=1}^PJ_p^n\right)
+  \widetilde{E}^n = \frac{1}{\epsilon_r}\left(\widetilde{D}^n - \sum_{p=1}^PJ_p^n\right)
 \end{equation}
 Primitive ADE method shown in literature require deriving formulations for each dispersion type, however, a generalized
 way \textit{Alsunaidi et al.} proposed finds its strength in unifying the formulation of different dispersion models
@@ -231,60 +231,60 @@ into one form.
 Starting with the most general form of $\chi_p(\omega)$, the phasor polarization displacement can be written
 as
 \begin{equation}
-  J_p(\omega) = \frac{a}{b + j\omega c - d\omega^2}E(\omega)
+  J_p(\omega) = \frac{a}{b + j\omega c - d\omega^2}\widetilde{E}(\omega)
 \end{equation}
 Rearranging and performming inverse Fourier transform 
 \begin{equation}
-  bJ_p(\omega) + c \frac{\partial}{\partial t}J_p(\omega) + d \frac{\partial ^2}{\partial t^2}J_p(\omega) = aE(t)
+  bJ_p(\omega) + c \frac{\partial}{\partial t}J_p(\omega) + d \frac{\partial ^2}{\partial t^2}J_p(\omega) = a\widetilde{E}(t)
 \end{equation}
 apply leapfrog scheme 
 \begin{equation}
-  bJ_p^{n-1} + c \frac{J_p^n - J_p^{n-1}}{2\Delta t} + d \frac{J_p^n + 2J_p^{n-1} + J_p^{n-2}}{(\Delta t)^2} = aE^{n-1}
+  bJ_p^{n-1} + c \frac{J_p^n - J_p^{n-1}}{2\Delta t} + d \frac{J_p^n + 2J_p^{n-1} + J_p^{n-2}}{(\Delta t)^2} = a\widetilde{E}^{n-1}
 \end{equation}
 Solving 
 \begin{equation}
-  J_p^n = \frac{4d-2b(\Delta t)^2}{2d+c\Delta t}J_p^{n-1} + \frac{-2d+c\Delta t}{2d+c\Delta t}J_p^{n-2} + \frac{2a(\Delta t)^2}{2d+c\Delta t}E^{n-1}
+  J_p^n = \frac{4d-2b(\Delta t)^2}{2d+c\Delta t}J_p^{n-1} + \frac{-2d+c\Delta t}{2d+c\Delta t}J_p^{n-2} + \frac{2a(\Delta t)^2}{2d+c\Delta t}\widetilde{E}^{n-1}
 \end{equation}
 which can be written in the form 
 \begin{equation}
-  J_p^n = C_1 J_p^{n-1} + C_2 J_p^{n-2} + C_3 E^{n-1}
+  J_p^n = C_1 J_p^{n-1} + C_2 J_p^{n-2} + C_3 \widetilde{E}^{n-1}
 \end{equation}
 where $C_1$, $C_2$ and $C_3$ can be found for any form of dispersion relation.
 
 
 
 \paragraph{{\msjh Debye Model - ADE}}
-Debye Model is fun case can be induced the same form of $J_p(t)$ as RC if the semi-implicit scheme was chose. However,
+Debye model is a fun case can be induced the same form of $J_p(t)$ as RC if the semi-implicit scheme was chose. However,
 leapfrog scheme provide better accruacy. Just for verifying, result of apply semi-implicit scheme was also derived
-here. In the real wrold implementation yaFDTD, leapfrog was picked out.
+here. In the real wrold implementation \textit{\uwave{yaFDTD}}, leapfrog was picked out.
 
 Starting with constitute relation as before
 \begin{equation}
   \begin{split}
-    D(\omega) & = \epsilon_0\epsilon_r^*(\omega)E(\omega)\\
-    & =  \epsilon_0 \epsilon_rE(\omega) + \frac{\sigma}{j\omega} E(\omega) + \epsilon_0 \frac{\Delta \epsilon_p}{1+j\omega \tau_p}E(\omega)\label{eq:debye_ade_start}
+    \widetilde{D}(\omega) & = \epsilon_r^*(\omega)\widetilde{E}(\omega)\\
+    & = \epsilon_r\widetilde{E}(\omega) + \frac{\sigma}{j\omega\epsilon_0}\widetilde{E}(\omega) + \frac{\Delta \epsilon_p}{1+j\omega \tau_p}\widetilde{E}(\omega)\label{eq:debye_ade_start}
   \end{split}
 \end{equation}
 detach $J_p$
 \begin{equation}
-  J_p(\omega) = \epsilon_0 \frac{\Delta \epsilon_p}{1+j\omega \tau_p}E(\omega)
+  J_p(\omega) = \frac{\Delta \epsilon_p}{1+j\omega \tau_p}\widetilde{E}(\omega)
 \end{equation}
 This is the ADE of Debye Model
 \begin{equation}
-  J_p(\omega) + j\omega\tau_{p}J_p(\omega) = \epsilon_0\Delta\epsilon_p E(\omega)
+  J_p(\omega) + j\omega\tau_{p}J_p(\omega) = \Delta\epsilon_p\widetilde{E}(\omega)
 \end{equation}
 performming IFT 
 \begin{equation}
-  J_p(t) + \tau_p\frac{\partial}{\partial t}J_p(t) = \epsilon_0\Delta\epsilon_p E(t)
+  J_p(t) + \tau_p\frac{\partial}{\partial t}J_p(t) = \Delta\epsilon_p\widetilde{E}(t)
 \end{equation}
 apply semi-implicit scheme
 \begin{equation}
-  \left( \frac{J_p^n - J_p^{n-1}}{2} \right) + \tau_p \left( \frac{J_p^n - J_p^{n-1}}{\Delta t}\right) = \epsilon_0\Delta\epsilon_p E^n
+  \left( \frac{J_p^n - J_p^{n-1}}{2} \right) + \tau_p \left( \frac{J_p^n - J_p^{n-1}}{\Delta t}\right) = \Delta\epsilon_p\widetilde{E}^n
 \end{equation}
 Solving $J_p$
 \begin{equation}
   J_p^n = \frac{\left(1-\frac{\Delta t}{2\tau_p}\right)}{\left(1+\frac{\Delta t}{2\tau_p}\right)}J_p^{n-1} 
-  + \frac{\epsilon_0\left(\frac{\Delta\epsilon_p}{\tau_p}\right)\Delta t}{\left(1+\frac{\Delta t}{2\tau_p}\right)} E^n
+  + \frac{\left(\frac{\Delta\epsilon_p}{\tau_p}\right)\Delta t}{\left(1+\frac{\Delta t}{2\tau_p}\right)}\widetilde{E}^n
 \end{equation}
 It should be noted
 \begin{equation}
@@ -297,16 +297,16 @@ It should be noted
 \end{equation}
 That is 
 \begin{equation}
-  J_p^n \cong e^{-\frac{\Delta t}{\tau_p}}J^{n-1} + \epsilon_0 \frac{\Delta\epsilon_p}{\tau_p}\Delta t\cdot E^n
+  J_p^n \cong e^{-\frac{\Delta t}{\tau_p}}J^{n-1} + \frac{\Delta\epsilon_p}{\tau_p}\Delta t\cdot\widetilde{E}^n
 \end{equation}
 And by performming inverse Fourier transform on Eq.\ref{eq:debye_ade_start}
 \begin{equation}
-  D(t) = \epsilon_0\epsilon_rE(t) + \sigma \int_0^t E(t')dt' + J_p(t)
+  \widetilde{D}(t) = \epsilon_r\widetilde{E}(t) + \frac{\sigma}{\epsilon_0} \int_0^t\widetilde{E}(t')dt' + J_p(t)
 \end{equation}
 \begin{equation}
   \begin{split}
-    D^n & = \epsilon_0\epsilon_rE^n + \sigma\Delta t\sum_{i=0}^n E^i + J_p^n\\
-    & = \epsilon_0\epsilon_rE^n + \sigma\Delta t\cdot E^n + I^{n-1} + \epsilon_0\frac{\Delta\epsilon_p}{\tau_p}\Delta t\cdot E^n + e^{-\frac{\Delta t}{\tau_p}}J^{n-1}
+    \widetilde{D}^n & = \epsilon_r\widetilde{E}^n + \frac{\sigma}{\epsilon_0}\Delta t\sum_{i=0}^n\widetilde{E}^i + J_p^n\\
+    & = \epsilon_r\widetilde{E}^n + \frac{\sigma}{\epsilon_0}\Delta t\cdot\widetilde{E}^n + I^{n-1} + \frac{\Delta\epsilon_p}{\tau_p}\Delta t\cdot\widetilde{E}^n + e^{-\frac{\Delta t}{\tau_p}}J^{n-1}
   \end{split}
 \end{equation}
 The same result as Recursive Convolution Method.
@@ -320,7 +320,7 @@ The same result as Recursive Convolution Method.
 The coefficients are as following.
 \begin{equation*}
   \begin{array}{@{}llll@{}}
-    a = \epsilon_0\Delta\epsilon_p\omega_p^2 &
+    a = \Delta\epsilon_p\omega_p^2 &
     b = \omega_p^2 &
     c = 2\delta_p &
     d = 1
@@ -331,33 +331,33 @@ substitute into ...
   \begin{array}{@{}lll@{}}
     C_1 = \frac{\displaystyle 2-\omega_p^2\Delta t^2}{\displaystyle 1+\delta_p\Delta t} &
     C_2 = \frac{\displaystyle -1 + \delta_p\Delta t}{\displaystyle 1+\delta_p\Delta t} &
-    C_3 = \frac{\displaystyle \epsilon_0\Delta\epsilon_p\omega_p^2\Delta t^2}{\displaystyle 1+\delta_p\Delta t}
+    C_3 = \frac{\displaystyle \Delta\epsilon_p\omega_p^2\Delta t^2}{\displaystyle 1+\delta_p\Delta t}
   \end{array}
 \end{gather*}
 Formal derivation is also written down here.
 \begin{equation}
   \begin{split}
-    D(\omega) & = \epsilon_0\epsilon_r^*(\omega)E(\omega)\\
-    & = \epsilon_0\epsilon_rE(\omega) + \epsilon_0 \frac{\Delta \epsilon_p \omega_p^2}{\omega_p^2+2j\omega\delta_p-\omega^2}E(\omega)
+    \widetilde{D}(\omega) & = \epsilon_r^*(\omega)\widetilde{E}(\omega)\\
+    & = \epsilon_r\widetilde{E}(\omega) +  \frac{\Delta \epsilon_p \omega_p^2}{\omega_p^2+2j\omega\delta_p-\omega^2}\widetilde{E}(\omega)
   \end{split}
 \end{equation}
 \begin{equation}
-  J_p(\omega) = \epsilon_0 \frac{\Delta \epsilon_p \omega_p^2}{\omega_p^2+2j\omega\delta_p-\omega^2}E(\omega)
+  J_p(\omega) =  \frac{\Delta \epsilon_p \omega_p^2}{\omega_p^2+2j\omega\delta_p-\omega^2}\widetilde{E}(\omega)
 \end{equation}
 rearrange and IFT
 \begin{equation}
-  \omega_p^2J_p(t) + 2\delta_p\frac{\partial}{\partial t}J_p(t) + \frac{\partial^2}{\partial t^2}J_p(t) = \epsilon_0\Delta\epsilon_p\omega_p^2E(t)
+  \omega_p^2J_p(t) + 2\delta_p\frac{\partial}{\partial t}J_p(t) + \frac{\partial^2}{\partial t^2}J_p(t) = \Delta\epsilon_p\omega_p^2\widetilde{E}(t)
 \end{equation}
 apply leapfrog scheme 
 \begin{equation}
-  \omega_p^2J_p^{n-1} + \delta_p\frac{J_p^n - J_p^{n-2}}{\Delta t} + \frac{J_p^n - 2 J_p^{n-1} + J_p^{n-2}}{\Delta t^2} = \epsilon_0\Delta\epsilon_p\omega_p^2E^{n-1}
+  \omega_p^2J_p^{n-1} + \delta_p\frac{J_p^n - J_p^{n-2}}{\Delta t} + \frac{J_p^n - 2 J_p^{n-1} + J_p^{n-2}}{\Delta t^2} = \Delta\epsilon_p\omega_p^2\widetilde{E}^{n-1}
 \end{equation}
 rearrange 
 \begin{equation}
   J_p^n = 
   \frac{ 2-\omega_p^2\Delta t^2}{ 1+\delta_p\Delta t} J_p^{n-1} +
   \frac{ -1 + \delta_p\Delta t}{ 1+\delta_p\Delta t} J_p^{n-2} + 
-  \frac{ \epsilon_0\Delta\epsilon_p\omega_p^2\Delta t^2}{ 1+\delta_p\Delta t} E^{n-1}
+  \frac{ \Delta\epsilon_p\omega_p^2\Delta t^2}{ 1+\delta_p\Delta t}\widetilde{E}^{n-1}
 \end{equation}
 as the result showed by general form of $C_1$, $C_2$, $C_3$.
 
@@ -366,29 +366,29 @@ as the result showed by general form of $C_1$, $C_2$, $C_3$.
 \paragraph{\msjh Drude Model - ADE} Drude pole lacks the b coefficient when comparing to general form.
 \begin{equation}
   \begin{split}
-    D(\omega) & = \epsilon_0\epsilon_r^*(\omega)E(\omega)\\
-    & = \epsilon_0 \epsilon_r E(\omega) - \epsilon_0\frac{\omega_p^2}{\omega(\omega-j\gamma_p)}E(\omega)
+    \widetilde{D}(\omega) & = \epsilon_r^*(\omega)\widetilde{E}(\omega)\\
+    & =  \epsilon_r\widetilde{E}(\omega) - \frac{\omega_p^2}{\omega(\omega-j\gamma_p)}\widetilde{E}(\omega)
   \end{split}
 \end{equation}
 Defining the last term as $J_p$, the phasor polarization current in physics,
 \begin{equation}
-  J_p(\omega) = -\epsilon_0\frac{\omega_p^2}{\omega(\omega-j\gamma_p)}E(\omega)
+  J_p(\omega) = -\frac{\omega_p^2}{\omega(\omega-j\gamma_p)}\epsilon{E}(\omega)
 \end{equation}
 Rearrange
 \begin{equation}
-  j\omega\gamma_pJ_p(\omega) - \omega^2J_p(\omega) = \epsilon_0\omega_p^2 E(\omega)
+  j\omega\gamma_pJ_p(\omega) - \omega^2J_p(\omega) = \omega_p^2\widetilde{E}(\omega)
 \end{equation}
 Performming inverse Fourier transformation
 \begin{equation}
-  \frac{\partial^2 J_p(t)}{\partial t^2} + \gamma_p \frac{\partial J_p(t)}{\partial t} = \epsilon_0\omega_p^2\frac{\partial E(t)}{\partial t}
+  \frac{\partial^2 J_p(t)}{\partial t^2} + \gamma_p \frac{\partial J_p(t)}{\partial t} = \omega_p^2\frac{\partial\widetilde{E}(t)}{\partial t}
 \end{equation}
 This is the ADE for $J_p$ for Drude Model. Then apply leapfrog scheme as general solution.
 \begin{equation}
-  \gamma_p\frac{J_p^n-J_p^{n-2}}{2\Delta t} + \frac{J_p^n - 2J_p^{n-1} + J_p^{n-2}}{(\Delta t)^2} = \epsilon_0\omega_p^2E^{n-1}
+  \gamma_p\frac{J_p^n-J_p^{n-2}}{2\Delta t} + \frac{J_p^n - 2J_p^{n-1} + J_p^{n-2}}{(\Delta t)^2} = \omega_p^2\widetilde{E}^{n-1}
 \end{equation}
 rearrange 
 \begin{equation}
-  J_p^n = \frac{4}{2+ \gamma_p\Delta t} J_p^{n-1} + \frac{-2+\gamma_p\Delta t}{2+\gamma_p\Delta t}J_p^{n-2} + \frac{2\epsilon_0\omega_p^2(\Delta t)^2}{2+\gamma_p\Delta t}E^{n-1}
+  J_p^n = \frac{4}{2+ \gamma_p\Delta t} J_p^{n-1} + \frac{-2+\gamma_p\Delta t}{2+\gamma_p\Delta t}J_p^{n-2} + \frac{2\omega_p^2(\Delta t)^2}{2+\gamma_p\Delta t}\widetilde{E}^{n-1}
 \end{equation}
 
 
@@ -399,9 +399,9 @@ All coefficients of different dispersion types are summarized here
     \hline
     Dispersion Type & $\chi_p(\omega)$ & $C_1$ & $C_2$ & $C_3$ \\
     \hline
-    Lorentz & $\frac{\Delta \epsilon_p \omega_p^2}{\sqrt{\omega_p^2 - \delta_p^2}}e^{-\delta_p t}\sin\left(\sqrt{\omega_p^2-\delta_p^2}\ t\right)$ & $\frac{2-\omega_p^2\Delta t^2}{1+\delta_p\Delta t}$ & $\frac{-1 + \delta_p\Delta t}{1+\delta_p\Delta t}$  & $\frac{\epsilon_0\Delta\epsilon_p\omega_p^2\Delta t^2}{1+\delta_p\Delta t}$ \\
+    Lorentz & $\frac{\Delta \epsilon_p \omega_p^2}{\sqrt{\omega_p^2 - \delta_p^2}}e^{-\delta_p t}\sin\left(\sqrt{\omega_p^2-\delta_p^2}\ t\right)$ & $\frac{2-\omega_p^2\Delta t^2}{1+\delta_p\Delta t}$ & $\frac{-1 + \delta_p\Delta t}{1+\delta_p\Delta t}$  & $\frac{\Delta\epsilon_p\omega_p^2\Delta t^2}{1+\delta_p\Delta t}$ \\
     \hline
-    Drude & $\frac{\epsilon_0\omega_p^2}{j\omega\gamma_p-\omega^2}$ & $\frac{ 4}{ 2+\gamma_p\Delta t}$ & $\frac{ -2+\gamma_p\Delta t}{ 2+\gamma_p\Delta t}$ & $\frac{ 2\epsilon_0\omega_p^2\Delta t}{ 2+\gamma_p \Delta t}$\\
+    Drude & $\frac{\epsilon_0\omega_p^2}{j\omega\gamma_p-\omega^2}$ & $\frac{ 4}{ 2+\gamma_p\Delta t}$ & $\frac{ -2+\gamma_p\Delta t}{ 2+\gamma_p\Delta t}$ & $\frac{ 2\omega_p^2\Delta t^2}{ 2+\gamma_p \Delta t}$\\
     \hline
   \end{tabular}
 \end{center}
