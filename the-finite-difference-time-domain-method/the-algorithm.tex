@@ -144,6 +144,29 @@ Extend to Cartesian coordinate system.
   \frac{\partial}{\partial t}\widetilde{B}_y =-\frac{1}{\sqrt{\mu_0\epsilon_0}}\left(\frac{\partial \widetilde{E}_x}{\partial z} - \frac{\partial \widetilde{E}_z}{\partial x}\right)\label{eq:up_b_y}\\
   \frac{\partial}{\partial t}\widetilde{B}_z =-\frac{1}{\sqrt{\mu_0\epsilon_0}}\left(\frac{\partial \widetilde{E}_y}{\partial x} - \frac{\partial \widetilde{E}_x}{\partial y}\right)\label{eq:up_b_z}
 \end{gather}
+Discrete use semi-implicit scheme
+\begin{gather}
+  \begin{array}{@{}l@{}}
+    \displaystyle \frac{\widetilde{D}_x|_{i+\frac{1}{2},j,k}^{n+\frac{1}{2}} - \widetilde{D}_x|_{i+\frac{1}{2},j,k}^{n-\frac{1}{2}}}{\Delta t} = \\
+    \displaystyle c_0\left(\frac{H_z|_{i+\frac{1}{2},j+\frac{1}{2},k}^{n} - H_z|_{i+\frac{1}{2},j-\frac{1}{2},k}^{n}}{\Delta y} - \frac{H_y|_{i+\frac{1}{2},j,k+\frac{1}{2}}^{n} - H_y|_{i+\frac{1}{2},j,k-\frac{1}{2}}^{n}}{\Delta z}\right)\\
+    \displaystyle \frac{\widetilde{D}_y|_{i,j+\frac{1}{2},k}^{n+\frac{1}{2}} - \widetilde{D}_x|_{i,j+\frac{1}{2},k}^{n-\frac{1}{2}}}{\Delta t} = \\
+    \displaystyle c_0\left(\frac{H_x|_{i,j+\frac{1}{2},k+\frac{1}{2}}^{n} - H_x|_{i,j+\frac{1}{2},k-\frac{1}{2}}^{n}}{\Delta z} - \frac{H_y|_{i+\frac{1}{2},j+\frac{1}{2},k}^{n} - H_y|_{i-\frac{1}{2},j+\frac{1}{2},k}^{n}}{\Delta x}\right)\\
+    \displaystyle \frac{\widetilde{D}_z|_{i,j,k+\frac{1}{2}}^{n+\frac{1}{2}} - \widetilde{D}_z|_{i,j,k+\frac{1}{2}}^{n-\frac{1}{2}}}{\Delta t} = \\
+    \displaystyle c_0\left(\frac{H_y|_{i+\frac{1}{2},j,k+\frac{1}{2}}^{n} - H_y|_{i-\frac{1}{2},j,k+\frac{1}{2}}^{n}}{\Delta x} - \frac{H_x|_{i,j+\frac{1}{2},k+\frac{1}{2}}^{n} - H_x|_{i,j-\frac{1}{2},k+\frac{1}{2}}^{n}}{\Delta y}\right)
+  \end{array}
+\end{gather}
+
+\begin{equation}
+  k+\frac{1}{2}\rightarrow k\quad \mathrm{and} \quad
+  k-\frac{1}{2}\rightarrow k-1
+\end{equation}
+\begin{code}
+  D_x[i,j,k] = D_x[i,j,k] 
+  + 0.5 * ( H_z[i,j,k] - H_z[i,j-1,k] - H_y[i,j,k] + H_y[i,j,k-1] )
+\end{code}
+
+
+
 
 \subsection{Reduction in Dimensions}
 There are three selections to choose a one dimension EM string: $\mathrm{TEM_x}$ ($\mathrm{E_{y}}$, $\mathrm{H_{z}}$,
@@ -157,7 +180,7 @@ case.
 \end{gather*}
 The choice implies
 \begin{displaymath}
-  \frac{\partial}{\partial x} \rightarrow 0\quad
+  \frac{\partial}{\partial x} \rightarrow 0\quad \mathrm{and} \quad
   \frac{\partial}{\partial y} \rightarrow 0
 \end{displaymath}
 apply
@@ -167,13 +190,13 @@ apply
 \end{gather}
 Discrete
 \begin{gather}
-  \frac{\widetilde{D}_x|_k^{n+1/2} - \widetilde{D}_x|_k^{n-1/2}}{\Delta t} = -c_0\cdot\frac{H_y|_{k+1/2}^n - H_y|_{k-1/2}^n}{\Delta z}\\
-  \frac{\widetilde{B}_y|_{k+1/2}^{n+1} - \widetilde{B}_y|_{k+1/2}^n}{\Delta t} = -c_0\cdot\frac{E_x|_{k+1}^{n+1/2} - E_x|_{k}^{n+1/2}}{\Delta z}
+  \frac{\widetilde{D}_x|_k^{n+\frac{1}{2}} - \widetilde{D}_x|_k^{n-\frac{1}{2}}}{\Delta t} = -c_0\cdot\frac{H_y|_{k+\frac{1}{2}}^n - H_y|_{k-\frac{1}{2}}^n}{\Delta z}\\
+  \frac{\widetilde{B}_y|_{k+\frac{1}{2}}^{n+1} - \widetilde{B}_y|_{k+\frac{1}{2}}^n}{\Delta t} = -c_0\cdot\frac{E_x|_{k+1}^{n+\frac{1}{2}} - E_x|_{k}^{n+\frac{1}{2}}}{\Delta z}
 \end{gather}
 That is
 \begin{gather}
-  \widetilde{D}_x|_k^{n+1/2} = \widetilde{D}_x|_k^{n-1/2} - \frac{c_0\Delta t}{\Delta z}\left( H_y|_{k+1/2}^n - H_y|_{k-1/2}^n \right)\\
-  \widetilde{B}_y|_{k+1/2}^{n+1} = \widetilde{B}_y|_{k+1/2}^{n} = - \frac{c_0\Delta t}{\Delta z}\left( E_x|_{k+1}^{n+1/2} - E_x|_{k}^{n+1/2} \right)
+  \widetilde{D}_x|_k^{n+\frac{1}{2}} = \widetilde{D}_x|_k^{n-\frac{1}{2}} - \frac{c_0\Delta t}{\Delta z}\left( H_y|_{k+\frac{1}{2}}^n - H_y|_{k-\frac{1}{2}}^n \right)\\
+  \widetilde{B}_y|_{k+\frac{1}{2}}^{n+1} = \widetilde{B}_y|_{k+\frac{1}{2}}^{n} = - \frac{c_0\Delta t}{\Delta z}\left( E_x|_{k+1}^{n+\frac{1}{2}} - E_x|_{k}^{n+\frac{1}{2}} \right)
 \end{gather}
 Here is the code
 \begin{code}
