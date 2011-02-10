@@ -100,27 +100,27 @@ Apply RC to simple conductive material having definition as
 \end{displaymath}
 \begin{displaymath}
   \begin{split}
-    D(\omega) & = \epsilon_0 \epsilon_r^{*}(\omega) E(\omega)\\
-    & = \epsilon_0 \epsilon_r E(\omega) + \frac{\sigma}{j\omega}E(\omega)
+    \widetilde{D}(\omega) & = \epsilon_r^{*}(\omega)\widetilde{E}(\omega)\\
+    & = \epsilon_r\widetilde{E}(\omega) + \frac{\sigma}{j\omega\epsilon_0}\widetilde{E}(\omega)
   \end{split}
 \end{displaymath}
 \begin{displaymath}
-  D(t) = \epsilon_0 \epsilon_rE(t) + \sigma \int_0^t E(t')dt'
+  D(t) = \epsilon_r\widetilde{E}(t) + \frac{\sigma}{\epsilon_0}\int_0^t\widetilde{E}(t')dt'
 \end{displaymath}
 \begin{displaymath}
-    D^n = \epsilon_0 \epsilon_r E^n + \sigma \Delta t \sum_{i=0}^{n}E^i
+    D^n = \epsilon_r\widetilde{E}^n + \frac{\sigma}{\epsilon_0}\Delta t \sum_{i=0}^{n}\widetilde{E}^i
 \end{displaymath}
 The second term: dissipated displacement -> $I^n$, in recursive form
 \begin{equation}
-  I^n = \sigma\Delta t\cdot E^n + \sigma\Delta t\sum_{i=0}^{n-1}E^i = \sigma\Delta t\cdot E^n + I^{n-1}
+  I^n = \frac{\sigma}{\epsilon_0}\Delta t\cdot\widetilde{E}^n + \frac{\sigma}{\epsilon_0}\Delta t\sum_{i=0}^{n-1}\widetilde{E}^i = \frac{\sigma}{\epsilon_0}\Delta t\cdot\widetilde{E}^n + I^{n-1}
 \end{equation}
 \begin{equation}
-    D^n = \epsilon_0 \epsilon_r E^n + I^n = (\epsilon_0 \epsilon_r + \sigma \Delta t) E^n + I^{n-1}
+  \widetilde{D}^n = \epsilon_r\widetilde{E}^n + I^n = (\epsilon_r + \frac{\sigma}{\epsilon_0}\Delta t)\widetilde{E}^n + I^{n-1}
 \end{equation}
 Finally, the update equations becomes
 \begin{gather*}
-  E^n = \frac{D^n - I^{n-1}}{\epsilon_0 \epsilon_r + \sigma \Delta t}\\
-  I^n = I^{n-1} + \sigma \Delta t\cdot E^n
+  \widetilde{E}^n = \frac{\widetilde{D}^n - I^{n-1}}{\displaystyle \epsilon_r +\frac{\sigma}{\epsilon_0}\Delta t}\\
+  I^n = I^{n-1} + \frac{\sigma}{\epsilon_0}\Delta t\cdot E^n
 \end{gather*}
 implementation
 \begin{code}
