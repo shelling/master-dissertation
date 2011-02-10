@@ -148,11 +148,17 @@ Discrete use semi-implicit scheme
 \begin{gather}
   \begin{array}{@{}l@{}}
     \displaystyle \frac{\widetilde{D}_x|_{i+\frac{1}{2},j,k}^{n+\frac{1}{2}} - \widetilde{D}_x|_{i+\frac{1}{2},j,k}^{n-\frac{1}{2}}}{\Delta t} = \\
-    \displaystyle c_0\left(\frac{H_z|_{i+\frac{1}{2},j+\frac{1}{2},k}^{n} - H_z|_{i+\frac{1}{2},j-\frac{1}{2},k}^{n}}{\Delta y} - \frac{H_y|_{i+\frac{1}{2},j,k+\frac{1}{2}}^{n} - H_y|_{i+\frac{1}{2},j,k-\frac{1}{2}}^{n}}{\Delta z}\right)\\
+    \displaystyle c_0\left(\frac{H_z|_{i+\frac{1}{2},j+\frac{1}{2},k}^{n} - H_z|_{i+\frac{1}{2},j-\frac{1}{2},k}^{n}}{\Delta y} - \frac{H_y|_{i+\frac{1}{2},j,k+\frac{1}{2}}^{n} - H_y|_{i+\frac{1}{2},j,k-\frac{1}{2}}^{n}}{\Delta z}\right)\\[3em]
     \displaystyle \frac{\widetilde{D}_y|_{i,j+\frac{1}{2},k}^{n+\frac{1}{2}} - \widetilde{D}_x|_{i,j+\frac{1}{2},k}^{n-\frac{1}{2}}}{\Delta t} = \\
-    \displaystyle c_0\left(\frac{H_x|_{i,j+\frac{1}{2},k+\frac{1}{2}}^{n} - H_x|_{i,j+\frac{1}{2},k-\frac{1}{2}}^{n}}{\Delta z} - \frac{H_y|_{i+\frac{1}{2},j+\frac{1}{2},k}^{n} - H_y|_{i-\frac{1}{2},j+\frac{1}{2},k}^{n}}{\Delta x}\right)\\
+    \displaystyle c_0\left(\frac{H_x|_{i,j+\frac{1}{2},k+\frac{1}{2}}^{n} - H_x|_{i,j+\frac{1}{2},k-\frac{1}{2}}^{n}}{\Delta z} - \frac{H_y|_{i+\frac{1}{2},j+\frac{1}{2},k}^{n} - H_y|_{i-\frac{1}{2},j+\frac{1}{2},k}^{n}}{\Delta x}\right)\\[3em]
     \displaystyle \frac{\widetilde{D}_z|_{i,j,k+\frac{1}{2}}^{n+\frac{1}{2}} - \widetilde{D}_z|_{i,j,k+\frac{1}{2}}^{n-\frac{1}{2}}}{\Delta t} = \\
-    \displaystyle c_0\left(\frac{H_y|_{i+\frac{1}{2},j,k+\frac{1}{2}}^{n} - H_y|_{i-\frac{1}{2},j,k+\frac{1}{2}}^{n}}{\Delta x} - \frac{H_x|_{i,j+\frac{1}{2},k+\frac{1}{2}}^{n} - H_x|_{i,j-\frac{1}{2},k+\frac{1}{2}}^{n}}{\Delta y}\right)
+    \displaystyle c_0\left(\frac{H_y|_{i+\frac{1}{2},j,k+\frac{1}{2}}^{n} - H_y|_{i-\frac{1}{2},j,k+\frac{1}{2}}^{n}}{\Delta x} - \frac{H_x|_{i,j+\frac{1}{2},k+\frac{1}{2}}^{n} - H_x|_{i,j-\frac{1}{2},k+\frac{1}{2}}^{n}}{\Delta y}\right)\\[3em]
+    \displaystyle \frac{\widetilde{B}_x|_{i,j+\frac{1}{2},k+\frac{1}{2}}^{n+\frac{1}{2}} - \widetilde{B}_x|_{i,j+\frac{1}{2},k+\frac{1}{2}}^{n-\frac{1}{2}}}{\Delta t} = \\
+    \displaystyle c_0\left(\frac{\widetilde{E}_z|_{i,j+1,k+\frac{1}{2}}^{n} - \widetilde{E}_z|_{i,j,k+\frac{1}{2}}^{n}}{\Delta y} - \frac{\widetilde{E}_y|_{i,j+\frac{1}{2},k+1}^n - \widetilde{E}_y|_{i,j+\frac{1}{2},k}^n}{\Delta z}\right)\\[3em]
+    \displaystyle \frac{\widetilde{B}_y|_{i,j+\frac{1}{2},k+\frac{1}{2}}^{n+\frac{1}{2}} - \widetilde{B}_y|_{i,j+\frac{1}{2},k+\frac{1}{2}}^{n-\frac{1}{2}}}{\Delta t} = \\
+    \displaystyle c_0\left(\frac{\widetilde{E}_x|_{i,j+1,k+\frac{1}{2}}^{n} - \widetilde{E}_x|_{i,j,k+\frac{1}{2}}^{n}}{\Delta z} - \frac{\widetilde{E}_z|_{i,j+\frac{1}{2},k+1}^n - \widetilde{E}_z|_{i,j+\frac{1}{2},k}^n}{\Delta x}\right)\\[3em]
+    \displaystyle \frac{\widetilde{B}_z|_{i,j+\frac{1}{2},k+\frac{1}{2}}^{n+\frac{1}{2}} - \widetilde{B}_z|_{i,j+\frac{1}{2},k+\frac{1}{2}}^{n-\frac{1}{2}}}{\Delta t} = \\
+    \displaystyle c_0\left(\frac{\widetilde{E}_y|_{i,j+1,k+\frac{1}{2}}^{n} - \widetilde{E}_y|_{i,j,k+\frac{1}{2}}^{n}}{\Delta x} - \frac{\widetilde{E}_x|_{i,j+\frac{1}{2},k+1}^n - \widetilde{E}_x|_{i,j+\frac{1}{2},k}^n}{\Delta y}\right)
   \end{array}
 \end{gather}
 
