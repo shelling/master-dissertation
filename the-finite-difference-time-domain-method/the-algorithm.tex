@@ -162,7 +162,44 @@ Discrete use semi-implicit scheme
     \displaystyle - c_0\left(\frac{\widetilde{E}_y|_{i+1,j+\frac{1}{2},k}^{n+\frac{1}{2}} - \widetilde{E}_y|_{i,j+\frac{1}{2},k}^{n+\frac{1}{2}}}{\Delta x} - \frac{\widetilde{E}_x|_{i+\frac{1}{2},j+1,k}^{n+\frac{1}{2}} - \widetilde{E}_x|_{i+\frac{1}{2},j,k}^{n+\frac{1}{2}}}{\Delta y}\right)
   \end{array}
 \end{gather}
-
+Throughout this thesis, we use regular grid, that is, $\Delta x = \Delta y = \Delta z$. That means we could rewrite update equations as
+\begin{equation}
+  \begin{split}
+    \widetilde{D}_x|_{i+\frac{1}{2},j,k}^{n+\frac{1}{2}} & = \widetilde{D}_x|_{i+\frac{1}{2},j,k}^{n-\frac{1}{2}}\\
+    & + \frac{c_0\Delta t}{\Delta x}\left(H_z|_{i+\frac{1}{2},j+\frac{1}{2},k}^{n} - H_z|_{i+\frac{1}{2},j-\frac{1}{2},k}^{n} - H_y|_{i+\frac{1}{2},j,k+\frac{1}{2}}^{n} + H_y|_{i+\frac{1}{2},j,k-\frac{1}{2}}^{n}\right)
+  \end{split}
+\end{equation}
+\begin{equation}
+  \begin{split}
+    \widetilde{D}_y|_{i,j+\frac{1}{2},k}^{n+\frac{1}{2}} & = \widetilde{D}_x|_{i,j+\frac{1}{2},k}^{n-\frac{1}{2}}\\
+    & + \frac{c_0\Delta t}{\Delta x}\left(H_x|_{i,j+\frac{1}{2},k+\frac{1}{2}}^{n} - H_x|_{i,j+\frac{1}{2},k-\frac{1}{2}}^{n} - H_z|_{i+\frac{1}{2},j+\frac{1}{2},k}^{n} + H_z|_{i-\frac{1}{2},j+\frac{1}{2},k}^{n}\right)
+  \end{split}
+\end{equation}
+\begin{equation}
+  \begin{split}
+    \widetilde{D}_z|_{i,j,k+\frac{1}{2}}^{n+\frac{1}{2}} & = \widetilde{D}_z|_{i,j,k+\frac{1}{2}}^{n-\frac{1}{2}}\\
+    & + \frac{c_0\Delta t}{\Delta x}\left(H_y|_{i+\frac{1}{2},j,k+\frac{1}{2}}^{n} - H_y|_{i-\frac{1}{2},j,k+\frac{1}{2}}^{n} - H_x|_{i,j+\frac{1}{2},k+\frac{1}{2}}^{n} + H_x|_{i,j-\frac{1}{2},k+\frac{1}{2}}^{n}\right)
+  \end{split}
+\end{equation}
+\begin{equation}
+  \begin{split}
+    \widetilde{B}_x|_{i,j+\frac{1}{2},k+\frac{1}{2}}^{n+1} & = \widetilde{B}_x|_{i,j+\frac{1}{2},k+\frac{1}{2}}^{n}\\
+    & - \frac{c_0\Delta t}{\Delta x}\left(\widetilde{E}_z|_{i,j+1,k+\frac{1}{2}}^{n+\frac{1}{2}} - \widetilde{E}_z|_{i,j,k+\frac{1}{2}}^{n+\frac{1}{2}} - \widetilde{E}_y|_{i,j+\frac{1}{2},k+1}^{n+\frac{1}{2}} - \widetilde{E}_y|_{i,j+\frac{1}{2},k}^{n+\frac{1}{2}}\right)
+  \end{split}
+\end{equation}
+\begin{equation}
+  \begin{split}
+    \widetilde{B}_y|_{i+\frac{1}{2},j,k+\frac{1}{2}}^{n+1} & = \widetilde{B}_y|_{i+\frac{1}{2},j,k+\frac{1}{2}}^{n}\\
+    & - \frac{c_0\Delta t}{\Delta x}\left(\widetilde{E}_x|_{i+\frac{1}{2},j,k+1}^{n+\frac{1}{2}} - \widetilde{E}_x|_{i+\frac{1}{2},j,k}^{n+\frac{1}{2}} - \widetilde{E}_z|_{i+1,j,k+\frac{1}{2}}^{n+\frac{1}{2}} - \widetilde{E}_z|_{i,j,k+\frac{1}{2}}^{n+\frac{1}{2}}\right)
+  \end{split}
+\end{equation}
+\begin{equation}
+  \begin{split}
+    \widetilde{B}_z|_{i+\frac{1}{2},j+\frac{1}{2},k}^{n+1} & = \widetilde{B}_z|_{i+\frac{1}{2},j+\frac{1}{2},k}^{n}\\
+    & - \frac{c_0\Delta t}{\Delta x}\left(\widetilde{E}_y|_{i+1,j+\frac{1}{2},k}^{n+\frac{1}{2}} - \widetilde{E}_y|_{i,j+\frac{1}{2},k}^{n+\frac{1}{2}} - \widetilde{E}_x|_{i+\frac{1}{2},j+1,k}^{n+\frac{1}{2}} - \widetilde{E}_x|_{i+\frac{1}{2},j,k}^{n+\frac{1}{2}}\right)
+  \end{split}
+\end{equation}
+This is complete update equations derived for 3D cases.
 \begin{equation}
   k+\frac{1}{2}\rightarrow k\quad \mathrm{and} \quad
   k-\frac{1}{2}\rightarrow k-1
@@ -186,9 +223,19 @@ end
 \end{code}
 
 
+\subsection{Stability}
+Courant Conditions, Courant Number
+\begin{equation}
+  \Delta t \le \frac{\Delta x}{\sqrt{n}\cdot c_0}
+\end{equation}
+where n is the dimension of the simulation. For the convenience of designing mentioned latter, throughout this thesis we determine
+$\Delta t$ by
+\begin{equation}
+  \Delta t = \frac{\Delta x}{2 \cdot c_0}
+\end{equation}
 
 
-\subsection{Reduction in Dimensions}
+\subsection{Reduction to One Dimensions}
 There are three selections to choose a one dimension EM string: $\mathrm{TEM_x}$ ($\mathrm{E_{y}}$, $\mathrm{H_{z}}$,
 $\mathrm{k_x}$), $\mathrm{TEM_y}$ ($\mathrm{E_z}$, $\mathrm{H_x}$, $\mathrm{k_y}$), and $\mathrm{TEM_z}$
 ($\mathrm{E_x}$, $\mathrm{H_y}$, $\mathrm{k_z}$). Similarly, $\mathrm{TEM_z}$ is the default choice when saying
@@ -229,7 +276,7 @@ end
 
 
 
-
+\subsection{Reduction to Two Dimensions}
 There are 6 selections for us to choose a two dimensions EM plane: $\mathrm{TM_{x}} $, $\mathrm{TE_{x}}$,
 $\mathrm{TM_{y}}$, $\mathrm{TE_{y}}$, $\mathrm{TM_{z}}$, $\mathrm{TE_{z}}$. By default, the choice in this thesis follow
 the book of Taflove using $\mathrm{TM_{z}}$ ($\mathrm{H_x}$, $\mathrm{H_y}$, and $\mathrm{E_z}$) and $\mathrm{TE_{z}}$
@@ -304,13 +351,3 @@ end
 
 
 
-\subsection{Stability}
-Courant Conditions, Courant Number
-\begin{equation}
-  \Delta t \le \frac{\Delta x}{\sqrt{n}\cdot c_0}
-\end{equation}
-where n is the dimension of the simulation. For the convenience of designing mentioned latter, throughout this thesis we determine
-$\Delta t$ by
-\begin{equation}
-  \Delta t = \frac{\Delta x}{2 \cdot c_0}
-\end{equation}
