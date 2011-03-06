@@ -144,6 +144,7 @@ Extend to Cartesian coordinate system.
   \frac{\partial}{\partial t}\widetilde{B}_y =-\frac{1}{\sqrt{\mu_0\epsilon_0}}\left(\frac{\partial \widetilde{E}_x}{\partial z} - \frac{\partial \widetilde{E}_z}{\partial x}\right)\label{eq:up_b_y}\\
   \frac{\partial}{\partial t}\widetilde{B}_z =-\frac{1}{\sqrt{\mu_0\epsilon_0}}\left(\frac{\partial \widetilde{E}_y}{\partial x} - \frac{\partial \widetilde{E}_x}{\partial y}\right)\label{eq:up_b_z}
 \end{gather}
+\clearpage
 Discrete use semi-implicit scheme
 \begin{gather}
   \begin{array}{@{}l@{}}
@@ -153,12 +154,12 @@ Discrete use semi-implicit scheme
     \displaystyle c_0\left(\frac{H_x|_{i,j+\frac{1}{2},k+\frac{1}{2}}^{n} - H_x|_{i,j+\frac{1}{2},k-\frac{1}{2}}^{n}}{\Delta z} - \frac{H_z|_{i+\frac{1}{2},j+\frac{1}{2},k}^{n} - H_z|_{i-\frac{1}{2},j+\frac{1}{2},k}^{n}}{\Delta x}\right)\\[3em]
     \displaystyle \frac{\widetilde{D}_z|_{i,j,k+\frac{1}{2}}^{n+\frac{1}{2}} - \widetilde{D}_z|_{i,j,k+\frac{1}{2}}^{n-\frac{1}{2}}}{\Delta t} = \\
     \displaystyle c_0\left(\frac{H_y|_{i+\frac{1}{2},j,k+\frac{1}{2}}^{n} - H_y|_{i-\frac{1}{2},j,k+\frac{1}{2}}^{n}}{\Delta x} - \frac{H_x|_{i,j+\frac{1}{2},k+\frac{1}{2}}^{n} - H_x|_{i,j-\frac{1}{2},k+\frac{1}{2}}^{n}}{\Delta y}\right)\\[3em]
-    \displaystyle \frac{\widetilde{B}_x|_{i,j+\frac{1}{2},k+\frac{1}{2}}^{n+\frac{1}{2}} - \widetilde{B}_x|_{i,j+\frac{1}{2},k+\frac{1}{2}}^{n-\frac{1}{2}}}{\Delta t} = \\
-    \displaystyle c_0\left(\frac{\widetilde{E}_z|_{i,j+1,k+\frac{1}{2}}^{n} - \widetilde{E}_z|_{i,j,k+\frac{1}{2}}^{n}}{\Delta y} - \frac{\widetilde{E}_y|_{i,j+\frac{1}{2},k+1}^n - \widetilde{E}_y|_{i,j+\frac{1}{2},k}^n}{\Delta z}\right)\\[3em]
-    \displaystyle \frac{\widetilde{B}_y|_{i+\frac{1}{2},j,k+\frac{1}{2}}^{n+\frac{1}{2}} - \widetilde{B}_y|_{i+\frac{1}{2},j,k+\frac{1}{2}}^{n-\frac{1}{2}}}{\Delta t} = \\
-    \displaystyle c_0\left(\frac{\widetilde{E}_x|_{i+\frac{1}{2},j,k+1}^{n} - \widetilde{E}_x|_{i+\frac{1}{2},j,k}^{n}}{\Delta z} - \frac{\widetilde{E}_z|_{i+1,j,k+\frac{1}{2}}^n - \widetilde{E}_z|_{i,j,k+\frac{1}{2}}^n}{\Delta x}\right)\\[3em]
-    \displaystyle \frac{\widetilde{B}_z|_{i+\frac{1}{2},j+\frac{1}{2},k}^{n+\frac{1}{2}} - \widetilde{B}_z|_{i+\frac{1}{2},j+\frac{1}{2},k}^{n-\frac{1}{2}}}{\Delta t} = \\
-    \displaystyle c_0\left(\frac{\widetilde{E}_y|_{i+1,j+\frac{1}{2},k}^{n} - \widetilde{E}_y|_{i,j+\frac{1}{2},k}^{n}}{\Delta x} - \frac{\widetilde{E}_x|_{i+\frac{1}{2},j+1,k}^n - \widetilde{E}_x|_{i+\frac{1}{2},j,k}^n}{\Delta y}\right)
+    \displaystyle \frac{\widetilde{B}_x|_{i,j+\frac{1}{2},k+\frac{1}{2}}^{n+1} - \widetilde{B}_x|_{i,j+\frac{1}{2},k+\frac{1}{2}}^{n}}{\Delta t} = \\
+    \displaystyle - c_0\left(\frac{\widetilde{E}_z|_{i,j+1,k+\frac{1}{2}}^{n+\frac{1}{2}} - \widetilde{E}_z|_{i,j,k+\frac{1}{2}}^{n+\frac{1}{2}}}{\Delta y} - \frac{\widetilde{E}_y|_{i,j+\frac{1}{2},k+1}^{n+\frac{1}{2}} - \widetilde{E}_y|_{i,j+\frac{1}{2},k}^{n+\frac{1}{2}}}{\Delta z}\right)\\[3em]
+    \displaystyle \frac{\widetilde{B}_y|_{i+\frac{1}{2},j,k+\frac{1}{2}}^{n+1} - \widetilde{B}_y|_{i+\frac{1}{2},j,k+\frac{1}{2}}^{n}}{\Delta t} = \\
+    \displaystyle - c_0\left(\frac{\widetilde{E}_x|_{i+\frac{1}{2},j,k+1}^{n+\frac{1}{2}} - \widetilde{E}_x|_{i+\frac{1}{2},j,k}^{n+\frac{1}{2}}}{\Delta z} - \frac{\widetilde{E}_z|_{i+1,j,k+\frac{1}{2}}^{n+\frac{1}{2}} - \widetilde{E}_z|_{i,j,k+\frac{1}{2}}^{n+\frac{1}{2}}}{\Delta x}\right)\\[3em]
+    \displaystyle \frac{\widetilde{B}_z|_{i+\frac{1}{2},j+\frac{1}{2},k}^{n+1} - \widetilde{B}_z|_{i+\frac{1}{2},j+\frac{1}{2},k}^{n}}{\Delta t} = \\
+    \displaystyle - c_0\left(\frac{\widetilde{E}_y|_{i+1,j+\frac{1}{2},k}^{n+\frac{1}{2}} - \widetilde{E}_y|_{i,j+\frac{1}{2},k}^{n+\frac{1}{2}}}{\Delta x} - \frac{\widetilde{E}_x|_{i+\frac{1}{2},j+1,k}^{n+\frac{1}{2}} - \widetilde{E}_x|_{i+\frac{1}{2},j,k}^{n+\frac{1}{2}}}{\Delta y}\right)
   \end{array}
 \end{gather}
 
@@ -166,9 +167,22 @@ Discrete use semi-implicit scheme
   k+\frac{1}{2}\rightarrow k\quad \mathrm{and} \quad
   k-\frac{1}{2}\rightarrow k-1
 \end{equation}
+Pseudo code
 \begin{code}
-  D_x[i,j,k] = D_x[i,j,k] 
-  + 0.5 * ( H_z[i,j,k] - H_z[i,j-1,k] - H_y[i,j,k] + H_y[i,j,k-1] )
+Points.each do 
+  Dx[i,j,k] += 0.5 * ( Hz[i,j,k] - Hz[i,j-1,k] 
+                     - Hy[i,j,k] + Hy[i,j,k-1] )
+  Dy[i,j,k] += 0.5 * ( Hx[i,j,k] - Hx[i,j,k-1] 
+                     - Hz[i,j,k] + Hz[i-1,j,k] )
+  Dz[i,j,k] += 0.5 * ( Hy[i,j,k] - Hy[i-1,j,k] 
+                     - Hx[i,j,k] + Hx[i,j-1,k] )
+  Bx[i,j,k] -= 0.5 * ( Ez[i,j+1,k] - Ez[i,j,k] 
+                     - Ey[i,j,k+1] + Ey[i,j,k] )
+  By[i,j,k] -= 0.5 * ( Ex[i,j,k+1] - Ex[i,j,k] 
+                     - Ez[i+1,j,k] + Ez[i,j,k] )
+  Bz[i,j,k] -= 0.5 * ( Ey[i+1,j,k] - Ey[i,j,k] 
+                     - Ex[i,j+1,k] + Ex[i,j,k] )
+end
 \end{code}
 
 
@@ -197,17 +211,19 @@ apply
 Discrete
 \begin{gather}
   \frac{\widetilde{D}_x|_k^{n+\frac{1}{2}} - \widetilde{D}_x|_k^{n-\frac{1}{2}}}{\Delta t} = -c_0\cdot\frac{H_y|_{k+\frac{1}{2}}^n - H_y|_{k-\frac{1}{2}}^n}{\Delta z}\\
-  \frac{\widetilde{B}_y|_{k+\frac{1}{2}}^{n+1} - \widetilde{B}_y|_{k+\frac{1}{2}}^n}{\Delta t} = -c_0\cdot\frac{E_x|_{k+1}^{n+\frac{1}{2}} - E_x|_{k}^{n+\frac{1}{2}}}{\Delta z}
+  \frac{\widetilde{B}_y|_{k+\frac{1}{2}}^{n+1} - \widetilde{B}_y|_{k+\frac{1}{2}}^n}{\Delta t} = -c_0\cdot\frac{\widetilde{E}_x|_{k+1}^{n+\frac{1}{2}} - \widetilde{E}_x|_{k}^{n+\frac{1}{2}}}{\Delta z}
 \end{gather}
 That is
 \begin{gather}
   \widetilde{D}_x|_k^{n+\frac{1}{2}} = \widetilde{D}_x|_k^{n-\frac{1}{2}} - \frac{c_0\Delta t}{\Delta z}\left( H_y|_{k+\frac{1}{2}}^n - H_y|_{k-\frac{1}{2}}^n \right)\\
-  \widetilde{B}_y|_{k+\frac{1}{2}}^{n+1} = \widetilde{B}_y|_{k+\frac{1}{2}}^{n} = - \frac{c_0\Delta t}{\Delta z}\left( E_x|_{k+1}^{n+\frac{1}{2}} - E_x|_{k}^{n+\frac{1}{2}} \right)
+  \widetilde{B}_y|_{k+\frac{1}{2}}^{n+1} = \widetilde{B}_y|_{k+\frac{1}{2}}^{n} = - \frac{c_0\Delta t}{\Delta z}\left( \widetilde{E}_x|_{k+1}^{n+\frac{1}{2}} - \widetilde{E}_x|_{k}^{n+\frac{1}{2}} \right)
 \end{gather}
 Here is the code
 \begin{code}
-  dx[k] = dx[k] + 0.5 * ( hy[k-1] - hy[k] )
-  hy[k] = hy[k] + 0.5 * ( ex[k] - ex[k+1] )
+Points.each do
+  Dx[k] += 0.5 * ( Hy[k-1] - Hy[k] )
+  Hy[k] += 0.5 * ( Ex[k] - Ex[k+1] )
+end
 \end{code}
 
 
@@ -221,10 +237,69 @@ the book of Taflove using $\mathrm{TM_{z}}$ ($\mathrm{H_x}$, $\mathrm{H_y}$, and
 \begin{displaymath}
   \frac{\partial}{\partial z} \rightarrow 0
 \end{displaymath}
+
+$\mathrm{TM_z}$
+\begin{displaymath}
+  \frac{\partial}{\partial t}\widetilde{D}_z = \frac{1}{\sqrt{\mu_0\epsilon_0}}\left(\frac{\partial H_y}{\partial x} - \frac{\partial H_x}{\partial y}\right)
+\end{displaymath}
+\begin{displaymath}
+  \frac{\partial}{\partial t}\widetilde{B}_x =-\frac{1}{\sqrt{\mu_0\epsilon_0}}\left(\frac{\partial \widetilde{E}_z}{\partial y} - \frac{\partial \widetilde{E}_y}{\partial z}\right)
+\end{displaymath}
+\begin{displaymath}
+  \frac{\partial}{\partial t}\widetilde{B}_y =-\frac{1}{\sqrt{\mu_0\epsilon_0}}\left(\frac{\partial \widetilde{E}_x}{\partial z} - \frac{\partial \widetilde{E}_z}{\partial x}\right)
+\end{displaymath}
+Discretize
+\begin{displaymath}
+  \frac{\widetilde{D}_z|_{i,j}^{n+\frac{1}{2}}-\widetilde{D}_z|_{i,j}^{n+\frac{1}{2}}}{\Delta t} =
+  c_0 \left(\frac{H_y|_{i+\frac{1}{2},j}^{n} - H_y|_{i-\frac{1}{2},j}^n}{\Delta x} - \frac{H_x|_{i,j+\frac{1}{2}}^{n} - H_x|_{i,j-\frac{1}{2}}^{n}}{\Delta y}\right)
+\end{displaymath}
+\begin{displaymath}
+  \frac{\widetilde{B}_x|_{i,j+\frac{1}{2}}^{n+1} - \widetilde{B}_x|_{i,j+\frac{1}{2}}^{n}}{\Delta t} = 
+  - c_0\left(\frac{\widetilde{E}_z|_{i,j+1}^{n+\frac{1}{2}} - \widetilde{E}_z|_{i,j}^{n+\frac{1}{2}}}{\Delta y}\right)
+\end{displaymath}
+\begin{displaymath}
+  \frac{\widetilde{B}_y|_{i+\frac{1}{2},j}^{n+1} - \widetilde{B}_y|_{i+\frac{1}{2},j}^{n}}{\Delta t} =
+  - c_0\left( - \frac{\widetilde{E}_z|_{i+1,j}^{n+\frac{1}{2}} - \widetilde{E}_z|_{i,j}^{n+\frac{1}{2}}}{\Delta x}\right)
+\end{displaymath}
+Pseudo code for $\mathrm{TM_z}$ polarization
 \begin{code}
-  other code
-  here
+Points.each do 
+  
+end
 \end{code}
+
+$\mathrm{TE_z}$
+\begin{displaymath}
+    \frac{\partial}{\partial t}\widetilde{B}_z =-\frac{1}{\sqrt{\mu_0\epsilon_0}}\left(\frac{\partial \widetilde{E}_y}{\partial x} - \frac{\partial \widetilde{E}_x}{\partial y}\right)\label{eq:up_b_z}
+\end{displaymath}
+\begin{displaymath}
+  \frac{\partial}{\partial t}\widetilde{D}_x = \frac{1}{\sqrt{\mu_0\epsilon_0}}\left(\frac{\partial H_z}{\partial y} - \frac{\partial H_y}{\partial z}\right)
+\end{displaymath}
+\begin{displaymath}
+  \frac{\partial}{\partial t}\widetilde{D}_y = \frac{1}{\sqrt{\mu_0\epsilon_0}}\left(\frac{\partial H_x}{\partial z} - \frac{\partial H_z}{\partial x}\right)
+\end{displaymath}
+Discretize
+\begin{displaymath}
+  \frac{\widetilde{B}_z|_{i+\frac{1}{2},j+\frac{1}{2}}^{n} - \widetilde{B}_z|_{i+\frac{1}{2},j+\frac{1}{2}}^{n}}{\Delta t} =
+  c_0\left(\frac{\widetilde{E}_y|_{i+1,j+\frac{1}{2}}^{} - \widetilde{E}_y|_{i,j+\frac{1}{2}}^{}}{\Delta x} - \frac{\widetilde{E}_x|_{i+\frac{1}{2},j+1}^{} - \widetilde{E}_x|_{i+\frac{1}{2},j}^{}}{\Delta y}\right)
+\end{displaymath}
+\begin{displaymath}
+  \frac{\widetilde{D}_x|_{i+\frac{1}{2},j}^{n+\frac{1}{2}} - \widetilde{D}_x|_{i+\frac{1}{2},j}^{n-\frac{1}{2}}}{\Delta t} =
+  c_0\left(\frac{H_z|_{i+\frac{1}{2},j+\frac{1}{2}}^{n} - H_z|_{i+\frac{1}{2},j-\frac{1}{2}}^{n}}{\Delta y} - \right)
+\end{displaymath}
+\begin{displaymath}
+  \frac{\widetilde{D}_y|_{i,j+\frac{1}{2}}^{n+\frac{1}{2}} - \widetilde{D}_x|_{i,j+\frac{1}{2}}^{n-\frac{1}{2}}}{\Delta t} =
+  c_0\left( - \frac{H_z|_{i+\frac{1}{2},j+\frac{1}{2}}^{n} - H_z|_{i-\frac{1}{2},j+\frac{1}{2}}^{n}}{\Delta x}\right)
+\end{displaymath}
+
+Pseudocode for $\mathrm{TE_z}$ polarization
+\begin{code}
+Points.each do
+end
+\end{code}
+
+
+
 
 
 
