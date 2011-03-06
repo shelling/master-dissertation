@@ -207,8 +207,8 @@ This is complete update equations derived for 3D cases.
 Pseudo code
 \begin{code}
 Points.each do 
-  Dx[i,j,k] += 0.5 * ( Hz[i,j,k] - Hz[i,j-1,k] 
-                     - Hy[i,j,k] + Hy[i,j,k-1] )
+  Dx[i,j,k] += 0.5 * ( Hz[i,j,k] - Hz[i,\textcolor{red}{j-1},k] 
+                     - Hy[i,j,k] + Hy[i,j,\textcolor{red}{k-1}] )
   Dy[i,j,k] += 0.5 * ( Hx[i,j,k] - Hx[i,j,k-1] 
                      - Hz[i,j,k] + Hz[i-1,j,k] )
   Dz[i,j,k] += 0.5 * ( Hy[i,j,k] - Hy[i-1,j,k] 
