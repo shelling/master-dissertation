@@ -47,43 +47,43 @@ sum
 
 \subsection{The Update Equations}
 
-The update equations is the core of the FDTD method. In every interation on the timeline, the update equations refresh
-the value of field of every point in the simulation region.
+The update equations is the core of the FDTD method. In every interation of the timeline, the update equations refresh
+the value of fields at every point in the simulation region.
 
-In this section, we are going to derive update equation from Maxwell's Equations.Here is the most well-known form of
-Maxwell's Equations\index{Maxwell's Equations}:
+In this section, we are going to derive simplest update equations from Maxwell's Equations. Then integrating PML in
+section \ref{sec:bcs} and give it the generalized ability to handle material in section \ref{sec:dispersive}.
+
+Following is the most well-known form of Maxwell's Equations\index{Maxwell's Equations}, for getting sysmetrical form
+and handling metamaterial, novel magnetic current $M$ was added into Faraday's Law.
 \begin{gather}
   \label{eq:maxwell}
   \begin{array}{@{}rclr@{}}
-    \nabla \cdot D & = & \rho_{\nu} & \mathrm{(Gaussian's\ Law)}\\
-    \nabla \times E & = & {\displaystyle -\frac{\partial B}{\partial t}} & \mathrm{(Faraday's\ Law)}\\
-    \nabla \cdot B & = & 0 & \\
-    \nabla \times H & = & {\displaystyle J_s + \frac{\partial D}{\partial t}} & \mathrm{(Amp\`ere's\ Law)}
+    \nabla \cdot \epsilon E & = & \rho_{\nu} & \mathrm{(Gaussian's\ Law)}\\
+    \nabla \times E & = & {\displaystyle -\mu\frac{\partial H}{\partial t} - M} & \mathrm{(Faraday's\ Law)}\\
+    \nabla \cdot \mu H & = & 0 & \\
+    \nabla \times H & = &  {\displaystyle \epsilon\frac{\partial E}{\partial t} + J} & \mathrm{(Amp\`ere's\ Law)}
   \end{array}
 \end{gather}
-the equations shown above is for simple conductive media, the simplest lossy media having constant conductivity.
-
-for getting sysmetrical form, novel magnetic current $M$ was added into Faraday's Law
+Where J and M are electric current and novel magnatic current respectively. Every real world material has its own
+definition of J and M. For example, for fictitious simple conductive media having constant electric conductivity
+$\sigma_e$ and constant magnetic conductivity $\sigma_h$, $J = \sigma_e E$ and $M = \sigma_h H$. For simulating silver,
+Drude Model may be applied in definition of J. For convenience, following derivation use $J = \sigma_e E$ and $M =
+\sigma_h H$.
 \begin{gather}
-  \frac{\partial D}{\partial t} = \nabla \times H - J\\
-  \frac{\partial B}{\partial t} =  - \nabla \times E - M
-\end{gather}
-in terms of E and H
-\begin{gather}
-  \epsilon\frac{\partial E}{\partial t} = \nabla \times H - \sigma_eE\\
-  \mu\frac{\partial H}{\partial t} = - \nabla \times E - \sigma_hH
+  \epsilon\frac{\partial E}{\partial t} + \sigma_eE = \nabla \times H\\
+  \mu\frac{\partial H}{\partial t} + \sigma_hH = - \nabla \times E
 \end{gather}
 gather coefficient 
 \begin{gather}
-  \frac{\partial E}{\partial t} = \frac{1}{\epsilon_r\epsilon_0}\nabla\times H - \frac{\sigma_e}{\epsilon_r\epsilon_0}E\\
-  \frac{\partial H}{\partial t} = - \frac{1}{\mu_r\mu_0}\nabla\times E - \frac{\sigma_h}{\mu_r\mu_0}H
+  \frac{\partial E}{\partial t} + \frac{\sigma_e}{\epsilon_r\epsilon_0}E = \frac{1}{\epsilon_r\epsilon_0}\nabla\times H\\
+  \frac{\partial H}{\partial t} + \frac{\sigma_h}{\mu_r\mu_0}H = - \frac{1}{\mu_r\mu_0}\nabla\times E
 \end{gather}
 turn to Gaussian Unit 
 \begin{equation}
   \label{eq:gaussian_unit}
-  \begin{array}{@{}l@{}}
-    {\displaystyle\widetilde{E} = \sqrt{\frac{\epsilon_0}{\mu_0}}E}\\
-    {\displaystyle\widetilde{D} = \frac{1}{\sqrt{\epsilon_0\mu_0}}D}\\
+  \begin{array}{@{}ccc@{}}
+    {\displaystyle\widetilde{E} = \sqrt{\frac{\epsilon_0}{\mu_0}}E} & 
+    {\displaystyle\widetilde{D} = \frac{1}{\sqrt{\epsilon_0\mu_0}}D} &
     {\displaystyle\widetilde{B} = \frac{1}{\mu_0}B}
   \end{array}
 \end{equation}
