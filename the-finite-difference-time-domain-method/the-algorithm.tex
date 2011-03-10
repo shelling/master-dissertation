@@ -2,6 +2,13 @@
 
 In 1966, The algorithm of the FDTD method was first introduced by Yee.
 
+In the rest of this chapter, we would spare our effort on deriving a set of update equations as general as possible for
+handling freespace, dielectics, dispersive material, and even meta-material at the same time rather than requiring
+different equations in simulation for different situation. By using not only E and H field but also D and B field,
+material-related terms were collected into constitutive relations, and the goal was achieved. Of course, it does run
+more updating loops in one time step, however we acquire the advantages to prevent rewriting the program and to
+concentrate on modeling of structure on researching.
+
 \subsection{Finite Difference}
 The first thing being concerned is how to discrete space and time in FDTD, in other word, how to turn differential
 equations to algerba equations.
@@ -206,7 +213,7 @@ This is complete update equations derived for 3D cases.
 \end{equation}
 Pseudo code
 \begin{code}
-Points.each do 
+Points.each \textcolor{blue}{do} 
   Dx[i,j,k] += 0.5 * ( Hz[i,j,k] - Hz[i,\textcolor{red}{j-1},k] 
                      - Hy[i,j,k] + Hy[i,j,\textcolor{red}{k-1}] )
   Dy[i,j,k] += 0.5 * ( Hx[i,j,k] - Hx[i,j,k-1] 
