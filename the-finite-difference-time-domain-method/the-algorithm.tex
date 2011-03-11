@@ -53,8 +53,8 @@ the value of fields at every point in the simulation region.
 In this section, we are going to derive simplest update equations from Maxwell's Equations. Then integrating PML in
 section \ref{sec:bcs} and give it the generalized ability to handle material in section \ref{sec:dispersive}.
 
-Following is the most well-known form of Maxwell's Equations\index{Maxwell's Equations}, for getting sysmetrical form
-and handling metamaterial, novel magnetic current $M$ was added into Faraday's Law.
+Following is the most well-known form of Maxwell's Equations\index{Maxwell's Equations} in time domain, for getting
+sysmetrical form and handling metamaterial, novel magnetic current $M$ was added into Faraday's Law.
 \begin{gather}
   \label{eq:maxwell}
   \begin{array}{@{}rclr@{}}
@@ -64,52 +64,52 @@ and handling metamaterial, novel magnetic current $M$ was added into Faraday's L
     \nabla \times H & = &  {\displaystyle \epsilon\frac{\partial E}{\partial t} + J} & \mathrm{(Amp\`ere's\ Law)}
   \end{array}
 \end{gather}
-Where J and M are electric current and novel magnatic current respectively. Every real world material has its own
-definition of J and M. For example, for fictitious simple conductive media having constant electric conductivity
+Where $J$ and $M$ are electric current and novel magnatic current respectively. Every real world material has its own
+definition of $J$ and $M$. For example, for fictitious simple conductive media having constant electric conductivity
 $\sigma_e$ and constant magnetic conductivity $\sigma_h$, $J = \sigma_e E$ and $M = \sigma_h H$. For simulating silver,
-Drude Model may be applied in definition of J. For convenience, following derivation use $J = \sigma_e E$ and $M =
+Drude Model may be applied in definition of $J$. For convenience, following derivation use $J = \sigma_e E$ and $M =
 \sigma_h H$.
 \begin{gather}
-  \epsilon\frac{\partial E}{\partial t} + \sigma_eE = \nabla \times H\\
-  \mu\frac{\partial H}{\partial t} + \sigma_hH = - \nabla \times E
+  \epsilon\frac{\partial}{\partial t}E(t) + \sigma_eE(t) = \nabla \times H(t)\\
+  \mu\frac{\partial}{\partial t}H(t) + \sigma_hH(t) = - \nabla \times E(t)
 \end{gather}
-gather coefficient 
+From here, to make equations to be more symmetrical, which would benefit the design of the rest part of algorithm, all
+equations should be turned to Gaussian Units. First, $\epsilon_0$ and $\mu_0$ are separated from $\epsilon$ and $\mu$.
 \begin{gather}
-  \frac{\partial E}{\partial t} + \frac{\sigma_e}{\epsilon_r\epsilon_0}E = \frac{1}{\epsilon_r\epsilon_0}\nabla\times H\\
-  \frac{\partial H}{\partial t} + \frac{\sigma_h}{\mu_r\mu_0}H = - \frac{1}{\mu_r\mu_0}\nabla\times E
+  \epsilon_r\frac{\partial}{\partial t}E(t) + \frac{\sigma_e}{\epsilon_0}E(t) = \frac{1}{\epsilon_0}\nabla\times H(t)\\
+  \mu_r\frac{\partial}{\partial t}H(t) + \frac{\sigma_h}{\mu_0}H(t) = - \frac{1}{\mu_0}\nabla\times E(t)
 \end{gather}
-turn to Gaussian Unit 
+Then, following transformation is applied. A tilde symbol (\textasciitilde{}) was appended on each field notation for
+distinguishing whether it is in Gaussian Unit or not.
+\label{eq:gaussian_unit}
 \begin{equation}
-  \label{eq:gaussian_unit}
-  \begin{array}{@{}ccc@{}}
-    {\displaystyle\widetilde{E} = \sqrt{\frac{\epsilon_0}{\mu_0}}E} & 
-    {\displaystyle\widetilde{D} = \frac{1}{\sqrt{\epsilon_0\mu_0}}D} &
-    {\displaystyle\widetilde{B} = \frac{1}{\mu_0}B}
-  \end{array}
+  {\displaystyle\widetilde{E} = \sqrt{\frac{\epsilon_0}{\mu_0}}E}
 \end{equation}
+Finally, the equations becomes
 \begin{gather}
-  \frac{\partial \widetilde{E}}{\partial t} = \frac{1}{\epsilon_r\sqrt{\mu_0\epsilon_0}}\nabla\times H - \frac{\sigma_e}{\epsilon_r\epsilon_0}\widetilde{E}\\
-  \frac{\partial H}{\partial t} = - \frac{1}{\mu_r\sqrt{\mu_0\epsilon_0}}\nabla\times\widetilde{E} - \frac{\sigma_h}{\mu_r\mu_0}H
+  \epsilon_r\frac{\partial}{\partial t}\widetilde{E}(t) + \frac{\sigma_e}{\epsilon_0}\widetilde{E}(t) = \frac{1}{\sqrt{\mu_0\epsilon_0}}\nabla\times H(t)\\
+  \mu_r\frac{\partial}{\partial t} H(t) + \frac{\sigma_h}{\mu_0}H(t) = - \frac{1}{\sqrt{\mu_0\epsilon_0}}\nabla\times\widetilde{E}(t)
 \end{gather}
+It does really a magic trick. All of us know $1/\sqrt{\mu_0\epsilon_0}$ are speed of light in freespace and, by Fourier
+transform, $\partial/\partial t \rightarrow j\omega$. A fairly beautiful form for implementing was acquired.
 \begin{gather}
-  \left(\epsilon_r\frac{\partial}{\partial t} + \frac{\sigma_e}{\epsilon_0}\right)\widetilde{E} = \frac{1}{\sqrt{\mu_0\epsilon_0}}\nabla\times H\\
-  \left(\mu_r\frac{\partial}{\partial t} + \frac{\sigma_h}{\mu_0}\right)H = - \frac{1}{\sqrt{\mu_0\epsilon_0}}\nabla\times\widetilde{E}
+  j\omega\left(\epsilon_r + \frac{\sigma_e}{j\omega\epsilon_0}\right)\widetilde{E}(\omega) = c_0\ \nabla\times H(\omega)\\
+  j\omega\left(\mu_r + \frac{\sigma_h}{j\omega\mu_0}\right)H(\omega) = - c_0\ \nabla\times\widetilde{E}(\omega)
 \end{gather}
-$\frac{\partial}{\partial t} \rightarrow j\omega$
+It could be understanded the two term $\epsilon_r + \sigma_e/j\omega\epsilon_0$ and $\mu_r + \sigma_h/j\omega\mu_0$ are
+permittivity and permeability adjusted by character of this specific material. $\epsilon_r^*(\omega)$ and
+$\mu_r^*(\omega)$ are given as the formal and general notations for them to adapt different material here. Futhermore,
+electric flux ($\widetilde{D}$) and magnetic flux ($\widetilde{B}$) in Gaussian Unit are also redefined.
 \begin{gather}
-  j\omega\left(\epsilon_r + \frac{\sigma_e}{j\omega\epsilon_0}\right)\widetilde{E} = c\ \nabla\times H\\
-  j\omega\left(\mu_r + \frac{\sigma_h}{j\omega\mu_0}\right)H = - c\ \nabla\times\widetilde{E}
+  \frac{\partial}{\partial t}\widetilde{D}(t) = c_0\nabla\times H(t)\label{eq:up_d}\\
+  \widetilde{D}(\omega) = \epsilon_r^*(\omega)\widetilde{E}(\omega)\label{eq:cr_d}\\
+  \frac{\partial}{\partial t}\widetilde{B}(t) = -c_0\nabla\times\widetilde{E}(t)\label{eq:up_b}\\
+  \widetilde{B}(\omega) = \mu_r^*(\omega)H(\omega)\label{eq:cr_b}
 \end{gather}
-update equations and constitute relations in simple conductive media under Gaussian Units.
-\begin{gather}
-  \frac{\partial}{\partial t}\widetilde{D} = \frac{1}{\sqrt{\mu_0\epsilon_0}}\nabla\times H\label{eq:up_d}\\
-  \widetilde{D}(\omega) = \left(\epsilon_r + \frac{\sigma_e}{j\omega\epsilon_0}\right)\widetilde{E} = \epsilon_r^*(\omega)\widetilde{E}(\omega)\label{eq:cr_d}\\
-  \frac{\partial}{\partial t}\widetilde{B} = -\frac{1}{\sqrt{\mu_0\epsilon_0}}\nabla\times\widetilde{E}\label{eq:up_b}\\
-  \widetilde{B}(\omega) = \left(\mu_r + \frac{\sigma_h}{j\omega\mu_0}\right)H = \mu_r^*(\omega)H(\omega)\label{eq:cr_b}
-\end{gather}
-It's obvious separating constitute relations from updating of electric flux $D$ and magnetic flux $B$. The
-material-related coefficients were collected into constitute relations to handle different objects, so that no matter
-what object was changed in region of simulation Eq.\ref{eq:up_d} and Eq.\ref{eq:up_b} keep in this form.
+It has obvious benefit from separating constitute relations from updating in time domain rahter than merging constitute
+relations into it. The material-related coefficients were collected into constitute relations to handle different
+objects, so that no matter what object was changed in region of simulation Eq.\ref{eq:up_d} and Eq.\ref{eq:up_b} keep in
+this form.
 
 For example, The formulas can be simpilified to describe loseless dielectric media by setting $\sigma_e$, $\sigma_h$ as
 zero in Eq.\ref{eq:cr_d} and Eq.\ref{eq:cr_b} to be
