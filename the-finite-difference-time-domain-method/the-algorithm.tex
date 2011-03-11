@@ -323,12 +323,7 @@ Discretize
   \frac{\widetilde{B}_y|_{i+\frac{1}{2},j}^{n+1} - \widetilde{B}_y|_{i+\frac{1}{2},j}^{n}}{\Delta t} =
   - c_0\left( - \frac{\widetilde{E}_z|_{i+1,j}^{n+\frac{1}{2}} - \widetilde{E}_z|_{i,j}^{n+\frac{1}{2}}}{\Delta x}\right)
 \end{displaymath}
-Pseudo code for $\mathrm{TM_z}$ polarization
-\begin{code}
-Points.each do 
-  
-end
-\end{code}
+
 
 $\mathrm{TE_z}$
 \begin{displaymath}
@@ -354,12 +349,23 @@ Discretize
   c_0\left( - \frac{H_z|_{i+\frac{1}{2},j+\frac{1}{2}}^{n} - H_z|_{i-\frac{1}{2},j+\frac{1}{2}}^{n}}{\Delta x}\right)
 \end{displaymath}
 
-Pseudocode for $\mathrm{TE_z}$ polarization
-\begin{code}
-Points.each do
-end
-\end{code}
 
+\begin{code}
+class Plane:
+    def update\_dfield(self):
+        Dz[i,j] += 0.5 * ( Hy[i,j] - Hy[i-1,j]   # TMz
+                         - Hx[i,j] + Hx[i,j-1] )
+        Dx[i,j] += 0.5 * ( Hz[i,j] - Hz[i,j-1] ) # TEz
+        Dy[i,j] += 0.5 * (-Hz[i,j] + Hz[i-1,j] ) # TEz
+        return self
+
+    def update\_bfield(self):
+        Bz[i,j] -= 0.5 * ( Ey[i+1,j] - Ey[i,j]   # TEz
+                         - Ex[i,j+1] + Ex[i,j] ) 
+        Bx[i,j] -= 0.5 * ( Ez[i,j+1] - Ez[i,j] ) # TMz
+        By[i,j] -= 0.5 * (-Ez[i+1,j] + Ez[i,j] ) # TMz
+        return self
+\end{code}
 
 
 
