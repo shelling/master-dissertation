@@ -111,45 +111,37 @@ relations into it. The material-related coefficients were collected into constit
 objects, so that no matter what object was changed in region of simulation Eq.\ref{eq:up_d} and Eq.\ref{eq:up_b} keep in
 this form.
 
-For example, The formulas can be simpilified to describe loseless dielectric media by setting $\sigma_e$, $\sigma_h$ as
-zero in Eq.\ref{eq:cr_d} and Eq.\ref{eq:cr_b} to be
+For example, $\epsilon_r^*(\omega)$ and $\mu_r^*(\omega)$ are just constant $\epsilon_r$ and very small $\mu_r$ in
+dielectric. In a simulation mix dielectric and freespace, $\widetilde{E}$ and $H$ could be retrieved via performing
+inverse Fourier transform of Eq.\ref{eq:cr_d} and Eq.\ref{eq:cr_b}.
 \begin{gather*}
-  \widetilde{D}(\omega) = \epsilon_r\cdot\widetilde{E}(\omega)\\
-  \widetilde{B}(\omega) = \mu_r\cdot H(\omega)
+  \widetilde{E}(t) = \frac{\widetilde{D}(t)}{\epsilon_r}\\
+  H(t) = \frac{\widetilde{B}(t)}{\mu_r}
 \end{gather*}
-Performing inverse Fourier Transformation
+In the rest part of simulation, freespace, where both $\epsilon_r^*(\omega)$ and $\mu_r^*(\omega)$ are just unit, 
 \begin{gather*}
-  \widetilde{D}(t) = \epsilon_r\cdot\widetilde{E}(t)\\
-  \widetilde{B}(t) = \mu_r\cdot H(t)
+  \widetilde{E}(t) = \widetilde{D}(t)\\
+  H(t) = \widetilde{B}(t)
 \end{gather*}
-but Eq.\ref{eq:up_d} and Eq.\ref{eq:up_b} need not any modification.
+As seeing, without changing Eq.\ref{eq:up_d} and Eq.\ref{eq:up_b}, details of material were covered in Eq.\ref{eq:cr_d}
+and Eq.\ref{eq:cr_b}.
 
-Or to describe freespace by setting $\sigma_e$, $\sigma_h$ as zero and $\epsilon_r$, $\mu_r$ as one 
-\begin{gather*}
-  \widetilde{D}(\omega) = \widetilde{E}(\omega)\\
-  \widetilde{B}(\omega) = H(\omega)
-\end{gather*}
-Performing inverse Fourier Transformation again
-\begin{gather*}
-  \widetilde{D}(t) = \widetilde{E}(t)\\
-  \widetilde{B}(t) = H(t)
-\end{gather*}
 In general, every material has its own $\epsilon_r^*(\omega)$ varying through whole frequency spectrum duo to its own
 characters. By applying some mathematical trick Eq.\ref{eq:cr_d} and Eq.\ref{eq:cr_b} can be specialized for different
-material to retrieve $E$ from $D$ in every time step but Eq.\ref{eq:up_d} and Eq.\ref{eq:up_b} can be applied directly
-on every kinds of material. That's the best advanteage separating constitute relations out of the two update equations
-would be introduce in \ref{sec:dispersive}.
+material to retrieve $\widetilde{E}$ from $\widetilde{D}$ in every time step but Eq.\ref{eq:up_d} and Eq.\ref{eq:up_b}
+can be applied directly on every kinds of material. That's the best advanteage separating constitute relations out of
+the two update equations would be introduce in \ref{sec:dispersive}. This way also shows some advantagewhen handling
+perfecly matched layer which would be discussed in \ref{subsec:pml}.
 
-This way also shows some advantagewhen handling perfecly matched layer which would be discussed in \ref{subsec:pml}.
-
-Extend to Cartesian coordinate system.
+Now the most essential update equations were obtained. The next thing is to implement it in real world. First of all,
+chosen coordinate system. extending to Cartesian 
 \begin{gather}
-  \frac{\partial}{\partial t}\widetilde{D}_x = \frac{1}{\sqrt{\mu_0\epsilon_0}}\left(\frac{\partial H_z}{\partial y} - \frac{\partial H_y}{\partial z}\right)\label{eq:up_d_x}\\
-  \frac{\partial}{\partial t}\widetilde{D}_y = \frac{1}{\sqrt{\mu_0\epsilon_0}}\left(\frac{\partial H_x}{\partial z} - \frac{\partial H_z}{\partial x}\right)\label{eq:up_d_y}\\
-  \frac{\partial}{\partial t}\widetilde{D}_z = \frac{1}{\sqrt{\mu_0\epsilon_0}}\left(\frac{\partial H_y}{\partial x} - \frac{\partial H_x}{\partial y}\right)\label{eq:up_d_z}\\
-  \frac{\partial}{\partial t}\widetilde{B}_x =-\frac{1}{\sqrt{\mu_0\epsilon_0}}\left(\frac{\partial \widetilde{E}_z}{\partial y} - \frac{\partial \widetilde{E}_y}{\partial z}\right)\label{eq:up_b_x}\\
-  \frac{\partial}{\partial t}\widetilde{B}_y =-\frac{1}{\sqrt{\mu_0\epsilon_0}}\left(\frac{\partial \widetilde{E}_x}{\partial z} - \frac{\partial \widetilde{E}_z}{\partial x}\right)\label{eq:up_b_y}\\
-  \frac{\partial}{\partial t}\widetilde{B}_z =-\frac{1}{\sqrt{\mu_0\epsilon_0}}\left(\frac{\partial \widetilde{E}_y}{\partial x} - \frac{\partial \widetilde{E}_x}{\partial y}\right)\label{eq:up_b_z}
+  \frac{\partial}{\partial t}\widetilde{D}_x = c_0\left(\frac{\partial H_z}{\partial y} - \frac{\partial H_y}{\partial z}\right)\label{eq:up_d_x}\\
+  \frac{\partial}{\partial t}\widetilde{D}_y = c_0\left(\frac{\partial H_x}{\partial z} - \frac{\partial H_z}{\partial x}\right)\label{eq:up_d_y}\\
+  \frac{\partial}{\partial t}\widetilde{D}_z = c_0\left(\frac{\partial H_y}{\partial x} - \frac{\partial H_x}{\partial y}\right)\label{eq:up_d_z}\\
+  \frac{\partial}{\partial t}\widetilde{B}_x =-c_0\left(\frac{\partial \widetilde{E}_z}{\partial y} - \frac{\partial \widetilde{E}_y}{\partial z}\right)\label{eq:up_b_x}\\
+  \frac{\partial}{\partial t}\widetilde{B}_y =-c_0\left(\frac{\partial \widetilde{E}_x}{\partial z} - \frac{\partial \widetilde{E}_z}{\partial x}\right)\label{eq:up_b_y}\\
+  \frac{\partial}{\partial t}\widetilde{B}_z =-c_0\left(\frac{\partial \widetilde{E}_y}{\partial x} - \frac{\partial \widetilde{E}_x}{\partial y}\right)\label{eq:up_b_z}
 \end{gather}
 \clearpage
 Discrete use semi-implicit scheme
