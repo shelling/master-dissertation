@@ -133,8 +133,12 @@ can be applied directly on every kinds of material. That's the best advanteage s
 the two update equations would be introduce in \ref{sec:dispersive}. This way also shows some advantagewhen handling
 perfecly matched layer which would be discussed in \ref{subsec:pml}.
 
-Now the most essential update equations were obtained. The next thing is to implement it in real world. First of all,
-chosen coordinate system. extending to Cartesian 
+Now the most essential update equations were obtained. The next thing is to implement it in real world, which is a three
+steps procedure. First of all, extend Eq.\ref{eq:up_d} and Eq.\ref{eq:up_b} in chosen coordinate system. Next, applying
+finite difference to replace differential operand. Finally, mapping mathematical coordinate into array of computer
+language.
+
+For first step, Our choice is Cartesian coordinate system and the results of extending are shown below.
 \begin{gather}
   \frac{\partial}{\partial t}\widetilde{D}_x = c_0\left(\frac{\partial H_z}{\partial y} - \frac{\partial H_y}{\partial z}\right)\label{eq:up_d_x}\\
   \frac{\partial}{\partial t}\widetilde{D}_y = c_0\left(\frac{\partial H_x}{\partial z} - \frac{\partial H_z}{\partial x}\right)\label{eq:up_d_y}\\
@@ -203,22 +207,34 @@ This is complete update equations derived for 3D cases.
   k+\frac{1}{2}\rightarrow k\quad \mathrm{and} \quad
   k-\frac{1}{2}\rightarrow k-1
 \end{equation}
-Pseudo code
+Python code
 \begin{code}
-Points.each \textcolor{blue}{do} 
-  Dx[i,j,k] += 0.5 * ( Hz[i,j,k] - Hz[i,\textcolor{red}{j-1},k] 
-                     - Hy[i,j,k] + Hy[i,j,\textcolor{red}{k-1}] )
-  Dy[i,j,k] += 0.5 * ( Hx[i,j,k] - Hx[i,j,k-1] 
-                     - Hz[i,j,k] + Hz[i-1,j,k] )
-  Dz[i,j,k] += 0.5 * ( Hy[i,j,k] - Hy[i-1,j,k] 
-                     - Hx[i,j,k] + Hx[i,j-1,k] )
-  Bx[i,j,k] -= 0.5 * ( Ez[i,j+1,k] - Ez[i,j,k] 
-                     - Ey[i,j,k+1] + Ey[i,j,k] )
-  By[i,j,k] -= 0.5 * ( Ex[i,j,k+1] - Ex[i,j,k] 
-                     - Ez[i+1,j,k] + Ez[i,j,k] )
-  Bz[i,j,k] -= 0.5 * ( Ey[i+1,j,k] - Ey[i,j,k] 
-                     - Ex[i,j+1,k] + Ex[i,j,k] )
-end
+\textcolor{blue}{class} Cube:
+    \textcolor{blue}{def} update\_dfield(self):
+        x, y, z = self.shape
+        for i in range(x):
+            for j in range(y):
+                for z in \textcolor{blue}{range}(z):
+                    Dx[i,j,k] += 0.5 * ( Hz[i,j,k] - Hz[i,\textcolor{red}{j-1},k] 
+                                       - Hy[i,j,k] + Hy[i,j,\textcolor{red}{k-1}] )
+                    Dy[i,j,k] += 0.5 * ( Hx[i,j,k] - Hx[i,j,k-1] 
+                                       - Hz[i,j,k] + Hz[i-1,j,k] )
+                    Dz[i,j,k] += 0.5 * ( Hy[i,j,k] - Hy[i-1,j,k] 
+                                       - Hx[i,j,k] + Hx[i,j-1,k] )
+    return self
+
+    \textcolor{blue}{def} update\_bfield(self):
+        x, y, z = self.shape
+        for i in range(x):
+            for j in range(y):
+                for z in \textcolor{blue}{range}(z):
+                    Bx[i,j,k] -= 0.5 * ( Ez[i,j+1,k] - Ez[i,j,k] 
+                                       - Ey[i,j,k+1] + Ey[i,j,k] )
+                    By[i,j,k] -= 0.5 * ( Ex[i,j,k+1] - Ex[i,j,k] 
+                                       - Ez[i+1,j,k] + Ez[i,j,k] )
+                    Bz[i,j,k] -= 0.5 * ( Ey[i+1,j,k] - Ey[i,j,k] 
+                                       - Ex[i,j+1,k] + Ex[i,j,k] )
+        return self
 \end{code}
 
 
