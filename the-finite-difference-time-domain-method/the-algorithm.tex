@@ -1,28 +1,18 @@
 \section{The Algorithm}
-
 In 1966, The algorithm of the FDTD method was first introduced by Yee. By discretizing Maxwell's curl equations via
 central-difference approximations in time and space partial derivatives, Maxwell's divergence equations are
 automatically satisfied and comuputation of electromagnetic (EM) field does be realized.
 
-However, when we examinate the numerical dispersion relation, which in 3-D can be expressed as
-\begin{equation}
-  \begin{split}
-    \left[\frac{1}{c\Delta t}\sin\left(\frac{\omega\Delta t}{2}\right)\right] = &
-    \left[\frac{1}{\Delta x}\sin\left(\frac{k_x\Delta x}{2}\right)\right] + \\ &
-    \left[\frac{1}{\Delta y}\sin\left(\frac{k_y\Delta y}{2}\right)\right] +
-    \left[\frac{1}{\Delta z}\sin\left(\frac{k_z\Delta z}{2}\right)\right]
-  \end{split}
-\end{equation}
 In the rest of this chapter, we would spare our effort on deriving a set of update equations as general as possible for
 handling freespace, dielectics, dispersive material, and even meta-material at the same time rather than requiring
 different equations in simulation for different situation. By not only using E and H field but also importing D and B
 field, material-related terms were collected into constitutive relations, and the goal was achieved. Of course, it does
 run more updating loops in one time step, however we acquire the advantages to prevent rewriting the program and to
 concentrate on modeling of structure on researching.
-
 \subsection{Finite Difference}
 The first thing being concerned is how to discrete space and time in FDTD, in other word, how to turn differential
-equations to algerba equations.
+equations to algerba equations or what the $\partial/\partial t$, $\partial/\partial x$, $\partial/\partial y$,
+$\partial/\partial z$ should be.
 \subsubsection{Explicit Leapfrog Scheme}
 Laylor's series expansion 
 \begin{equation}
@@ -55,9 +45,28 @@ sum
 \begin{equation}
   \left.\frac{\partial u}{\partial x}\right|_{x_i} = \frac{u(x_i+\Delta x) - u(x_i)}{\Delta x}
 \end{equation}
+By substituting these replacements into Maxwell's Equations, discretized version would be obtained. However, the
+procedure also bring about a by-product, numerical-dispersion artifact, which in 3-D can be expressed as
+\begin{equation}
+  \label{eq:dispersion3d}
+  \begin{split}
+    \left[\frac{1}{c\Delta t}\sin\left(\frac{\omega\Delta t}{2}\right)\right] = &
+    \left[\frac{1}{\Delta x}\sin\left(\frac{k_x\Delta x}{2}\right)\right] + \\ &
+    \left[\frac{1}{\Delta y}\sin\left(\frac{k_y\Delta y}{2}\right)\right] +
+    \left[\frac{1}{\Delta z}\sin\left(\frac{k_z\Delta z}{2}\right)\right]
+  \end{split}
+\end{equation}
+where $k_x$, $k_y$, $k_z$ are the wavenumber vector and $\omega$ is the numerical angular frequency. For clear view,
+Eq.\ref{eq:dispersion3d} was simplified into 1-D
+\begin{equation}
+  \widetilde{k} = \frac{1}{\Delta x} \cos^{-1} \left\{1+\left(\frac{\Delta x}{c\Delta t}\right)^2\left[\cos(\omega t)-1\right]\right\}
+\end{equation}
+It gives a explcit commnet to the side effect of discretizing. For better accuracy, numerical dispersion shoulde be
+minimized. That is to say, the sampling rate should be raised ($\Delta t \rightarrow 0$) and cell size should be chose
+proper ($\Delta x \rightarrow 0$ and $\Delta x/\Delta t < c$).
+
 
 \subsection{The Update Equations}
-
 The update equations is the core of the FDTD method. In every interation of the timeline, the update equations refresh
 the value of fields at every point in the simulation region.
 
