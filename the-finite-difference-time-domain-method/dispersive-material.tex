@@ -26,25 +26,19 @@ Simple Lossy Media is a material with constant electric conductivity $\sigma_e$.
 
 \subsubsection{Debye Media}
 \begin{equation}
+  \label{eq:debye_chi}
   \chi_p(\omega) = \frac{\Delta\epsilon_p}{1+j\omega\tau_p}  
-\end{equation}
-\begin{equation}
-  \chi_p(t) = \frac{\Delta \epsilon_p}{\tau_p} e^{-\frac{t}{\tau_p}}U(t)  
 \end{equation}
 \begin{equation}
   \epsilon_r^*(\omega) = \epsilon_r + \sum_{p=1}^P \frac{\Delta\epsilon_p}{1+j\omega\tau_p}  
 \end{equation}
+
 
 \subsubsection{Drude Media}
 \begin{equation}
   \label{eq:drude_chi}
   \chi_p(\omega) = -\frac{\omega_p^2}{\omega^2 - j\omega\gamma_p}  
 \end{equation}
-\begin{equation}
-  \chi_p(t) = -\frac{\omega_p^2}{\gamma_p}\left(1-e^{-\gamma_p t}\right) U(t)
-\end{equation}
-where U(t) is Heaviside
-The single pole permittivity is 
 \begin{equation}
   \epsilon_r^*(\omega) = \epsilon_r - \sum_{p=1}^P \frac{\omega_p^2}{\omega^2-j\omega\gamma_p}
 \end{equation}
@@ -62,12 +56,12 @@ Because polarization $P = -Ne\cdot x(t)$ should also satisfy $P = \epsilon_0\chi
   \chi_p = \frac{-Ne^2/m_e\epsilon_0}{\omega^2 - j\omega\gamma_p}
 \end{equation}
 With denoting $-Ne^2/m_e\epsilon_0$ by $\omega_p^2$. it becomes Eq.\ref{eq:drude_chi}
+
+
 \subsubsection{Lorentz Media}
 \begin{equation}
+  \label{eq:lorentz_chi}
   \chi_p(\omega) = \frac{\Delta\epsilon_p\omega_p^2}{\omega_p^2 + 2j\omega\delta_p - \omega^2}  
-\end{equation}
-\begin{equation}
-  \chi_p(t) = \frac{\Delta \epsilon_p \omega_p^2}{\sqrt{\omega_p^2 - \delta_p^2}}e^{-\delta_p t}\sin\left(\sqrt{\omega_p^2-\delta_p^2}\ t\right)U(t)
 \end{equation}
 \begin{equation}
   \epsilon_r^*(\omega) = \epsilon_r + \sum_{p=1}^P \frac{\Delta\epsilon_p\omega_p^2}{\omega_p^2 + 2j\omega\delta_p - \omega^2}  
