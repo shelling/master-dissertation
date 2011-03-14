@@ -12,15 +12,17 @@ $\epsilon_r$ named relative permittivity.
 By definition, dispersive material is the material having different electic permeability when encountering EM wave
 having different frequency that means the relative permittivity should be a function of frequency ordinarily coming with
 image part. So, $\epsilon_r^*(\omega)$ was given as the notation of dispersive electic permittivity and the phasor of
-electic flux in dispersive material was defined as $D(\omega) = \epsilon_0 \epsilon_r^*(\omega)E(\omega)$.
+electic flux in dispersive material was defined as $D(\omega) = \epsilon_0 \epsilon_r^*(\omega)E(\omega)$ or
+$\widetilde{D} = \epsilon_r^*(\omega)\widetilde{E}$ in Gaussian Unit.
 \subsection{Common Isotropic Dispersive Material}
-The dispersive permittivity is defined as $\epsilon_r^*(\omega) = \epsilon_r + \sigma_e / j\omega\epsilon_0 + \chi_p(\omega)$, where
-$\epsilon_r$ is ... and $\chi_p(\omega)$ is ...
+The dispersive permittivity is defined as $\epsilon_r^*(\omega) = 1 + \chi_e + \sum \chi_p(\omega)$ and usually, $1 +
+\chi_e$ are written as $\epsilon_r$ to be identical with fundamental electromagnetics.
 \subsubsection{Simple Lossy Media}
-Simple Lossy Media is a material with constant electric conductivity $\sigma_e$ and without $\chi_p(\omega)$
-\begin{equation}
-  \epsilon_r^*(\omega) = \epsilon_0 + \frac{\sigma_e}{j\omega\epsilon_0}
-\end{equation}
+Simple Lossy Media is a material with constant electric conductivity $\sigma_e$.
+\begin{gather}
+  \chi_p(\omega) = \frac{\sigma_e}{j\omega\epsilon_0}\\
+  \epsilon_r^*(\omega) = \epsilon_r + \frac{\sigma_e}{j\omega\epsilon_0}
+\end{gather}
 
 \subsubsection{Debye Media}
 \begin{equation}
@@ -30,7 +32,7 @@ Simple Lossy Media is a material with constant electric conductivity $\sigma_e$ 
   \chi_p(t) = \frac{\Delta \epsilon_p}{\tau_p} e^{-\frac{t}{\tau_p}}U(t)  
 \end{equation}
 \begin{equation}
-  \epsilon_r^*(\omega) = \epsilon_r + \frac{\sigma_e}{j\omega\epsilon_0} + \sum_{p=1}^P \frac{\Delta\epsilon_p}{1+j\omega\tau_p}  
+  \epsilon_r^*(\omega) = \epsilon_r + \sum_{p=1}^P \frac{\Delta\epsilon_p}{1+j\omega\tau_p}  
 \end{equation}
 
 
@@ -45,6 +47,11 @@ Simple Lossy Media is a material with constant electric conductivity $\sigma_e$ 
 \begin{equation}
   \epsilon_r^*(\omega) = \epsilon_r + \sum_{p=1}^P \frac{\Delta\epsilon_p\omega_p^2}{\omega_p^2 + 2j\omega\delta_p - \omega^2}  
 \end{equation}
+start from
+\begin{equation}
+    m_e\frac{\partial^2 x(t)}{\partial t^2} + 2m_e\delta_L\frac{\partial x(t)}{t} + m_e\omega_L^2x(t) = -eE(t)
+\end{equation}
+
 
 
 \subsubsection{Drude Media}
@@ -61,6 +68,10 @@ The single pole permittivity is
 \end{equation}
 where $\omega_p$ is the Drude pole frequency and $\gamma_p$ is the inverse of the pole relaxation time, also known as the
 electron oscillision frequency.
+\begin{equation}
+  m_e\frac{\partial^2 x(t)}{\partial t^2} + m_e\gamma_D\frac{\partial x(t)}{\partial t} = -eE(t)
+\end{equation}
+
 
 
 
