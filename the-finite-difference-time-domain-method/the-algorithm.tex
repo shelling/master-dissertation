@@ -144,12 +144,11 @@ In the rest part of simulation, freespace, where both $\epsilon_r^*(\omega)$ and
 As seeing, without changing Eq.\ref{eq:up_d} and Eq.\ref{eq:up_b}, details of material were covered in Eq.\ref{eq:cr_d}
 and Eq.\ref{eq:cr_b}.
 
-In general, every material has its own $\epsilon_r^*(\omega)$ varying through whole frequency spectrum duo to its own
+In general, every material has its own $\epsilon_r^*(\omega)$ varying through whole frequency spectrum due to its own
 characters. By applying some mathematical trick Eq.\ref{eq:cr_d} and Eq.\ref{eq:cr_b} can be specialized for different
 material to retrieve $\widetilde{E}$ from $\widetilde{D}$ in every time step but Eq.\ref{eq:up_d} and Eq.\ref{eq:up_b}
 can be applied directly on every kinds of material. That's the best advanteage separating constitute relations out of
-the two update equations would be introduce in \ref{sec:dispersive}. This way also shows some advantagewhen handling
-perfecly matched layer which would be discussed in \ref{subsec:pml}.
+the two update equations in time domain.
 
 Now the most essential update equations were obtained. The next thing is to implement it in real world, which is a three
 steps procedure. First of all, extend Eq.\ref{eq:up_d} and Eq.\ref{eq:up_b} in chosen coordinate system. Next, applying
