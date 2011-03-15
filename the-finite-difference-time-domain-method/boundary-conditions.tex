@@ -8,17 +8,13 @@ The Absorbing Boundary Conditions were proposed
 
 \subsection{Perfectly Matched Layer Absorbing Boundary Conditions}
 \label{subsec:pml}
-
 For 2-D and 3-D simulation, the ABC discussed above is no longer useful due to the reason the ABC can only absorb
-normally incident wave.
-
-\subsubsection{Berenger's PML}
-the implementation of Berenger's PML
-
-aka Split-Field PML
-\subsubsection{Unaxial PML}
-the implementations of Unaxial PML
-
+normally incident wave. Berenger's PML, aka Split-Field PML, was firstly proposed. UPML and CPML...
+\begin{gather}
+  j\omega\bar{\bar{s}}\epsilon_r^*(\omega)\widetilde{D}(\omega) = c_0\nabla\times H(\omega)\\
+  j\omega\bar{\bar{s}}\mu_r^*(\omega)\widetilde{B}(\omega) = -c_0\nabla\times\widetilde{E}(\omega)
+\end{gather}
+where $\bar{\bar{s}}$ should satisfy
 \begin{equation}
   \bar{\bar{s}} = 
   \begin{bmatrix}
@@ -28,9 +24,6 @@ the implementations of Unaxial PML
   \end{bmatrix}
 \end{equation}
 
-
-\subsubsection{Convolution PML}
-the implementations of Convolution PML
 
 \subsection{Periodic Boundary Conditions}
 
