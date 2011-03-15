@@ -49,8 +49,9 @@ sum
 \begin{equation}
   \left.\frac{\partial u}{\partial x}\right|_{x_i} = \frac{u(x_i+\Delta x) - u(x_i)}{\Delta x}
 \end{equation}
+\subsubsection{Numerical Dispersion}
 By substituting these replacements into Maxwell's Equations, discretized version would be obtained. However, the
-procedure also bring about a by-product, numerical-dispersion artifact, which in 3-D can be expressed as
+procedure also brings about a by-product, numerical-dispersion artifact, which in 3-D can be expressed as
 \begin{equation}
   \label{eq:dispersion3d}
   \begin{split}
@@ -67,7 +68,20 @@ Eq.\ref{eq:dispersion3d} was simplified into 1-D
 \end{equation}
 It gives a explcit commnet to the side effect of discretizing. For better accuracy, numerical dispersion shoulde be
 minimized. That is to say, the sampling rate should be raised ($\Delta t \rightarrow 0$) and cell size should be chose
-proper ($\Delta x \rightarrow 0$ and $\Delta x/\Delta t < c$).
+proper. [2005 \textit{Taflove}]
+\subsubsection{Courant Condition}
+Proper $\Delta x$ could be determined via Courant-Friedrichs-Lewy condition or just Courant conditions which has the
+form
+\begin{equation}
+  \Delta t \le \frac{\Delta x}{\sqrt{n}\cdot c_0}
+\end{equation}
+where $n$ is the dimension of the simulation. For the convenience of designing mentioned latter, throughout this thesis we
+determine $\Delta t$ by
+\begin{equation}
+  \Delta t = \frac{\Delta x}{2 \cdot c_0}
+\end{equation}
+It's useful for simplifying update equations.
+
 
 
 \subsection{The Update Equations}
@@ -164,24 +178,43 @@ For first step, Our choice is Cartesian coordinate system and the results of ext
   \frac{\partial}{\partial t}\widetilde{B}_y =-c_0\left(\frac{\partial \widetilde{E}_x}{\partial z} - \frac{\partial \widetilde{E}_z}{\partial x}\right)\label{eq:up_b_y}\\
   \frac{\partial}{\partial t}\widetilde{B}_z =-c_0\left(\frac{\partial \widetilde{E}_y}{\partial x} - \frac{\partial \widetilde{E}_x}{\partial y}\right)\label{eq:up_b_z}
 \end{gather}
-\clearpage
 Discrete use semi-implicit scheme
-\begin{gather}
-  \begin{array}{@{}l@{}}
-    \displaystyle \frac{\widetilde{D}_x|_{i+\frac{1}{2},j,k}^{n+\frac{1}{2}} - \widetilde{D}_x|_{i+\frac{1}{2},j,k}^{n-\frac{1}{2}}}{\Delta t} = \\
-    \displaystyle c_0\left(\frac{H_z|_{i+\frac{1}{2},j+\frac{1}{2},k}^{n} - H_z|_{i+\frac{1}{2},j-\frac{1}{2},k}^{n}}{\Delta y} - \frac{H_y|_{i+\frac{1}{2},j,k+\frac{1}{2}}^{n} - H_y|_{i+\frac{1}{2},j,k-\frac{1}{2}}^{n}}{\Delta z}\right)\\[3em]
-    \displaystyle \frac{\widetilde{D}_y|_{i,j+\frac{1}{2},k}^{n+\frac{1}{2}} - \widetilde{D}_x|_{i,j+\frac{1}{2},k}^{n-\frac{1}{2}}}{\Delta t} = \\
-    \displaystyle c_0\left(\frac{H_x|_{i,j+\frac{1}{2},k+\frac{1}{2}}^{n} - H_x|_{i,j+\frac{1}{2},k-\frac{1}{2}}^{n}}{\Delta z} - \frac{H_z|_{i+\frac{1}{2},j+\frac{1}{2},k}^{n} - H_z|_{i-\frac{1}{2},j+\frac{1}{2},k}^{n}}{\Delta x}\right)\\[3em]
-    \displaystyle \frac{\widetilde{D}_z|_{i,j,k+\frac{1}{2}}^{n+\frac{1}{2}} - \widetilde{D}_z|_{i,j,k+\frac{1}{2}}^{n-\frac{1}{2}}}{\Delta t} = \\
-    \displaystyle c_0\left(\frac{H_y|_{i+\frac{1}{2},j,k+\frac{1}{2}}^{n} - H_y|_{i-\frac{1}{2},j,k+\frac{1}{2}}^{n}}{\Delta x} - \frac{H_x|_{i,j+\frac{1}{2},k+\frac{1}{2}}^{n} - H_x|_{i,j-\frac{1}{2},k+\frac{1}{2}}^{n}}{\Delta y}\right)\\[3em]
-    \displaystyle \frac{\widetilde{B}_x|_{i,j+\frac{1}{2},k+\frac{1}{2}}^{n+1} - \widetilde{B}_x|_{i,j+\frac{1}{2},k+\frac{1}{2}}^{n}}{\Delta t} = \\
-    \displaystyle - c_0\left(\frac{\widetilde{E}_z|_{i,j+1,k+\frac{1}{2}}^{n+\frac{1}{2}} - \widetilde{E}_z|_{i,j,k+\frac{1}{2}}^{n+\frac{1}{2}}}{\Delta y} - \frac{\widetilde{E}_y|_{i,j+\frac{1}{2},k+1}^{n+\frac{1}{2}} - \widetilde{E}_y|_{i,j+\frac{1}{2},k}^{n+\frac{1}{2}}}{\Delta z}\right)\\[3em]
-    \displaystyle \frac{\widetilde{B}_y|_{i+\frac{1}{2},j,k+\frac{1}{2}}^{n+1} - \widetilde{B}_y|_{i+\frac{1}{2},j,k+\frac{1}{2}}^{n}}{\Delta t} = \\
-    \displaystyle - c_0\left(\frac{\widetilde{E}_x|_{i+\frac{1}{2},j,k+1}^{n+\frac{1}{2}} - \widetilde{E}_x|_{i+\frac{1}{2},j,k}^{n+\frac{1}{2}}}{\Delta z} - \frac{\widetilde{E}_z|_{i+1,j,k+\frac{1}{2}}^{n+\frac{1}{2}} - \widetilde{E}_z|_{i,j,k+\frac{1}{2}}^{n+\frac{1}{2}}}{\Delta x}\right)\\[3em]
-    \displaystyle \frac{\widetilde{B}_z|_{i+\frac{1}{2},j+\frac{1}{2},k}^{n+1} - \widetilde{B}_z|_{i+\frac{1}{2},j+\frac{1}{2},k}^{n}}{\Delta t} = \\
-    \displaystyle - c_0\left(\frac{\widetilde{E}_y|_{i+1,j+\frac{1}{2},k}^{n+\frac{1}{2}} - \widetilde{E}_y|_{i,j+\frac{1}{2},k}^{n+\frac{1}{2}}}{\Delta x} - \frac{\widetilde{E}_x|_{i+\frac{1}{2},j+1,k}^{n+\frac{1}{2}} - \widetilde{E}_x|_{i+\frac{1}{2},j,k}^{n+\frac{1}{2}}}{\Delta y}\right)
-  \end{array}
-\end{gather}
+\begin{equation}
+  \begin{split}
+    \displaystyle & \frac{\widetilde{D}_x|_{i+\frac{1}{2},j,k}^{n+\frac{1}{2}} - \widetilde{D}_x|_{i+\frac{1}{2},j,k}^{n-\frac{1}{2}}}{\Delta t} = \\
+    \displaystyle & c_0\left(\frac{H_z|_{i+\frac{1}{2},j+\frac{1}{2},k}^{n} - H_z|_{i+\frac{1}{2},j-\frac{1}{2},k}^{n}}{\Delta y} - \frac{H_y|_{i+\frac{1}{2},j,k+\frac{1}{2}}^{n} - H_y|_{i+\frac{1}{2},j,k-\frac{1}{2}}^{n}}{\Delta z}\right)\\
+  \end{split}
+\end{equation}
+\begin{equation}
+  \begin{split}
+    \displaystyle & \frac{\widetilde{D}_y|_{i,j+\frac{1}{2},k}^{n+\frac{1}{2}} - \widetilde{D}_x|_{i,j+\frac{1}{2},k}^{n-\frac{1}{2}}}{\Delta t} = \\
+    \displaystyle & c_0\left(\frac{H_x|_{i,j+\frac{1}{2},k+\frac{1}{2}}^{n} - H_x|_{i,j+\frac{1}{2},k-\frac{1}{2}}^{n}}{\Delta z} - \frac{H_z|_{i+\frac{1}{2},j+\frac{1}{2},k}^{n} - H_z|_{i-\frac{1}{2},j+\frac{1}{2},k}^{n}}{\Delta x}\right)\\
+  \end{split}
+\end{equation}
+\begin{equation}
+  \begin{split}
+    \displaystyle & \frac{\widetilde{D}_z|_{i,j,k+\frac{1}{2}}^{n+\frac{1}{2}} - \widetilde{D}_z|_{i,j,k+\frac{1}{2}}^{n-\frac{1}{2}}}{\Delta t} = \\
+    \displaystyle & c_0\left(\frac{H_y|_{i+\frac{1}{2},j,k+\frac{1}{2}}^{n} - H_y|_{i-\frac{1}{2},j,k+\frac{1}{2}}^{n}}{\Delta x} - \frac{H_x|_{i,j+\frac{1}{2},k+\frac{1}{2}}^{n} - H_x|_{i,j-\frac{1}{2},k+\frac{1}{2}}^{n}}{\Delta y}\right)\\
+  \end{split}
+\end{equation}
+\begin{equation}
+  \begin{split}
+    \displaystyle & \frac{\widetilde{B}_x|_{i,j+\frac{1}{2},k+\frac{1}{2}}^{n+1} - \widetilde{B}_x|_{i,j+\frac{1}{2},k+\frac{1}{2}}^{n}}{\Delta t} = \\
+    \displaystyle & - c_0\left(\frac{\widetilde{E}_z|_{i,j+1,k+\frac{1}{2}}^{n+\frac{1}{2}} - \widetilde{E}_z|_{i,j,k+\frac{1}{2}}^{n+\frac{1}{2}}}{\Delta y} - \frac{\widetilde{E}_y|_{i,j+\frac{1}{2},k+1}^{n+\frac{1}{2}} - \widetilde{E}_y|_{i,j+\frac{1}{2},k}^{n+\frac{1}{2}}}{\Delta z}\right)\\
+  \end{split}
+\end{equation}
+\begin{equation}
+  \begin{split}
+    \displaystyle & \frac{\widetilde{B}_y|_{i+\frac{1}{2},j,k+\frac{1}{2}}^{n+1} - \widetilde{B}_y|_{i+\frac{1}{2},j,k+\frac{1}{2}}^{n}}{\Delta t} = \\
+    \displaystyle & - c_0\left(\frac{\widetilde{E}_x|_{i+\frac{1}{2},j,k+1}^{n+\frac{1}{2}} - \widetilde{E}_x|_{i+\frac{1}{2},j,k}^{n+\frac{1}{2}}}{\Delta z} - \frac{\widetilde{E}_z|_{i+1,j,k+\frac{1}{2}}^{n+\frac{1}{2}} - \widetilde{E}_z|_{i,j,k+\frac{1}{2}}^{n+\frac{1}{2}}}{\Delta x}\right)\\
+  \end{split}
+\end{equation}
+\begin{equation}
+  \begin{split}
+    \displaystyle & \frac{\widetilde{B}_z|_{i+\frac{1}{2},j+\frac{1}{2},k}^{n+1} - \widetilde{B}_z|_{i+\frac{1}{2},j+\frac{1}{2},k}^{n}}{\Delta t} = \\
+    \displaystyle & - c_0\left(\frac{\widetilde{E}_y|_{i+1,j+\frac{1}{2},k}^{n+\frac{1}{2}} - \widetilde{E}_y|_{i,j+\frac{1}{2},k}^{n+\frac{1}{2}}}{\Delta x} - \frac{\widetilde{E}_x|_{i+\frac{1}{2},j+1,k}^{n+\frac{1}{2}} - \widetilde{E}_x|_{i+\frac{1}{2},j,k}^{n+\frac{1}{2}}}{\Delta y}\right)
+  \end{split}
+\end{equation}
 Throughout this thesis, we use regular grid, that is, $\Delta x = \Delta y = \Delta z$. That means we could rewrite update equations as
 \begin{equation}
   \begin{split}
@@ -255,16 +288,6 @@ Python code
 \end{code}
 
 
-\subsection{Stability}
-Courant Conditions, Courant Number
-\begin{equation}
-  \Delta t \le \frac{\Delta x}{\sqrt{n}\cdot c_0}
-\end{equation}
-where n is the dimension of the simulation. For the convenience of designing mentioned latter, throughout this thesis we determine
-$\Delta t$ by
-\begin{equation}
-  \Delta t = \frac{\Delta x}{2 \cdot c_0}
-\end{equation}
 
 
 \subsection{Reduction to One Dimensions}
@@ -272,30 +295,20 @@ There are three selections to choose a one dimension EM string: $\mathrm{TEM_x}$
 $\mathrm{k_x}$), $\mathrm{TEM_y}$ ($\mathrm{E_z}$, $\mathrm{H_x}$, $\mathrm{k_y}$), and $\mathrm{TEM_z}$
 ($\mathrm{E_x}$, $\mathrm{H_y}$, $\mathrm{k_z}$). Similarly, $\mathrm{TEM_z}$ is the default choice when saying
 TEM. Following the definition of TEM, Eq.\ref{eq:up_d_x} and Eq.\ref{eq:up_b_y} were picked out for reduction of 1-D
-case.
-\begin{gather*}
-  \frac{\partial}{\partial t}\widetilde{D}_x = \frac{1}{\sqrt{\mu_0\epsilon_0}}\left(\frac{\partial H_z}{\partial y} - \frac{\partial H_y}{\partial z}\right)\\
-  \frac{\partial}{\partial t}\widetilde{B}_y =-\frac{1}{\sqrt{\mu_0\epsilon_0}}\left(\frac{\partial \widetilde{E}_x}{\partial z} - \frac{\partial \widetilde{E}_z}{\partial x}\right)
-\end{gather*}
-The choice implies
+case. The choice implies
 \begin{displaymath}
   \frac{\partial}{\partial x} \rightarrow 0\quad \mathrm{and} \quad
   \frac{\partial}{\partial y} \rightarrow 0
 \end{displaymath}
-apply
+apply these conditions on Eq.\ref{eq:up_d_x} and Eq.\ref{eq:up_b_y}, they becomes
 \begin{gather}
   \frac{\partial}{\partial t}\widetilde{D}_x = \frac{1}{\sqrt{\mu_0\epsilon_0}}\left( - \frac{\partial H_y}{\partial z}\right)\\
   \frac{\partial}{\partial t}\widetilde{B}_y =-\frac{1}{\sqrt{\mu_0\epsilon_0}}\left(\frac{\partial \widetilde{E}_x}{\partial z} \right)
 \end{gather}
-Discrete
-\begin{gather}
-  \frac{\widetilde{D}_x|_k^{n+\frac{1}{2}} - \widetilde{D}_x|_k^{n-\frac{1}{2}}}{\Delta t} = -c_0\cdot\frac{H_y|_{k+\frac{1}{2}}^n - H_y|_{k-\frac{1}{2}}^n}{\Delta z}\\
-  \frac{\widetilde{B}_y|_{k+\frac{1}{2}}^{n+1} - \widetilde{B}_y|_{k+\frac{1}{2}}^n}{\Delta t} = -c_0\cdot\frac{\widetilde{E}_x|_{k+1}^{n+\frac{1}{2}} - \widetilde{E}_x|_{k}^{n+\frac{1}{2}}}{\Delta z}
-\end{gather}
-That is
+The only two equations are time domain equation for 1-D. Following the same procedure as 3-D to discrete
 \begin{gather}
   \widetilde{D}_x|_k^{n+\frac{1}{2}} = \widetilde{D}_x|_k^{n-\frac{1}{2}} - \frac{c_0\Delta t}{\Delta z}\left( H_y|_{k+\frac{1}{2}}^n - H_y|_{k-\frac{1}{2}}^n \right)\\
-  \widetilde{B}_y|_{k+\frac{1}{2}}^{n+1} = \widetilde{B}_y|_{k+\frac{1}{2}}^{n} = - \frac{c_0\Delta t}{\Delta z}\left( \widetilde{E}_x|_{k+1}^{n+\frac{1}{2}} - \widetilde{E}_x|_{k}^{n+\frac{1}{2}} \right)
+  \widetilde{B}_y|_{k+\frac{1}{2}}^{n+1} = \widetilde{B}_y|_{k+\frac{1}{2}}^{n} - \frac{c_0\Delta t}{\Delta z}\left( \widetilde{E}_x|_{k+1}^{n+\frac{1}{2}} - \widetilde{E}_x|_{k}^{n+\frac{1}{2}} \right)
 \end{gather}
 Here is the code
 \begin{code}
@@ -312,22 +325,38 @@ end
 There are 6 selections for us to choose a two dimensions EM plane: $\mathrm{TM_{x}} $, $\mathrm{TE_{x}}$,
 $\mathrm{TM_{y}}$, $\mathrm{TE_{y}}$, $\mathrm{TM_{z}}$, $\mathrm{TE_{z}}$. By default, the choice in this thesis follow
 the book of Taflove using $\mathrm{TM_{z}}$ ($\mathrm{H_x}$, $\mathrm{H_y}$, and $\mathrm{E_z}$) and $\mathrm{TE_{z}}$
-($\mathrm{E_x}$, $\mathrm{E_y}$, and $\mathrm{H_z}$) as convention when saying TM and TE.
+($\mathrm{E_x}$, $\mathrm{E_y}$, and $\mathrm{H_z}$) as convention when saying TM and TE. Both $\mathrm{TM_z}$ and
+$\mathrm{TE_z}$ should satisfy.
 \begin{displaymath}
   \frac{\partial}{\partial z} \rightarrow 0
 \end{displaymath}
+When applying the condition, $\mathrm{TM_z}$ becomes
+\begin{displaymath}
+  \frac{\partial}{\partial t}\widetilde{D}_z = c_0\left(\frac{\partial H_y}{\partial x} - \frac{\partial H_x}{\partial y}\right)
+\end{displaymath}
+\begin{displaymath}
+  \frac{\partial}{\partial t}\widetilde{B}_x =-c_0\left(\frac{\partial \widetilde{E}_z}{\partial y}\right)
+\end{displaymath}
+\begin{displaymath}
+  \frac{\partial}{\partial t}\widetilde{B}_y =-c_0\left(- \frac{\partial \widetilde{E}_z}{\partial x}\right)
+\end{displaymath}
+and $\mathrm{TE_z}$ becomes
+\begin{displaymath}
+    \frac{\partial}{\partial t}\widetilde{B}_z =-c_0\left(\frac{\partial \widetilde{E}_y}{\partial x} - \frac{\partial \widetilde{E}_x}{\partial y}\right)\label{eq:up_b_z}
+\end{displaymath}
+\begin{displaymath}
+  \frac{\partial}{\partial t}\widetilde{D}_x = c_0\left(\frac{\partial H_z}{\partial y}\right)
+\end{displaymath}
+\begin{displaymath}
+  \frac{\partial}{\partial t}\widetilde{D}_y = c_0\left( - \frac{\partial H_z}{\partial x}\right)
+\end{displaymath}
+Note they are two independent sets because they don't use component of each other for updating itself. For less overhead
+of memory, we can define two class \texttt{TMPlane} having first three methods and \texttt{TEPlane} having the
+rest. However, it would be more convenient to handle two kinds of polarization in one class via gathering all eqautions
+as methods of one class \texttt{Plane} rather than defining two class. The last way also has advantage to simulate
+circle polarization.
 
-$\mathrm{TM_z}$
-\begin{displaymath}
-  \frac{\partial}{\partial t}\widetilde{D}_z = \frac{1}{\sqrt{\mu_0\epsilon_0}}\left(\frac{\partial H_y}{\partial x} - \frac{\partial H_x}{\partial y}\right)
-\end{displaymath}
-\begin{displaymath}
-  \frac{\partial}{\partial t}\widetilde{B}_x =-\frac{1}{\sqrt{\mu_0\epsilon_0}}\left(\frac{\partial \widetilde{E}_z}{\partial y} - \frac{\partial \widetilde{E}_y}{\partial z}\right)
-\end{displaymath}
-\begin{displaymath}
-  \frac{\partial}{\partial t}\widetilde{B}_y =-\frac{1}{\sqrt{\mu_0\epsilon_0}}\left(\frac{\partial \widetilde{E}_x}{\partial z} - \frac{\partial \widetilde{E}_z}{\partial x}\right)
-\end{displaymath}
-Discretize
+Again, Following identical procedure to discretize, we would obtain the equations for computing
 \begin{displaymath}
   \frac{\widetilde{D}_z|_{i,j}^{n+\frac{1}{2}}-\widetilde{D}_z|_{i,j}^{n+\frac{1}{2}}}{\Delta t} =
   c_0 \left(\frac{H_y|_{i+\frac{1}{2},j}^{n} - H_y|_{i-\frac{1}{2},j}^n}{\Delta x} - \frac{H_x|_{i,j+\frac{1}{2}}^{n} - H_x|_{i,j-\frac{1}{2}}^{n}}{\Delta y}\right)
@@ -340,19 +369,6 @@ Discretize
   \frac{\widetilde{B}_y|_{i+\frac{1}{2},j}^{n+1} - \widetilde{B}_y|_{i+\frac{1}{2},j}^{n}}{\Delta t} =
   - c_0\left( - \frac{\widetilde{E}_z|_{i+1,j}^{n+\frac{1}{2}} - \widetilde{E}_z|_{i,j}^{n+\frac{1}{2}}}{\Delta x}\right)
 \end{displaymath}
-
-
-$\mathrm{TE_z}$
-\begin{displaymath}
-    \frac{\partial}{\partial t}\widetilde{B}_z =-\frac{1}{\sqrt{\mu_0\epsilon_0}}\left(\frac{\partial \widetilde{E}_y}{\partial x} - \frac{\partial \widetilde{E}_x}{\partial y}\right)\label{eq:up_b_z}
-\end{displaymath}
-\begin{displaymath}
-  \frac{\partial}{\partial t}\widetilde{D}_x = \frac{1}{\sqrt{\mu_0\epsilon_0}}\left(\frac{\partial H_z}{\partial y} - \frac{\partial H_y}{\partial z}\right)
-\end{displaymath}
-\begin{displaymath}
-  \frac{\partial}{\partial t}\widetilde{D}_y = \frac{1}{\sqrt{\mu_0\epsilon_0}}\left(\frac{\partial H_x}{\partial z} - \frac{\partial H_z}{\partial x}\right)
-\end{displaymath}
-Discretize
 \begin{displaymath}
   \frac{\widetilde{B}_z|_{i+\frac{1}{2},j+\frac{1}{2}}^{n} - \widetilde{B}_z|_{i+\frac{1}{2},j+\frac{1}{2}}^{n}}{\Delta t} =
   c_0\left(\frac{\widetilde{E}_y|_{i+1,j+\frac{1}{2}}^{} - \widetilde{E}_y|_{i,j+\frac{1}{2}}^{}}{\Delta x} - \frac{\widetilde{E}_x|_{i+\frac{1}{2},j+1}^{} - \widetilde{E}_x|_{i+\frac{1}{2},j}^{}}{\Delta y}\right)
