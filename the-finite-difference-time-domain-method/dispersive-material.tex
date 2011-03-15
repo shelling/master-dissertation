@@ -47,7 +47,8 @@ electron oscillision frequency.
 \begin{equation}
   m_e\frac{\partial^2 x(t)}{\partial t^2} + m_e\gamma_p\frac{\partial x(t)}{\partial t} = -eE(t)
 \end{equation}
-$x(t) = \mathrm{Re}\{x_0e^{j\omega t}\}$ and $E(t) = \mathrm{Re}\{E_0e^{j\omega t}\}$
+By assuming $x(t)$ and $E(t)$ are time-harmonic, that is, $x(t) = \mathrm{Re}\{x_0e^{j\omega t}\}$ and $E(t) =
+\mathrm{Re}\{E_0e^{j\omega t}\}$.
 \begin{equation}
   x(t) = \frac{e}{m_e(\omega^2 - j\omega\gamma_p)}E(t)
 \end{equation}
@@ -70,11 +71,6 @@ start from
 \begin{equation}
     m_e\frac{\partial^2 x(t)}{\partial t^2} + 2m_e\delta_L\frac{\partial x(t)}{t} + m_e\omega_L^2x(t) = -eE(t)
 \end{equation}
-
-
-
-
-
 
 
 \subsection{Dispersion-Compatible Update Equations}
