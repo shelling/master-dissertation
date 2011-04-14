@@ -335,23 +335,23 @@ $\mathrm{TE_z}$ should satisfy.
 \end{displaymath}
 When applying the condition, $\mathrm{TM_z}$ becomes
 \begin{displaymath}
-  \frac{\partial}{\partial t}\widetilde{D}_z = c_0\left(\frac{\partial H_y}{\partial x} - \frac{\partial H_x}{\partial y}\right)
+  \frac{\partial}{\partial t}\widetilde{D}_z = c_0 \curlHzTwo
 \end{displaymath}
 \begin{displaymath}
-  \frac{\partial}{\partial t}\widetilde{B}_x =-c_0\left(\frac{\partial \widetilde{E}_z}{\partial y}\right)
+  \frac{\partial}{\partial t}\widetilde{B}_x =-c_0 \curlExTwo
 \end{displaymath}
 \begin{displaymath}
-  \frac{\partial}{\partial t}\widetilde{B}_y =-c_0\left(- \frac{\partial \widetilde{E}_z}{\partial x}\right)
+  \frac{\partial}{\partial t}\widetilde{B}_y =-c_0 \curlEyTwo
 \end{displaymath}
 and $\mathrm{TE_z}$ becomes
 \begin{displaymath}
-    \frac{\partial}{\partial t}\widetilde{B}_z =-c_0\left(\frac{\partial \widetilde{E}_y}{\partial x} - \frac{\partial \widetilde{E}_x}{\partial y}\right)\label{eq:up_b_z}
+    \frac{\partial}{\partial t}\widetilde{B}_z =-c_0 \curlEzTwo
 \end{displaymath}
 \begin{displaymath}
-  \frac{\partial}{\partial t}\widetilde{D}_x = c_0\left(\frac{\partial H_z}{\partial y}\right)
+  \frac{\partial}{\partial t}\widetilde{D}_x = c_0 \curlHxTwo
 \end{displaymath}
 \begin{displaymath}
-  \frac{\partial}{\partial t}\widetilde{D}_y = c_0\left( - \frac{\partial H_z}{\partial x}\right)
+  \frac{\partial}{\partial t}\widetilde{D}_y = c_0 \curlHyTwo
 \end{displaymath}
 Note they are two independent sets because they don't use component of each other for updating itself. For less overhead
 of memory, we can define two class \texttt{TMPlane} having first three methods and \texttt{TEPlane} having the
