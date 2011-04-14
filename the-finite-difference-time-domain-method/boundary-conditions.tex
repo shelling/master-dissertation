@@ -10,9 +10,11 @@ The Absorbing Boundary Conditions were proposed
 \label{subsec:pml}
 For 2-D and 3-D simulation, the ABC discussed above is no longer useful due to the reason the ABC can only absorb
 normally incident wave. Berenger's PML, aka Split-Field PML, was firstly proposed. UPML and CPML...
+
+By inserting coefficients of UPML into Eq.\ref{eq:up_d} and Eq.\ref{eq:up_b}.
 \begin{gather}
-  j\omega\bar{\bar{s}}\epsilon_r^*(\omega)\widetilde{D}(\omega) = c_0\nabla\times H(\omega)\\
-  j\omega\bar{\bar{s}}\mu_r^*(\omega)\widetilde{B}(\omega) = -c_0\nabla\times\widetilde{E}(\omega)
+  j\omega\bar{\bar{s}}\ \widetilde{D}(\omega) = c_0\curlH(\omega)\\
+  j\omega\bar{\bar{s}}\ \widetilde{B}(\omega) = -c_0\curlE(\omega)
 \end{gather}
 where $\bar{\bar{s}}$ should satisfy
 \begin{equation}
@@ -23,6 +25,18 @@ where $\bar{\bar{s}}$ should satisfy
     0& 0& \displaystyle\frac{s_xs_y}{s_z}
   \end{bmatrix}
 \end{equation}
+expand to three dimension
+\begin{gather}
+  j\omega s_y s_z \widetilde{D}_x = c_0 s_x \curlHxThree\\
+  j\omega s_x s_z \widetilde{D}_y = c_0 s_y \curlHyThree\\
+  j\omega s_x s_y \widetilde{D}_z = c_0 s_z \curlHzThree\\
+  j\omega s_y s_z \widetilde{B}_x =-c_0 s_x \curlExThree\\
+  j\omega s_x s_z \widetilde{B}_y =-c_0 s_y \curlEyThree\\
+  j\omega s_x s_y \widetilde{B}_z =-c_0 s_z \curlEzThree
+\end{gather}
+reduce to two dimension
+
+
 
 
 \subsection{Periodic Boundary Conditions}

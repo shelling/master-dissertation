@@ -171,12 +171,12 @@ language.
 
 For first step, Our choice is Cartesian coordinate system and the results of extending are shown below.
 \begin{gather}
-  \frac{\partial}{\partial t}\widetilde{D}_x = c_0\left(\frac{\partial H_z}{\partial y} - \frac{\partial H_y}{\partial z}\right)\label{eq:up_d_x}\\
-  \frac{\partial}{\partial t}\widetilde{D}_y = c_0\left(\frac{\partial H_x}{\partial z} - \frac{\partial H_z}{\partial x}\right)\label{eq:up_d_y}\\
-  \frac{\partial}{\partial t}\widetilde{D}_z = c_0\left(\frac{\partial H_y}{\partial x} - \frac{\partial H_x}{\partial y}\right)\label{eq:up_d_z}\\
-  \frac{\partial}{\partial t}\widetilde{B}_x =-c_0\left(\frac{\partial \widetilde{E}_z}{\partial y} - \frac{\partial \widetilde{E}_y}{\partial z}\right)\label{eq:up_b_x}\\
-  \frac{\partial}{\partial t}\widetilde{B}_y =-c_0\left(\frac{\partial \widetilde{E}_x}{\partial z} - \frac{\partial \widetilde{E}_z}{\partial x}\right)\label{eq:up_b_y}\\
-  \frac{\partial}{\partial t}\widetilde{B}_z =-c_0\left(\frac{\partial \widetilde{E}_y}{\partial x} - \frac{\partial \widetilde{E}_x}{\partial y}\right)\label{eq:up_b_z}
+  \overPartialT \widetilde{D}_x = c_0 \curlHxThree \label{eq:up_d_x}\\
+  \overPartialT \widetilde{D}_y = c_0 \curlHyThree \label{eq:up_d_y}\\
+  \overPartialT \widetilde{D}_z = c_0 \curlHzThree \label{eq:up_d_z}\\
+  \overPartialT \widetilde{B}_x =-c_0 \curlExThree \label{eq:up_b_x}\\
+  \overPartialT \widetilde{B}_y =-c_0 \curlEyThree \label{eq:up_b_y}\\
+  \overPartialT \widetilde{B}_z =-c_0 \curlEzThree \label{eq:up_b_z}
 \end{gather}
 In the second step, semi-implicit scheme was applied.
 \begin{equation}
