@@ -16,50 +16,70 @@ electic flux in dispersive material was defined as $D(\omega) = \epsilon_0 \epsi
 $\widetilde{D} = \epsilon_r^*(\omega)\widetilde{E}$ in Gaussian Unit.
 \subsection{Common Isotropic Dispersive Material}
 The dispersive permittivity is defined as $\epsilon_r^*(\omega) = 1 + \chi_e + \sum \chi_p(\omega)$ and usually, $1 +
-\chi_e$ are written as $\epsilon_r$ to be identical with fundamental electromagnetics.
+\chi_e$ are written as $\epsilon_r$ to be identical with fundamental electromagnetics. Many theorems are proposed to
+describe the response characteristics of dispersive material exposed to external fields. Here are brief introduction to
+Simple Lossy Media, Debye Media, Drude Media and Lorentz Media.
+
 \subsubsection{Simple Lossy Media}
-Simple Lossy Media is a material with constant electric conductivity $\sigma_e$.
+Simple Lossy Media is a novel material with constant electric conductivity $\sigma_e$, which respond a constant current
+J to an external electric field. By substituting $J=\sigma E$ into Maxwell eqution, the relationship can be obtained as
+following.
 \begin{gather}
   \chi_p(\omega) = \frac{\sigma_e}{j\omega\epsilon_0}\\
   \epsilon_r^*(\omega) = \epsilon_r + \frac{\sigma_e}{j\omega\epsilon_0}
 \end{gather}
 
 \subsubsection{Debye Media}
+Debye Model are used to describe the dieletric relaxation response of an noninteracting population of dipoles to an
+external field. Debye pole and Multipole Debye Media can be describe as following
 \begin{equation}
   \label{eq:debye_chi}
   \chi_p(\omega) = \frac{\Delta\epsilon_p}{1+j\omega\tau_p}  
 \end{equation}
+Multipole Debye Model has following form
 \begin{equation}
   \epsilon_r^*(\omega) = \epsilon_r + \sum_{p=1}^P \frac{\Delta\epsilon_p}{1+j\omega\tau_p}  
 \end{equation}
 
 
 \subsubsection{Drude Media}
+Drude Model are frequently used to explain optical properties of metal through the theory of free electron gas moving
+against a fixed positive ion cores. The electrons oscillate in response to the applied field, and meantime damped due to
+collision with characteristic frequency $\gamma_p$, also known as the inverse of the pole relaxation time. The motion
+equation of free eletron gas can be written as
+\begin{equation}
+  m_e\frac{\partial^2 x(t)}{\partial t^2} + m_e\gamma_p\frac{\partial x(t)}{\partial t} = -eE(t)
+\end{equation}
+By assuming $x(t)$ and $E(t)$ are time-harmonic, $x(t) = \mathrm{Re}\{x_0e^{j\omega t}\}$ and $E(t) =
+\mathrm{Re}\{E_0e^{j\omega t}\}$, the displacement of eletron can be solved.
+\begin{equation}
+  x(t) = \frac{e}{m_e(\omega^2 - j\omega\gamma_p)}E(t)
+\end{equation}
+Because the macroscopic polarization $P = -Ne\cdot x(t)$ should also satisfy $P = \epsilon_0\chi_pE(t)$, $\chi_p$ can be
+solved
+\begin{equation}
+  \chi_p = \frac{-Ne^2/m_e\epsilon_0}{\omega^2 - j\omega\gamma_p}
+\end{equation}
+where $Ne^2/m_e\epsilon_0$ is usually denoted as plasma frequency $\omega_p^2$ to be the common form of Drude Model
 \begin{equation}
   \label{eq:drude_chi}
   \chi_p(\omega) = -\frac{\omega_p^2}{\omega^2 - j\omega\gamma_p}  
 \end{equation}
+Multipole Drude Media can be denote as 
 \begin{equation}
   \epsilon_r^*(\omega) = \epsilon_r - \sum_{p=1}^P \frac{\omega_p^2}{\omega^2-j\omega\gamma_p}
 \end{equation}
-where $\omega_p$ is the Drude pole frequency and $\gamma_p$ is the inverse of the pole relaxation time, also known as the
-electron oscillision frequency.
-\begin{equation}
-  m_e\frac{\partial^2 x(t)}{\partial t^2} + m_e\gamma_p\frac{\partial x(t)}{\partial t} = -eE(t)
-\end{equation}
-By assuming $x(t)$ and $E(t)$ are time-harmonic, that is, $x(t) = \mathrm{Re}\{x_0e^{j\omega t}\}$ and $E(t) =
-\mathrm{Re}\{E_0e^{j\omega t}\}$.
-\begin{equation}
-  x(t) = \frac{e}{m_e(\omega^2 - j\omega\gamma_p)}E(t)
-\end{equation}
-Because polarization $P = -Ne\cdot x(t)$ should also satisfy $P = \epsilon_0\chi_pE(t)$, $\chi_p$ can be solved
-\begin{equation}
-  \chi_p = \frac{-Ne^2/m_e\epsilon_0}{\omega^2 - j\omega\gamma_p}
-\end{equation}
-With denoting $-Ne^2/m_e\epsilon_0$ by $\omega_p^2$. it becomes Eq.\ref{eq:drude_chi}
+
 
 
 \subsubsection{Lorentz Media}
+Drude Model are not perfectly fitting experimental result at some frequency in which interband transitions involving
+[Stefan]. The Lorentz Oscillator mechanism provides description to motion between nucleus and smaller mass, and
+interband transitions through appending a damping term into the motion equation of free electron gas
+\begin{equation}
+    m_e\frac{\partial^2 x(t)}{\partial t^2} + 2m_e\delta_L\frac{\partial x(t)}{t} + m_e\omega_L^2x(t) = -eE(t)
+\end{equation}
+Assuming $x(t)$ and $E(t)$ are time-harmonic again, Lorentz Oscillator can be solve as following. 
 \begin{equation}
   \label{eq:lorentz_chi}
   \chi_p(\omega) = \frac{\Delta\epsilon_p\omega_p^2}{\omega_p^2 + 2j\omega\delta_p - \omega^2}  
@@ -67,158 +87,38 @@ With denoting $-Ne^2/m_e\epsilon_0$ by $\omega_p^2$. it becomes Eq.\ref{eq:drude
 \begin{equation}
   \epsilon_r^*(\omega) = \epsilon_r + \sum_{p=1}^P \frac{\Delta\epsilon_p\omega_p^2}{\omega_p^2 + 2j\omega\delta_p - \omega^2}  
 \end{equation}
-start from
-\begin{equation}
-    m_e\frac{\partial^2 x(t)}{\partial t^2} + 2m_e\delta_L\frac{\partial x(t)}{t} + m_e\omega_L^2x(t) = -eE(t)
-\end{equation}
+Where $\Delta\epsilon_p$ is a weighting factor associated with the specified Lorentz pole. It's often describing
+dispersion in terms of linear combination of one Drude pole and multiple Lorentz poles to earn a better fitting.
+[\textit{Taflove}].
+
 
 
 \subsection{Dispersion-Compatible Update Equations}
 For the analysis of dispersive materials shown above, numbers of algorithms have already been proposed in literature.
-Most of these frequency-dependent algorithms can be categorized into three types: 
-\begin{inparaenum}[(1)]
+Most of these frequency-dependent algorithms can be categorized into three types:\begin{inparaenum}[(1)]
 \item the Recursive Convolution (RC) method
 \item the Auxiliary Differential Equation (ADE) method
-\item the Z-transform (ZT) method
-\end{inparaenum}.
+\item the Z-transform (ZT) method\end{inparaenum}.
+Any of these methods focuses on tranforming the dispersive relations between $D(\omega)$ and $E(\omega)$ in frequency
+domain back to the time doamin for discretization.
+
 
 The RC method is the most basic method inheriting the convolution theorem in Laplace transform and Fourier
 transform. The pros and cons are easy to understand with background of engineering mathematics and difficult to handle
-complex material with multiple poles.
-
-The ADE method offer high flexibility in fitting arbitrary permittivity functions, modeling nonlinear effects and
-arbitrary numbers of poles.
-
-Any of these methods focuses on tranforming the dispersive relations between $D(\omega))$ and $E(\omega)$ in frequency domain
-back to the time doamin for discretization. By applying different discretizing scheme at each step, many varieties of
-them were given. Following words are trying to give an overview and examples as many as possible to be a reference
-during implementing.
-
-\subsubsection{The Recursive Convolution Method}
-There are many varieties published using convolution including 
+complex material with multiple poles. Many varieties, such as
 \begin{inparaenum}[(1)]
-\item Recursive Convolution (RC) Method
 \item Piecewise-Linear Recursive Convolution (PLRC) Method
 \item Trapezoidal Recursive Convolution(TRC) Method
-\end{inparaenum}
-
-\paragraph{\msjh Simple Conductive Media - RC}
-Apply RC to simple conductive material having definition as
-\begin{displaymath}
-  \epsilon_r^{*}(\omega) = \epsilon_r + \frac{\sigma}{j \omega \epsilon_0}
-\end{displaymath}
-\begin{displaymath}
-  \begin{split}
-    \widetilde{D}(\omega) & = \epsilon_r^{*}(\omega)\widetilde{E}(\omega)\\
-    & = \epsilon_r\widetilde{E}(\omega) + \frac{\sigma}{j\omega\epsilon_0}\widetilde{E}(\omega)
-  \end{split}
-\end{displaymath}
-\begin{displaymath}
-  D(t) = \epsilon_r\widetilde{E}(t) + \frac{\sigma}{\epsilon_0}\int_0^t\widetilde{E}(t')dt'
-\end{displaymath}
-\begin{displaymath}
-    D^n = \epsilon_r\widetilde{E}^n + \frac{\sigma}{\epsilon_0}\Delta t \sum_{i=0}^{n}\widetilde{E}^i
-\end{displaymath}
-The second term: dissipated displacement -> $I^n$, in recursive form
-\begin{equation}
-  I^n = \frac{\sigma}{\epsilon_0}\Delta t\cdot\widetilde{E}^n + \frac{\sigma}{\epsilon_0}\Delta t\sum_{i=0}^{n-1}\widetilde{E}^i = \frac{\sigma}{\epsilon_0}\Delta t\cdot\widetilde{E}^n + I^{n-1}
-\end{equation}
-\begin{equation}
-  \widetilde{D}^n = \epsilon_r\widetilde{E}^n + I^n = (\epsilon_r + \frac{\sigma}{\epsilon_0}\Delta t)\widetilde{E}^n + I^{n-1}
-\end{equation}
-Finally, the update equations becomes
-\begin{gather*}
-  \widetilde{E}^n = \frac{\widetilde{D}^n - I^{n-1}}{\displaystyle \epsilon_r +\frac{\sigma}{\epsilon_0}\Delta t}\\
-  I^n = I^{n-1} + \frac{\sigma}{\epsilon_0}\Delta t\cdot E^n
-\end{gather*}
-implementation
-\begin{code}
-  dx[k] = dx[k]
-  ex[k] = ex[k]
-  i[k]  = i[k]
-\end{code}
+\end{inparaenum} are proposed to improve the performance of RC method.
 
 
-\paragraph{{\msjh Debye Model - RC}}
-\begin{displaymath}
-  \epsilon_r^*(\omega) = \epsilon_r + \frac{\sigma}{j\omega \epsilon_0} + \frac{\Delta \epsilon_p}{1+j\omega \tau_p}
-\end{displaymath}
-\begin{displaymath}
-  \begin{split}
-    \widetilde{D}(\omega) & = \epsilon_r^*(\omega)\widetilde{E}(\omega)\\
-    & = \epsilon_r\widetilde{E}(\omega) + \frac{\sigma}{j\omega\epsilon_0}\widetilde{E}(\omega) + \frac{\Delta \epsilon_p}{1+j\omega \tau_p}\widetilde{E}(\omega)
-  \end{split}
-\end{displaymath}
-\begin{displaymath}
-  \widetilde{D}(t) = \epsilon_r\widetilde{E}(t) + \frac{\sigma}{\epsilon_0}\int_0^t\widetilde{E}(t')dt' + \int_0^t\frac{\Delta \epsilon_p}{\tau_p}e^{-\frac{t'-t}{\tau_p}}\widetilde{E}(t')dt'
-\end{displaymath}
-\begin{equation}
-  \widetilde{D}^n = \epsilon_r\widetilde{E}^n + \frac{\sigma}{\epsilon_0}\Delta t\sum_{i=0}^{n}\widetilde{E}^i + \frac{\Delta \epsilon_p}{\tau_p}\Delta t \sum_{i=0}^{n} e^{-\frac{n-i}{\tau_p}\Delta t}\widetilde{E}^i
-\end{equation}
-The second term, dissipated displacement, $I^n$ , the same as simple conductive media.
-The third term, phasor polarization displacement, $J_p^n$. $J_p^n$ is slightly complex in recursive form.
-\begin{equation}
-  \begin{split}
-    J_p^n & = \frac{\Delta\epsilon_p}{\tau_p}\Delta t \sum_{i=0}^ne^{-\frac{n-i}{\tau_p}\Delta t}\widetilde{E}^i\\
-    & = \frac{\Delta\epsilon_p}{\tau_p}\Delta t \left(\widetilde{E}^n + \sum_{i=0}^{n-1}e^{-\frac{n-i}{\tau_p}\Delta t}\widetilde{E}^i\right)
-  \end{split}
-\end{equation}
-and 
-\begin{equation}
-  \begin{split}
-    J_p^{n-1} & = \frac{\Delta\epsilon_p}{\tau_p}\Delta t \sum_{i=0}^{n-1}e^{-\frac{n-1-i}{\tau_p}\Delta t}\widetilde{E}^i\\
-    & = \frac{\Delta\epsilon_p}{\tau_p}\Delta t \left( e^{\frac{\Delta t}{\tau_p}} \right) \sum_{i=0}^{n-1}e^{-\frac{n-i}{\tau_p}\Delta t}\widetilde{E}^i
-  \end{split}
-\end{equation}
-substituted into $J_p^n$
-\begin{equation}
-  J_p^n = \frac{\Delta\epsilon_p}{\tau_p}\Delta t\cdot\widetilde{E}^n + e^{-\frac{\Delta t}{\tau_p}} J_p^{n-1}
-\end{equation}
-\begin{equation}
-  \begin{split}
-    \widetilde{D}^n & = \epsilon_r\widetilde{E}^n + \left[\frac{\sigma}{\epsilon_0}\Delta t\cdot\widetilde{E}^n + I^{n-1}\right] + \left[\frac{\Delta \epsilon_p}{\tau_p}\Delta t\cdot\widetilde{E}^n + e^{-\frac{\Delta t}{\tau_p}} J_p^{n-1}\right]\\
-    & = \left(\epsilon_r + \frac{\sigma}{\epsilon_0}\Delta t + \frac{\Delta\epsilon_p}{\tau_p}\Delta t\right)\widetilde{E}^n + I^{n-1} + e^{-\frac{\Delta t}{\tau_p}} J_p^{n-1}
-  \end{split}
-\end{equation}
-Finally the discrete constitute relations in time domain becomes
-\begin{gather}
-  \begin{array}{@{}l@{}}
-    \widetilde{E}^n =  \frac{\displaystyle \widetilde{D}^n - I^{n-1} - e^{-\frac{\Delta t}{\tau_p}}J_p^{n-1} }{\displaystyle \epsilon_r + \frac{\sigma}{\epsilon_0}\Delta t + \frac{\Delta \epsilon_p}{\tau_p} \Delta t}\\    
-    I^n = \frac{\sigma}{\epsilon_0}\Delta t\cdot\widetilde{E}^n + I^{n-1}\\
-    J_p^n = \frac{\Delta\epsilon_p}{\tau_p}\Delta t\cdot\widetilde{E}^n + e^{-\frac{\Delta t}{\tau_p}} J_p^{n-1}
-  \end{array}
-\end{gather}
-implement
-\begin{code}
-  dx[k] = dx[k] + 0.5 * ( hy[k-1] - hy[k])
-  ex[k] = ( dx[k] - i[k] - exp(-dt/tau_p) * j[k] ) 
-  * ( epsilon_0 * epsilon_r[k] + sigma_e[k] * dt +  )
-  i[k] = i[k] + sigma_e[k] 
-  j[k] = j[k] + del
-\end{code}
+The ADE method and Z-transform method offer high flexibility in fitting arbitrary permittivity functions, modeling
+nonlinear effects and arbitrary numbers of poles. Primitive ADE method and Z-transform method shown in literature
+require deriving formulations for each dispersion type, however, a generalized way \textit{Alsunaidi et al.} proposed
+finds its strength in unifying the formulation of different dispersion models into one form. Not only performing
+concisely in mathmetics but also reducing source code in developing, since, the generalized ADE method are picked up
+here.
 
-
-
-
-
-
-\paragraph{{\msjh Lorentz Model - RC}}
-
-
-\paragraph{{\msjh Drude Model - RC}}
-\begin{equation}
-  D(\omega) = \epsilon_0\epsilon_r^*(\omega)E(\omega) = \epsilon_0\epsilon_rE(\omega) - \epsilon_0\frac{\omega_p^2}{\omega^2-j\omega\gamma_p}E(\omega)
-\end{equation}
-\begin{equation}
-  D(t) = \epsilon_0\epsilon_rE(t) + \epsilon_0\int_0^t -\frac{\omega_p^2}{\gamma_p}(1 - e^{-\gamma_p(t'-t)})E(t')dt'
-\end{equation}
-\begin{equation}
-  D^n = \epsilon_0\epsilon_rE^n + \epsilon_0\frac{\omega_p^2}{\gamma_p}\Delta t\sum_{i=0}^{n}E^i + \epsilon_0\frac{\omega_p^2}{\gamma_p}\Delta t \sum_{i=0}^{n}e^{-\gamma_p(n-i)\Delta t} E^i
-\end{equation}
-
-
-
-\subsubsection{The Auxiliary Differential Equation Method}
 The central idea of the Auxiliary Differential Equation (ADE) Method is to detach the phasor polarization displacement
 $J_p(\omega)$, that is, $\chi_p(\omega)E(\omega)$, from original dispersive relation.
 \begin{equation}
@@ -228,14 +128,11 @@ $J_p(\omega)$, that is, $\chi_p(\omega)E(\omega)$, from original dispersive rela
     & = \epsilon_r\widetilde{E}(\omega) + \sum_{p=1}^{P}J_p(\omega)
   \end{split}
 \end{equation}
-For muiltipole material composed of different dispersions, $J_p$ were solved for each pole individually to attend the
+For multipole material composed of different dispersions, $J_p$ were solved for each pole individually to attend the
 updating loop, and then $E$ can be solved via rearrangment of previous relation.
 \begin{equation}
   \widetilde{E}^n = \frac{1}{\epsilon_r}\left(\widetilde{D}^n - \sum_{p=1}^PJ_p^n\right)
 \end{equation}
-Primitive ADE method shown in literature require deriving formulations for each dispersion type, however, a generalized
-way \textit{Alsunaidi et al.} proposed finds its strength in unifying the formulation of different dispersion models
-into one form.
 
 Starting with the most general form of $\chi_p(\omega)$, the phasor polarization displacement can be written
 as
@@ -246,11 +143,11 @@ Rearranging and performming inverse Fourier transform
 \begin{equation}
   bJ_p(t) + c \frac{\partial}{\partial t}J_p(t) + d \frac{\partial ^2}{\partial t^2}J_p(t) = a\widetilde{E}(t)
 \end{equation}
-apply leapfrog scheme 
+Applying leapfrog scheme to replace $\partial/\partial t$
 \begin{equation}
   bJ_p^{n-1} + c \frac{J_p^n - J_p^{n-1}}{2\Delta t} + d \frac{J_p^n + 2J_p^{n-1} + J_p^{n-2}}{(\Delta t)^2} = a\widetilde{E}^{n-1}
 \end{equation}
-Solving 
+$J_p$ can be Solved as following
 \begin{equation}
   J_p^n = \frac{4d-2b(\Delta t)^2}{2d+c\Delta t}J_p^{n-1} + \frac{-2d+c\Delta t}{2d+c\Delta t}J_p^{n-2} + \frac{2a(\Delta t)^2}{2d+c\Delta t}\widetilde{E}^{n-1}
 \end{equation}
@@ -261,72 +158,9 @@ which can be written in the form
 where $C_1$, $C_2$ and $C_3$ can be found for any form of dispersion relation.
 
 
-
-\paragraph{{\msjh Debye Model - ADE}}
-Debye model is a fun case can be induced the same form of $J_p(t)$ as RC if the semi-implicit scheme was chose. However,
-leapfrog scheme provide better accruacy. Just for verifying, result of apply semi-implicit scheme was also derived
-here. In the real wrold implementation \textit{\uwave{yaFDTD}}, leapfrog was picked out.
-
-Starting with constitute relation as before
-\begin{equation}
-  \begin{split}
-    \widetilde{D}(\omega) & = \epsilon_r^*(\omega)\widetilde{E}(\omega)\\
-    & = \epsilon_r\widetilde{E}(\omega) + \frac{\sigma}{j\omega\epsilon_0}\widetilde{E}(\omega) + \frac{\Delta \epsilon_p}{1+j\omega \tau_p}\widetilde{E}(\omega)\label{eq:debye_ade_start}
-  \end{split}
-\end{equation}
-detach $J_p$
-\begin{equation}
-  J_p(\omega) = \frac{\Delta \epsilon_p}{1+j\omega \tau_p}\widetilde{E}(\omega)
-\end{equation}
-This is the ADE of Debye Model
-\begin{equation}
-  J_p(\omega) + j\omega\tau_{p}J_p(\omega) = \Delta\epsilon_p\widetilde{E}(\omega)
-\end{equation}
-performming IFT 
-\begin{equation}
-  J_p(t) + \tau_p\frac{\partial}{\partial t}J_p(t) = \Delta\epsilon_p\widetilde{E}(t)
-\end{equation}
-apply semi-implicit scheme
-\begin{equation}
-  \left( \frac{J_p^n - J_p^{n-1}}{2} \right) + \tau_p \left( \frac{J_p^n - J_p^{n-1}}{\Delta t}\right) = \Delta\epsilon_p\widetilde{E}^n
-\end{equation}
-Solving $J_p$
-\begin{equation}
-  J_p^n = \frac{\left(1-\frac{\Delta t}{2\tau_p}\right)}{\left(1+\frac{\Delta t}{2\tau_p}\right)}J_p^{n-1} 
-  + \frac{\left(\frac{\Delta\epsilon_p}{\tau_p}\right)\Delta t}{\left(1+\frac{\Delta t}{2\tau_p}\right)}\widetilde{E}^n
-\end{equation}
-It should be noted
-\begin{equation}
-  \begin{array}{@{}lp{0.5cm}r@{}}
-    \frac{\displaystyle1-\delta}{\displaystyle1+\delta} \cong e^{-2\delta} && if\ \delta \ll 1
-  \end{array}
-\end{equation}
-\begin{equation}
-  \frac{\left(1-\frac{\displaystyle\Delta t}{\displaystyle2\tau_p}\right)}{\left(1+\frac{\displaystyle\Delta t}{\displaystyle2\tau_p}\right)} \cong e^{-\frac{\Delta t}{\tau_p}}\quad  because\ 1 \gg \frac{\Delta t}{2\tau_p}
-\end{equation}
-That is 
-\begin{equation}
-  J_p^n \cong e^{-\frac{\Delta t}{\tau_p}}J^{n-1} + \frac{\Delta\epsilon_p}{\tau_p}\Delta t\cdot\widetilde{E}^n
-\end{equation}
-And by performming inverse Fourier transform on Eq.\ref{eq:debye_ade_start}
-\begin{equation}
-  \widetilde{D}(t) = \epsilon_r\widetilde{E}(t) + \frac{\sigma}{\epsilon_0} \int_0^t\widetilde{E}(t')dt' + J_p(t)
-\end{equation}
-\begin{equation}
-  \begin{split}
-    \widetilde{D}^n & = \epsilon_r\widetilde{E}^n + \frac{\sigma}{\epsilon_0}\Delta t\sum_{i=0}^n\widetilde{E}^i + J_p^n\\
-    & = \epsilon_r\widetilde{E}^n + \frac{\sigma}{\epsilon_0}\Delta t\cdot\widetilde{E}^n + I^{n-1} + \frac{\Delta\epsilon_p}{\tau_p}\Delta t\cdot\widetilde{E}^n + e^{-\frac{\Delta t}{\tau_p}}J^{n-1}
-  \end{split}
-\end{equation}
-The same result as Recursive Convolution Method.
-
-
-
-
-
-
-\paragraph{\msjh Lorentz Model - ADE} Lorentz pole totally matches the general form used in previous introduction of ADE method.
-The coefficients are as following.
+\paragraph{\msjh Coefficients of Lorentz Pole}
+Lorentz pole completely matches the general form used in previous introduction of ADE method. The coefficients are as
+following.
 \begin{equation*}
   \begin{array}{@{}llll@{}}
     a = \Delta\epsilon_p\omega_p^2 &
@@ -343,62 +177,28 @@ substitute into ...
     C_3 = \frac{\displaystyle \Delta\epsilon_p\omega_p^2\Delta t^2}{\displaystyle 1+\delta_p\Delta t}
   \end{array}
 \end{gather*}
-Formal derivation is also written down here.
-\begin{equation}
-  \begin{split}
-    \widetilde{D}(\omega) & = \epsilon_r^*(\omega)\widetilde{E}(\omega)\\
-    & = \epsilon_r\widetilde{E}(\omega) +  \frac{\Delta \epsilon_p \omega_p^2}{\omega_p^2+2j\omega\delta_p-\omega^2}\widetilde{E}(\omega)
-  \end{split}
-\end{equation}
-\begin{equation}
-  J_p(\omega) =  \frac{\Delta \epsilon_p \omega_p^2}{\omega_p^2+2j\omega\delta_p-\omega^2}\widetilde{E}(\omega)
-\end{equation}
-rearrange and IFT
-\begin{equation}
-  \omega_p^2J_p(t) + 2\delta_p\frac{\partial}{\partial t}J_p(t) + \frac{\partial^2}{\partial t^2}J_p(t) = \Delta\epsilon_p\omega_p^2\widetilde{E}(t)
-\end{equation}
-apply leapfrog scheme 
-\begin{equation}
-  \omega_p^2J_p^{n-1} + \delta_p\frac{J_p^n - J_p^{n-2}}{\Delta t} + \frac{J_p^n - 2 J_p^{n-1} + J_p^{n-2}}{\Delta t^2} = \Delta\epsilon_p\omega_p^2\widetilde{E}^{n-1}
-\end{equation}
-rearrange 
-\begin{equation}
-  J_p^n = 
-  \frac{ 2-\omega_p^2\Delta t^2}{ 1+\delta_p\Delta t} J_p^{n-1} +
-  \frac{ -1 + \delta_p\Delta t}{ 1+\delta_p\Delta t} J_p^{n-2} + 
-  \frac{ \Delta\epsilon_p\omega_p^2\Delta t^2}{ 1+\delta_p\Delta t}\widetilde{E}^{n-1}
-\end{equation}
-as the result showed by general form of $C_1$, $C_2$, $C_3$.
 
 
+\paragraph{\msjh Coefficients of Drude Pole}
+Drude pole lacks the b coefficient when comparing to general form.
+\begin{equation*}
+  \begin{array}{@{}llll@{}}
+    a = \omega_p^2 &
+    b = 0 &
+    c = \gamma_p &
+    d = 1
+  \end{array}
+\end{equation*}
+That is 
+\begin{gather*}
+  \begin{array}{@{}lll@{}}
+    C_1 = \frac{4}{2+ \gamma_p\Delta t} &
+    C_2 = \frac{-2+\gamma_p\Delta t}{2+\gamma_p\Delta t} &
+    C_3 = \frac{2\omega_p^2(\Delta t)^2}{2+\gamma_p\Delta t}
+  \end{array}
+\end{gather*}
 
-\paragraph{\msjh Drude Model - ADE} Drude pole lacks the b coefficient when comparing to general form.
-\begin{equation}
-  \begin{split}
-    \widetilde{D}(\omega) & = \epsilon_r^*(\omega)\widetilde{E}(\omega)\\
-    & =  \epsilon_r\widetilde{E}(\omega) - \frac{\omega_p^2}{\omega(\omega-j\gamma_p)}\widetilde{E}(\omega)
-  \end{split}
-\end{equation}
-Defining the last term as $J_p$, the phasor polarization current in physics,
-\begin{equation}
-  J_p(\omega) = -\frac{\omega_p^2}{\omega(\omega-j\gamma_p)}\widetilde{E}(\omega)
-\end{equation}
-Rearrange
-\begin{equation}
-  j\omega\gamma_pJ_p(\omega) - \omega^2J_p(\omega) = \omega_p^2\widetilde{E}(\omega)
-\end{equation}
-Performming inverse Fourier transformation
-\begin{equation}
-  \frac{\partial^2 J_p(t)}{\partial t^2} + \gamma_p \frac{\partial J_p(t)}{\partial t} = \omega_p^2\frac{\partial\widetilde{E}(t)}{\partial t}
-\end{equation}
-This is the ADE for $J_p$ for Drude Model. Then apply leapfrog scheme as general solution.
-\begin{equation}
-  \gamma_p\frac{J_p^n-J_p^{n-2}}{2\Delta t} + \frac{J_p^n - 2J_p^{n-1} + J_p^{n-2}}{(\Delta t)^2} = \omega_p^2\widetilde{E}^{n-1}
-\end{equation}
-rearrange 
-\begin{equation}
-  J_p^n = \frac{4}{2+ \gamma_p\Delta t} J_p^{n-1} + \frac{-2+\gamma_p\Delta t}{2+\gamma_p\Delta t}J_p^{n-2} + \frac{2\omega_p^2(\Delta t)^2}{2+\gamma_p\Delta t}\widetilde{E}^{n-1}
-\end{equation}
+
 
 
 
@@ -416,11 +216,3 @@ All coefficients of different dispersion types are summarized here
 \end{center}
 
 
-
-
-\subsubsection{The Z Transform Method}
-\paragraph{\msjh Debye Model - ZT}
-
-\paragraph{\msjh Lorentz Model - ZT}
-
-\paragraph{\msjh Drude Model - ZT}
