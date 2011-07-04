@@ -1,0 +1,117 @@
+\paragraph{{\msjh Debye Model - RC}}
+\begin{displaymath}
+  \epsilon_r^*(\omega) = \epsilon_r + \frac{\sigma}{j\omega \epsilon_0} + \frac{\Delta \epsilon_p}{1+j\omega \tau_p}
+\end{displaymath}
+\begin{displaymath}
+  \begin{split}
+    \widetilde{D}(\omega) & = \epsilon_r^*(\omega)\widetilde{E}(\omega)\\
+    & = \epsilon_r\widetilde{E}(\omega) + \frac{\sigma}{j\omega\epsilon_0}\widetilde{E}(\omega) + \frac{\Delta \epsilon_p}{1+j\omega \tau_p}\widetilde{E}(\omega)
+  \end{split}
+\end{displaymath}
+\begin{displaymath}
+  \widetilde{D}(t) = \epsilon_r\widetilde{E}(t) + \frac{\sigma}{\epsilon_0}\int_0^t\widetilde{E}(t')dt' + \int_0^t\frac{\Delta \epsilon_p}{\tau_p}e^{-\frac{t'-t}{\tau_p}}\widetilde{E}(t')dt'
+\end{displaymath}
+\begin{equation}
+  \widetilde{D}^n = \epsilon_r\widetilde{E}^n + \frac{\sigma}{\epsilon_0}\Delta t\sum_{i=0}^{n}\widetilde{E}^i + \frac{\Delta \epsilon_p}{\tau_p}\Delta t \sum_{i=0}^{n} e^{-\frac{n-i}{\tau_p}\Delta t}\widetilde{E}^i
+\end{equation}
+The second term, dissipated displacement, $I^n$ , the same as simple conductive media.
+The third term, phasor polarization displacement, $J_p^n$. $J_p^n$ is slightly complex in recursive form.
+\begin{equation}
+  \begin{split}
+    J_p^n & = \frac{\Delta\epsilon_p}{\tau_p}\Delta t \sum_{i=0}^ne^{-\frac{n-i}{\tau_p}\Delta t}\widetilde{E}^i\\
+    & = \frac{\Delta\epsilon_p}{\tau_p}\Delta t \left(\widetilde{E}^n + \sum_{i=0}^{n-1}e^{-\frac{n-i}{\tau_p}\Delta t}\widetilde{E}^i\right)
+  \end{split}
+\end{equation}
+and 
+\begin{equation}
+  \begin{split}
+    J_p^{n-1} & = \frac{\Delta\epsilon_p}{\tau_p}\Delta t \sum_{i=0}^{n-1}e^{-\frac{n-1-i}{\tau_p}\Delta t}\widetilde{E}^i\\
+    & = \frac{\Delta\epsilon_p}{\tau_p}\Delta t \left( e^{\frac{\Delta t}{\tau_p}} \right) \sum_{i=0}^{n-1}e^{-\frac{n-i}{\tau_p}\Delta t}\widetilde{E}^i
+  \end{split}
+\end{equation}
+substituted into $J_p^n$
+\begin{equation}
+  J_p^n = \frac{\Delta\epsilon_p}{\tau_p}\Delta t\cdot\widetilde{E}^n + e^{-\frac{\Delta t}{\tau_p}} J_p^{n-1}
+\end{equation}
+\begin{equation}
+  \begin{split}
+    \widetilde{D}^n & = \epsilon_r\widetilde{E}^n + \left[\frac{\sigma}{\epsilon_0}\Delta t\cdot\widetilde{E}^n + I^{n-1}\right] + \left[\frac{\Delta \epsilon_p}{\tau_p}\Delta t\cdot\widetilde{E}^n + e^{-\frac{\Delta t}{\tau_p}} J_p^{n-1}\right]\\
+    & = \left(\epsilon_r + \frac{\sigma}{\epsilon_0}\Delta t + \frac{\Delta\epsilon_p}{\tau_p}\Delta t\right)\widetilde{E}^n + I^{n-1} + e^{-\frac{\Delta t}{\tau_p}} J_p^{n-1}
+  \end{split}
+\end{equation}
+Finally the discrete constitute relations in time domain becomes
+\begin{gather}
+  \begin{array}{@{}l@{}}
+    \widetilde{E}^n =  \frac{\displaystyle \widetilde{D}^n - I^{n-1} - e^{-\frac{\Delta t}{\tau_p}}J_p^{n-1} }{\displaystyle \epsilon_r + \frac{\sigma}{\epsilon_0}\Delta t + \frac{\Delta \epsilon_p}{\tau_p} \Delta t}\\    
+    I^n = \frac{\sigma}{\epsilon_0}\Delta t\cdot\widetilde{E}^n + I^{n-1}\\
+    J_p^n = \frac{\Delta\epsilon_p}{\tau_p}\Delta t\cdot\widetilde{E}^n + e^{-\frac{\Delta t}{\tau_p}} J_p^{n-1}
+  \end{array}
+\end{gather}
+implement
+\begin{code}
+  dx[k] = dx[k] + 0.5 * ( hy[k-1] - hy[k])
+  ex[k] = ( dx[k] - i[k] - exp(-dt/tau_p) * j[k] ) 
+  * ( epsilon_0 * epsilon_r[k] + sigma_e[k] * dt +  )
+  i[k] = i[k] + sigma_e[k] 
+  j[k] = j[k] + del
+\end{code}
+
+
+
+\paragraph{{\msjh Debye Model - ADE}}
+Debye model is a fun case can be induced the same form of $J_p(t)$ as RC if the semi-implicit scheme was chose. However,
+leapfrog scheme provide better accruacy. Just for verifying, result of apply semi-implicit scheme was also derived
+here. In the real wrold implementation \textit{\uwave{yaFDTD}}, leapfrog was picked out.
+
+Starting with constitute relation as before
+\begin{equation}
+  \begin{split}
+    \widetilde{D}(\omega) & = \epsilon_r^*(\omega)\widetilde{E}(\omega)\\
+    & = \epsilon_r\widetilde{E}(\omega) + \frac{\sigma}{j\omega\epsilon_0}\widetilde{E}(\omega) + \frac{\Delta \epsilon_p}{1+j\omega \tau_p}\widetilde{E}(\omega)\label{eq:debye_ade_start}
+  \end{split}
+\end{equation}
+detach $J_p$
+\begin{equation}
+  J_p(\omega) = \frac{\Delta \epsilon_p}{1+j\omega \tau_p}\widetilde{E}(\omega)
+\end{equation}
+This is the ADE of Debye Model
+\begin{equation}
+  J_p(\omega) + j\omega\tau_{p}J_p(\omega) = \Delta\epsilon_p\widetilde{E}(\omega)
+\end{equation}
+performming IFT 
+\begin{equation}
+  J_p(t) + \tau_p\frac{\partial}{\partial t}J_p(t) = \Delta\epsilon_p\widetilde{E}(t)
+\end{equation}
+apply semi-implicit scheme
+\begin{equation}
+  \left( \frac{J_p^n - J_p^{n-1}}{2} \right) + \tau_p \left( \frac{J_p^n - J_p^{n-1}}{\Delta t}\right) = \Delta\epsilon_p\widetilde{E}^n
+\end{equation}
+Solving $J_p$
+\begin{equation}
+  J_p^n = \frac{\left(1-\frac{\Delta t}{2\tau_p}\right)}{\left(1+\frac{\Delta t}{2\tau_p}\right)}J_p^{n-1} 
+  + \frac{\left(\frac{\Delta\epsilon_p}{\tau_p}\right)\Delta t}{\left(1+\frac{\Delta t}{2\tau_p}\right)}\widetilde{E}^n
+\end{equation}
+It should be noted
+\begin{equation}
+  \begin{array}{@{}lp{0.5cm}r@{}}
+    \frac{\displaystyle1-\delta}{\displaystyle1+\delta} \cong e^{-2\delta} && if\ \delta \ll 1
+  \end{array}
+\end{equation}
+\begin{equation}
+  \frac{\left(1-\frac{\displaystyle\Delta t}{\displaystyle2\tau_p}\right)}{\left(1+\frac{\displaystyle\Delta t}{\displaystyle2\tau_p}\right)} \cong e^{-\frac{\Delta t}{\tau_p}}\quad  because\ 1 \gg \frac{\Delta t}{2\tau_p}
+\end{equation}
+That is 
+\begin{equation}
+  J_p^n \cong e^{-\frac{\Delta t}{\tau_p}}J^{n-1} + \frac{\Delta\epsilon_p}{\tau_p}\Delta t\cdot\widetilde{E}^n
+\end{equation}
+And by performming inverse Fourier transform on Eq.\ref{eq:debye_ade_start}
+\begin{equation}
+  \widetilde{D}(t) = \epsilon_r\widetilde{E}(t) + \frac{\sigma}{\epsilon_0} \int_0^t\widetilde{E}(t')dt' + J_p(t)
+\end{equation}
+\begin{equation}
+  \begin{split}
+    \widetilde{D}^n & = \epsilon_r\widetilde{E}^n + \frac{\sigma}{\epsilon_0}\Delta t\sum_{i=0}^n\widetilde{E}^i + J_p^n\\
+    & = \epsilon_r\widetilde{E}^n + \frac{\sigma}{\epsilon_0}\Delta t\cdot\widetilde{E}^n + I^{n-1} + \frac{\Delta\epsilon_p}{\tau_p}\Delta t\cdot\widetilde{E}^n + e^{-\frac{\Delta t}{\tau_p}}J^{n-1}
+  \end{split}
+\end{equation}
+The same result as Recursive Convolution Method.
