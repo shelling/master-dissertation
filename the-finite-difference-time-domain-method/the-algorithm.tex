@@ -1,24 +1,29 @@
 \section{The Algorithm}
-In 1966, The algorithm of the FDTD method was first introduced by Yee. By discretizing Maxwell's curl equations via
-central-difference approximations in time and space partial derivatives, Maxwell's divergence equations are
-automatically satisfied and comuputation of electromagnetic (EM) field does be realized.
+The algorithm of the FDTD method first introduced by Yee in 1966 swiftly became one of most popular numerical
+electromagnetics approach after '80s due to the blooming of computer industry. By discretizing Maxwell's curl equations
+via central-difference approximations in time and space partial derivatives, Maxwell's divergence equations are
+automatically satisfied and transient behavior of electromagnetics wave are offered.
 
-In the rest of this chapter, we would spare our effort on deriving a set of update equations as general as possible for
-handling freespace, dielectics, dispersive material, and even meta-material as well as varieties of PML at the same time
-rather than requiring different equations in simulation for different situation. By not only using E and H field but
-also importing D and B field, material-related terms were collected into constitutive relations, and the goal was
-achieved. Of course, it does run more updating loops in one time step, however we acquire the advantages to prevent
-rewriting the program and to concentrate on modeling of structure on researching. The goal of this section is to prepare
-a set of well-designed update equations. Half of them would be extended to integrate with PML in section
-\ref{subsec:pml} and another half of them would be given generalized ability to handle material in section
-\ref{sec:dispersive}.
+Primitve Maxwell's equations are elegant enough to describe electromagnetics wave in mathematics. However, for the
+purpose of being programmable easily and preventing requiring different equations in simulation for different situation,
+the formulas need more symmetric properties in its form. To achieve to goal, in the rest of this chapter, some tuning is
+applied on deriving of update equations to be as general as possible for handling freespace, dielectics, dispersive
+material, and even meta-material as well as varieties of PML at the same time.
+
+Moreover, by not only using E and H field but also importing D and B field, material-related terms were collected into
+constitutive relations. Apparently it leads to more overhead in every updating loop. However, we acquire more
+flexibilities to append more components for complex situations without rewriting the program, being able to concentrate
+on modeling of structure for researching. Temporary variables are also reduced due to well integration of formulas to
+save the cost of calculation.
+
 
 \subsection{Finite Difference}
 The first thing being concerned is how to discrete space and time in FDTD, in other word, how to turn differential
 equations to algerba equations or what the $\partial/\partial t$, $\partial/\partial x$, $\partial/\partial y$,
-$\partial/\partial z$ should be.
+$\partial/\partial z$ should be. Leapfrog and Semi-Implicit are two possible scheme.
 \subsubsection{Explicit Leapfrog Scheme}
-Laylor's series expansion 
+Leapfrog scheme is derived from Laylor's series expansion. The adjacent points of arbitrary function $u(x)$ can be
+expanded as following.
 \begin{equation}
   u(x_i+\Delta x) = u|_{x_i} + 
   \Delta x\cdot\left.\frac{\partial u}{\partial x}\right|_{x_i} + 
@@ -31,56 +36,30 @@ Laylor's series expansion
   \frac{(\Delta x)^2}{2}\cdot\left.\frac{\partial ^2 u}{\partial x^2}\right|_{x_i} -
   \frac{(\Delta x)^3}{6}\cdot\left.\frac{\partial ^3 u}{\partial x^3}\right|_{x_i} + ...
 \end{equation}
-difference 
+First order derivatives can be retrieved by performing subtracting.
 \begin{equation}
   u(x_i+\Delta x) - u(x_i-\Delta x) = 2\Delta x\cdot\left.\frac{\partial u}{\partial x}\right|_{x_i}+...
 \end{equation}
 \begin{equation}
   \left.\frac{\partial u}{\partial x}\right|_{x_i} = \frac{u(x_i+\Delta x) - u(x_i-\Delta x)}{2\Delta x} = \frac{u^{i+1} - u^{i-1}}{2\Delta x} + O[(\Delta x)^3]
 \end{equation}
-sum 
+And performing summing can earn second order derivatives.
 \begin{equation}
   u(x_i+\Delta x) + u(x_i-\Delta x) = \left.2u\right|_{x_i} + (\Delta x)^2\cdot\left.\frac{\partial ^2 u}{\partial x^2}\right|_{x_i} + ...
 \end{equation}
 \begin{equation}
   \left.\frac{\partial^2 u}{\partial x^2}\right|_{x_i} = \frac{u(x_i+\Delta x) - 2u(x_i) + u(x_i-\Delta x)}{(\Delta x)^2} = \frac{u^{i+1} - 2u^i + u^{i-1}}{(\Delta x)^2} % + O[(\Delta x)^2]
 \end{equation}
+
+
 \subsubsection{Semi-Implicit Scheme}
+Semi-Implicit is a scheme requiring only two adjacent point, which is similar to calculation of slope. First order
+derivatives can be showed as following.
 \begin{equation}
   \left.\frac{\partial u}{\partial x}\right|_{x_i} = \frac{u(x_i+\Delta x) - u(x_i)}{\Delta x}
 \end{equation}
-\subsubsection{Numerical Dispersion}
-By substituting these replacements into Maxwell's Equations, discretized version would be obtained. However, the
-procedure also brings about a by-product, numerical-dispersion artifact, which in 3-D can be expressed as
-\begin{equation}
-  \label{eq:dispersion3d}
-  \begin{split}
-    \left[\frac{1}{c\Delta t}\sin\left(\frac{\omega\Delta t}{2}\right)\right] = &
-    \left[\frac{1}{\Delta x}\sin\left(\frac{k_x\Delta x}{2}\right)\right] + \\ &
-    \left[\frac{1}{\Delta y}\sin\left(\frac{k_y\Delta y}{2}\right)\right] +
-    \left[\frac{1}{\Delta z}\sin\left(\frac{k_z\Delta z}{2}\right)\right]
-  \end{split}
-\end{equation}
-where $k_x$, $k_y$, $k_z$ are the wavenumber vector and $\omega$ is the numerical angular frequency. For clear view,
-Eq.\ref{eq:dispersion3d} was simplified into 1-D
-\begin{equation}
-  \widetilde{k} = \frac{1}{\Delta x} \cos^{-1} \left\{1+\left(\frac{\Delta x}{c\Delta t}\right)^2\left[\cos(\omega t)-1\right]\right\}
-\end{equation}
-It gives a explcit commnet to the side effect of discretizing. For better accuracy, numerical dispersion shoulde be
-minimized. That is to say, the sampling rate should be raised ($\Delta t \rightarrow 0$) and cell size should be chose
-proper. [2005 \textit{Taflove}]
-\subsubsection{Courant Condition}
-Proper $\Delta x$ could be determined via Courant-Friedrichs-Lewy condition or just Courant conditions which has the
-form
-\begin{equation}
-  \Delta t \le \frac{\Delta x}{\sqrt{n}\cdot c_0}
-\end{equation}
-where $n$ is the dimension of the simulation. For the convenience of designing mentioned latter, throughout this thesis we
-determine $\Delta t$ by
-\begin{equation}
-  \Delta t = \frac{\Delta x}{2 \cdot c_0}
-\end{equation}
-It's useful for simplifying update equations.
+
+
 
 
 
@@ -164,20 +143,66 @@ material to retrieve $\widetilde{E}$ from $\widetilde{D}$ in every time step but
 can be applied directly on every kinds of material. That's the best advanteage separating constitute relations out of
 the two update equations in time domain.
 
+\subsubsection{Numerical Dispersion}
+By substituting these replacements into Maxwell's Equations, discretized version would be obtained. However, the
+procedure also brings about a by-product, numerical-dispersion artifact, which in 3-D can be expressed as
+\begin{equation}
+  \label{eq:dispersion3d}
+  \begin{split}
+    \left[\frac{1}{c\Delta t}\sin\left(\frac{\omega\Delta t}{2}\right)\right] = &
+    \left[\frac{1}{\Delta x}\sin\left(\frac{k_x\Delta x}{2}\right)\right] + \\ &
+    \left[\frac{1}{\Delta y}\sin\left(\frac{k_y\Delta y}{2}\right)\right] +
+    \left[\frac{1}{\Delta z}\sin\left(\frac{k_z\Delta z}{2}\right)\right]
+  \end{split}
+\end{equation}
+where $k_x$, $k_y$, $k_z$ are the wavenumber vector and $\omega$ is the numerical angular frequency. For clear view,
+Eq.\ref{eq:dispersion3d} was simplified into 1-D
+\begin{equation}
+  \widetilde{k} = \frac{1}{\Delta x} \cos^{-1} \left\{1+\left(\frac{\Delta x}{c\Delta t}\right)^2\left[\cos(\omega t)-1\right]\right\}
+\end{equation}
+It gives a explcit commnet to the side effect of discretizing. For better accuracy, numerical dispersion shoulde be
+minimized. That is to say, the sampling rate should be raised ($\Delta t \rightarrow 0$) and cell size should be chose
+proper. [2005 \textit{Taflove}]
+
+
+\subsubsection{Courant Condition}
+Proper $\Delta x$ could be determined via Courant-Friedrichs-Lewy condition or just Courant conditions which has the
+form
+\begin{equation}
+  \Delta t \le \frac{\Delta x}{\sqrt{n}\cdot c_0}
+\end{equation}
+where $n$ is the dimension of the simulation. For the convenience of designing mentioned latter, throughout this thesis we
+determine $\Delta t$ by
+\begin{equation}
+  \Delta t = \frac{\Delta x}{2 \cdot c_0}
+\end{equation}
+It's useful for simplifying update equations.
+
+\subsubsection{Implementation}
 Now the most essential update equations were obtained. The next thing is to implement it in real world, which is a three
 steps procedure. First of all, extend Eq.\ref{eq:up_d} and Eq.\ref{eq:up_b} in chosen coordinate system. Next, applying
 finite difference to replace differential operand. Finally, mapping mathematical coordinate into array of computer
 language.
 
 For first step, Our choice is Cartesian coordinate system and the results of extending are shown below.
-\begin{gather}
-  \overPartialT \widetilde{D}_x = c_0 \curlHxThree \label{eq:up_d_x}\\
-  \overPartialT \widetilde{D}_y = c_0 \curlHyThree \label{eq:up_d_y}\\
-  \overPartialT \widetilde{D}_z = c_0 \curlHzThree \label{eq:up_d_z}\\
-  \overPartialT \widetilde{B}_x =-c_0 \curlExThree \label{eq:up_b_x}\\
-  \overPartialT \widetilde{B}_y =-c_0 \curlEyThree \label{eq:up_b_y}\\
+\begin{equation}
+  \overPartialT \widetilde{D}_x = c_0 \curlHxThree \label{eq:up_d_x}
+\end{equation}
+\begin{equation}
+  \overPartialT \widetilde{D}_y = c_0 \curlHyThree \label{eq:up_d_y}  
+\end{equation}
+\begin{equation}
+  \overPartialT \widetilde{D}_z = c_0 \curlHzThree \label{eq:up_d_z}\\  
+\end{equation}
+\begin{equation}
+  \overPartialT \widetilde{B}_x =-c_0 \curlExThree \label{eq:up_b_x}\\  
+\end{equation}
+\begin{equation}
+  \overPartialT \widetilde{B}_y =-c_0 \curlEyThree \label{eq:up_b_y}\\  
+\end{equation}
+\begin{equation}
   \overPartialT \widetilde{B}_z =-c_0 \curlEzThree \label{eq:up_b_z}
-\end{gather}
+\end{equation}
 In the second step, semi-implicit scheme was applied.
 \begin{equation}
   \begin{split}
