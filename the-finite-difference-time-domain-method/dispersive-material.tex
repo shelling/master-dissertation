@@ -77,7 +77,7 @@ Drude Model are not perfectly fitting experimental result at some frequency in w
 [Stefan]. The Lorentz Oscillator mechanism provides description to motion between nucleus and smaller mass, and
 interband transitions through appending a damping term into the motion equation of free electron gas
 \begin{equation}
-    m_e\frac{\partial^2 x(t)}{\partial t^2} + 2m_e\delta_L\frac{\partial x(t)}{t} + m_e\omega_L^2x(t) = -eE(t)
+    m_e\frac{\partial^2 x(t)}{\partial t^2} + 2m_e\delta_p\frac{\partial x(t)}{t} + m_e\omega_p^2x(t) = -eE(t)
 \end{equation}
 Assuming $x(t)$ and $E(t)$ are time-harmonic again, Lorentz Oscillator can be solve as following. 
 \begin{equation}
@@ -130,7 +130,7 @@ $J_p(\omega)$, that is, $\chi_p(\omega)E(\omega)$, from original dispersive rela
 \end{equation}
 For multipole material composed of different dispersions, $J_p$ were solved for each pole individually to attend the
 updating loop, and then $E$ can be solved via rearrangment of previous relation.
-\begin{equation}
+\begin{equation}\label{eq:dispersive}
   \widetilde{E}^n = \frac{1}{\epsilon_r}\left(\widetilde{D}^n - \sum_{p=1}^PJ_p^n\right)
 \end{equation}
 

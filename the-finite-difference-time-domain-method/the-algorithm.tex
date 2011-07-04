@@ -6,7 +6,7 @@ automatically satisfied and transient behavior of electromagnetics wave are offe
 
 Primitve Maxwell's equations are elegant enough to describe electromagnetics wave in mathematics. However, for the
 purpose of being programmable easily and preventing requiring different equations in simulation for different situation,
-the formulas need more symmetric properties in its form. To achieve to goal, in the rest of this chapter, some tuning is
+the formulas need more symmetric properties in its form. To achieve to goal, some tuning propose by \textit{Sullivan} is
 applied on deriving of update equations to be as general as possible for handling freespace, dielectics, dispersive
 material, and even meta-material as well as varieties of PML at the same time.
 
@@ -97,7 +97,7 @@ distinguishing whether it is in Gaussian Unit or not.
   {\displaystyle\widetilde{E} = \sqrt{\frac{\epsilon_0}{\mu_0}}E}
 \end{equation}
 Finally, the equations becomes
-\begin{gather}
+\begin{gather}\label{eq:coordinate_transform}
   \epsilon_r\frac{\partial}{\partial t}\widetilde{E}(t) + \frac{\sigma_e}{\epsilon_0}\widetilde{E}(t) = \frac{1}{\sqrt{\mu_0\epsilon_0}}\nabla\times H(t)\\
   \mu_r\frac{\partial}{\partial t} H(t) + \frac{\sigma_h}{\mu_0}H(t) = - \frac{1}{\sqrt{\mu_0\epsilon_0}}\nabla\times\widetilde{E}(t)
 \end{gather}

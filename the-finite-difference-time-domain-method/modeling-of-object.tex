@@ -1,0 +1,37 @@
+\section{Modeling of Objects}
+\label{sec:modeling}
+
+\subsection{center shift}
+In previous section, Eq.\ref{eq:dispersive} has provide clear view for modeling of objects: by marking $\epsilon_r$ and
+$a, b, c,d$ coefficients of $J_p$ for each point of computation domain, it does. However, in consequence of coordinate
+transformation done with Eq.\ref{eq:coordinate_transform}, the center should be shifted for different component of
+fields.
+
+For example, there is a dielectric sphere with center $(i_0,j_0,k_0)$ and radius $r_0$. Due to the convenience, the
+$E_x|_{i+\frac{1}{2},j,k}$ field was saved as $E_x[i,j,k]$ in computer memory. Corresponding $\epsilon_{rx}[i,j,k]$ have
+to be marked with the sphere with center $(i_0-1/2, j_0, k_0)$ and radius $r_0$ in the coordinate in computer memory.
+
+The rest five components of fields should also be shifted as following
+\begin{displaymath}
+  E_y \rightarrow (0,-1/2,0)
+\end{displaymath}
+\begin{displaymath}
+  E_z \rightarrow (0,0,-1/2)
+\end{displaymath}
+\begin{displaymath}
+  H_x \rightarrow (0,-1/2,-1/2)
+\end{displaymath}
+\begin{displaymath}
+  H_y \rightarrow (-1/2,0,-1/2)
+\end{displaymath}
+\begin{displaymath}
+  H_z \rightarrow (-1/2,-1/2,0)
+\end{displaymath}
+
+\section{modeling scheme}
+Stair-Case scheme
+
+Index-Average scheme
+
+Conformal scheme
+
