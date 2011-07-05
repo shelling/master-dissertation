@@ -253,19 +253,19 @@ Throughout this thesis, we use regular grid, that is, $\Delta x = \Delta y = \De
     & + \frac{c_0\Delta t}{\Delta x}\left(H_x|_{i,j+\frac{1}{2},k+\frac{1}{2}}^{n} - H_x|_{i,j+\frac{1}{2},k-\frac{1}{2}}^{n} - H_z|_{i+\frac{1}{2},j+\frac{1}{2},k}^{n} + H_z|_{i-\frac{1}{2},j+\frac{1}{2},k}^{n}\right)
   \end{split}
 \end{equation}
-\begin{equation}
+\begin{equation}\label{eq:dz3d}
   \begin{split}
     \widetilde{D}_z|_{i,j,k+\frac{1}{2}}^{n+\frac{1}{2}} & = \widetilde{D}_z|_{i,j,k+\frac{1}{2}}^{n-\frac{1}{2}}\\
     & + \frac{c_0\Delta t}{\Delta x}\left(H_y|_{i+\frac{1}{2},j,k+\frac{1}{2}}^{n} - H_y|_{i-\frac{1}{2},j,k+\frac{1}{2}}^{n} - H_x|_{i,j+\frac{1}{2},k+\frac{1}{2}}^{n} + H_x|_{i,j-\frac{1}{2},k+\frac{1}{2}}^{n}\right)
   \end{split}
 \end{equation}
-\begin{equation}
+\begin{equation}\label{eq:bx3d}
   \begin{split}
     \widetilde{B}_x|_{i,j+\frac{1}{2},k+\frac{1}{2}}^{n+1} & = \widetilde{B}_x|_{i,j+\frac{1}{2},k+\frac{1}{2}}^{n}\\
     & - \frac{c_0\Delta t}{\Delta x}\left(\widetilde{E}_z|_{i,j+1,k+\frac{1}{2}}^{n+\frac{1}{2}} - \widetilde{E}_z|_{i,j,k+\frac{1}{2}}^{n+\frac{1}{2}} - \widetilde{E}_y|_{i,j+\frac{1}{2},k+1}^{n+\frac{1}{2}} - \widetilde{E}_y|_{i,j+\frac{1}{2},k}^{n+\frac{1}{2}}\right)
   \end{split}
 \end{equation}
-\begin{equation}
+\begin{equation}\label{eq:by3d}
   \begin{split}
     \widetilde{B}_y|_{i+\frac{1}{2},j,k+\frac{1}{2}}^{n+1} & = \widetilde{B}_y|_{i+\frac{1}{2},j,k+\frac{1}{2}}^{n}\\
     & - \frac{c_0\Delta t}{\Delta x}\left(\widetilde{E}_x|_{i+\frac{1}{2},j,k+1}^{n+\frac{1}{2}} - \widetilde{E}_x|_{i+\frac{1}{2},j,k}^{n+\frac{1}{2}} - \widetilde{E}_z|_{i+1,j,k+\frac{1}{2}}^{n+\frac{1}{2}} - \widetilde{E}_z|_{i,j,k+\frac{1}{2}}^{n+\frac{1}{2}}\right)
@@ -285,34 +285,21 @@ Finally, non-integer index number can be mapped into array of computer language 
   k+\frac{1}{2}\rightarrow k\quad \mathrm{and} \quad
   k-\frac{1}{2}\rightarrow k-1
 \end{equation}
-Here is the transformation to Python code
+Here is the transformation to pseudo code
 \begin{code}
-\textcolor{blue}{class} Cube:
-    \textcolor{blue}{def} update\_dfield(self):
-        x, y, z = self.shape
-        for i in range(x):
-            for j in range(y):
-                for z in \textcolor{blue}{range}(z):
-                    self.dx[i,j,k] += 0.5 * ( self.hz[i,j,k] - self.hz[i,\textcolor{red}{j-1},k] 
-                                            - self.hy[i,j,k] + self.hy[i,j,\textcolor{red}{k-1}] )
-                    self.dy[i,j,k] += 0.5 * ( self.hx[i,j,k] - self.hx[i,j,k-1] 
-                                            - self.hz[i,j,k] + self.hz[i-1,j,k] )
-                    self.dz[i,j,k] += 0.5 * ( self.hy[i,j,k] - self.hy[i-1,j,k] 
-                                            - self.hx[i,j,k] + self.hx[i,j-1,k] )
-    return self
-
-    \textcolor{blue}{def} update\_bfield(self):
-        x, y, z = self.shape
-        for i in range(x):
-            for j in range(y):
-                for z in \textcolor{blue}{range}(z):
-                    self.bx[i,j,k] -= 0.5 * ( self.ez[i,j+1,k] - self.ez[i,j,k] 
-                                            - self.ey[i,j,k+1] + self.ey[i,j,k] )
-                    self.by[i,j,k] -= 0.5 * ( self.ex[i,j,k+1] - self.ex[i,j,k] 
-                                            - self.ez[i+1,j,k] + self.ez[i,j,k] )
-                    self.bz[i,j,k] -= 0.5 * ( self.ey[i+1,j,k] - self.ey[i,j,k] 
-                                            - self.ex[i,j+1,k] + self.ex[i,j,k] )
-        return self
+  dx[i,j,k] += 0.5 * ( self.hz[i,j,k] - self.hz[i,j-1,k] 
+                     - self.hy[i,j,k] + self.hy[i,j,k-1] )
+  dy[i,j,k] += 0.5 * ( self.hx[i,j,k] - self.hx[i,j,k-1] 
+                     - self.hz[i,j,k] + self.hz[i-1,j,k] )
+  dz[i,j,k] += 0.5 * ( self.hy[i,j,k] - self.hy[i-1,j,k] 
+                     - self.hx[i,j,k] + self.hx[i,j-1,k] )
+  
+  bx[i,j,k] -= 0.5 * ( self.ez[i,j+1,k] - self.ez[i,j,k] 
+                     - self.ey[i,j,k+1] + self.ey[i,j,k] )
+  by[i,j,k] -= 0.5 * ( self.ex[i,j,k+1] - self.ex[i,j,k] 
+                     - self.ez[i+1,j,k] + self.ez[i,j,k] )
+  bz[i,j,k] -= 0.5 * ( self.ey[i+1,j,k] - self.ey[i,j,k] 
+                     - self.ex[i,j+1,k] + self.ex[i,j,k] )
 \end{code}
 
 
@@ -338,14 +325,6 @@ The only two equations are time domain equation for 1-D. Following the same proc
   \widetilde{D}_x|_k^{n+\frac{1}{2}} = \widetilde{D}_x|_k^{n-\frac{1}{2}} - \frac{c_0\Delta t}{\Delta z}\left( H_y|_{k+\frac{1}{2}}^n - H_y|_{k-\frac{1}{2}}^n \right)\\
   \widetilde{B}_y|_{k+\frac{1}{2}}^{n+1} = \widetilde{B}_y|_{k+\frac{1}{2}}^{n} - \frac{c_0\Delta t}{\Delta z}\left( \widetilde{E}_x|_{k+1}^{n+\frac{1}{2}} - \widetilde{E}_x|_{k}^{n+\frac{1}{2}} \right)
 \end{gather}
-Here is the code
-\begin{code}
-Points.each do
-  Dx[k] += 0.5 * ( Hy[k-1] - Hy[k] )
-  Hy[k] += 0.5 * ( Ex[k] - Ex[k+1] )
-end
-\end{code}
-
 
 
 
@@ -409,27 +388,5 @@ Again, Following identical procedure to discretize, we would obtain the equation
   \frac{\widetilde{D}_y|_{i,j+\frac{1}{2}}^{n+\frac{1}{2}} - \widetilde{D}_x|_{i,j+\frac{1}{2}}^{n-\frac{1}{2}}}{\Delta t} =
   c_0\left( - \frac{H_z|_{i+\frac{1}{2},j+\frac{1}{2}}^{n} - H_z|_{i-\frac{1}{2},j+\frac{1}{2}}^{n}}{\Delta x}\right)
 \end{displaymath}
-
-
-\begin{code}
-class Plane:
-    def update\_dfield(self):
-        Dz[i,j] += 0.5 * ( Hy[i,j] - Hy[i-1,j]   # TMz
-                         - Hx[i,j] + Hx[i,j-1] )
-        Dx[i,j] += 0.5 * ( Hz[i,j] - Hz[i,j-1] ) # TEz
-        Dy[i,j] += 0.5 * (-Hz[i,j] + Hz[i-1,j] ) # TEz
-        return self
-
-    def update\_bfield(self):
-        Bz[i,j] -= 0.5 * ( Ey[i+1,j] - Ey[i,j]   # TEz
-                         - Ex[i,j+1] + Ex[i,j] ) 
-        Bx[i,j] -= 0.5 * ( Ez[i,j+1] - Ez[i,j] ) # TMz
-        By[i,j] -= 0.5 * (-Ez[i+1,j] + Ez[i,j] ) # TMz
-        return self
-\end{code}
-
-
-
-
 
 

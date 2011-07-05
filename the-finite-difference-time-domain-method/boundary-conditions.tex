@@ -25,7 +25,8 @@ of field at two ends can be estimate with the relation through Courant Condition
 For 2-D and 3-D simulation, the ABC discussed above is no longer useful due to the reason the ABC can only absorb
 normally incident wave. The Berenger's PML (BPML) [\textit{Berenger} 1994], also known as Split-Field PML, was firstly
 proposed. Before long, Unaxial PML (UPML) [\textit{Sacks et al}, 1995] are proposed with similar performance in
-mathematics but different machenism. Convolution PML (CPML) was also proposed later...
+mathematics but different machenism. The two PML shown above require freespcace at interface of PML. The Convolution PML
+(CPML) proposed later allow arbitrary material and perform better on absorb evanescent wave.
 
 By inserting coefficients of UPML into Eq.\ref{eq:up_d} and Eq.\ref{eq:up_b}, half of update equations become
 following. Owing to the $\bar{\bar{s}}$ parameter can be reduced to $1$ in non-PML region, the new update equations are
@@ -53,7 +54,7 @@ Several profiles have been suggested for grading $\sigma_d(n)$, The most success
 \begin{equation}
   \sigma_d(n) = (n/d)^2\sigma_{d,max}
 \end{equation}
-where $n$ is the distance apart from the edge of computation domain.
+where $n$ is the distance apart from the edge of computation domain, and $d = x,y,z$.
 
 expand to three dimension
 \begin{equation}
@@ -181,4 +182,9 @@ Follow coequal steps shown in three dimension, update equations can be written a
 
 
 \subsection{Periodic Boundary Conditions}
-Comparing with PML, PBC is 
+Comparing with PML, PBC is relatively easy to implement.  The best design of PBC as shown in Fig.?? appends some
+auxiliary array surrounding the main domain for calculating. These auxiliary array copy the value of the row or column
+in opposed sides and participate the calculation at the edge they locate. This is just the original idea of how to
+create a fake view of infinite continuous periodic domain for calculating, which can be stolen by the design of
+Parallelization: by sending the row or column at the edge to adjacent calculation domains of MPI to be their auxiliary
+array, the feature of parallelization can be completed.
