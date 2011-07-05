@@ -1,5 +1,39 @@
 \section{Once Decoractor}
-The purpose of Decorator Pattern is attaching additional responsibilities to an object dynamically, Decorators provide a
-flexible alternative to subclassing for extending functinoality. 
+Decoractor Pattern is a well-known Design Pattern listed in the bestseller of Gang of Four, \textit{Design Patterns:
+  Elements of Reusable Object-Oriented Software}. The book describe the purpose of Decorator Pattern is attaching
+additional responsibilities to an object dynamically. Decorators provide a flexible alternative to subclassing for
+extending functinoality.
 
-Once Decorator is the mixing of Singleton Pattern and Dynamic Inheritance.
+Similar name imply similar behavior. Once Decorator is the mixing of Singleton Pattern and Dynamic Inheritance acting
+like Decorator but actually not. The most remarkable difference is Decorator Pattern delegates the method call to main
+component, i.e. all subclasses should have the same interface as main component but the Once Decorator inherit the main
+component dynamically when initializing. Dynamic Inheritance allows subclasses overwriting interfaces to adapt more
+complex situation as well as attaching additional interfaces without providiong in every related class.
+
+Dynamic Inheritance induces another problem: once two instances perform inheritance, the latter would change the
+behaviors of the former. Because a FDTD simulaion need only one main component, Singleton Pattern act inside of the Once
+Decorator for preventing modification of inheritance on identical subclass. Moreover, all subclasses save the singleton
+instance in main component to ensure one and only one singleton instance can be allowed to join the calculation.
+
+The architecture of Once Decorator is also similar to Decorator as shown in Fig.??. The trick is hidden in constructor
+of Decorator. Assuming main component of two dimension is named as Plane, the Decorator can be implemented as following.
+\begin{code}
+  class PlaneDecorator(Plane):
+    def __new__(clz):
+        if not clz.singleton:
+            clz.singleton = object.__new__(clz)
+            Plane.singleton = singleton
+        return clz.singleton
+
+    def __init__(self, orig):
+        self.__dict__ = orig.__dict__
+        if orig.__class__ != Plane:
+            self.__class__.__bases__ = (orig.__class__,)
+        return None
+\end{code}
+The concrete decorator subclasses would inhert the abstract decorator class and invoke the constructor when
+initializing. The constructor do two things: exporting all instance variables to new instance created from any concrete
+decorator and make the concrete decorator inherting the another concrete decorator from original instance.
+
+It's clear the two action save the instance variables and make later decorators can overwrite interfaces of prior
+decorators through inheritance in concise relation.
