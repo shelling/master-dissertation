@@ -29,9 +29,9 @@ The rest five components of fields should also be shifted as following
 \end{displaymath}
 
 \section{modeling scheme}
-Stair-Case scheme
-
-Index-Average scheme
-
-Conformal scheme
+Another issue of modeling is about curved surface. Finite-Difference strategy makes surface to be shape of sawteeth in
+original Stair-Case scheme: it's a flip-flop view on dispersive coefficents. The high reflection and non-linear effect
+on the surface increase error in Stair-Case. Index-Average scheme is a common impovement to Stair-Case by assigning
+average coefficents to points at the edge through the proportion. The Conformal scheme is another solution proposed by
+\textit{Mohzmmadi et al}. By importing a fourth order time-stepping scheme, it performs better that Index-Average.
 
