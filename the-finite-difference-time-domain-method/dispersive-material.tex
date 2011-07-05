@@ -204,13 +204,39 @@ That is
 
 All coefficients of different dispersion types are summarized here
 \begin{center}
-  \begin{tabular}[c]{|r|l|c|c|c|}
+  \begin{tabular}[c]{|rlccc|}
     \hline
-    Dispersion Type & $\chi_p(\omega)$ & $C_1$ & $C_2$ & $C_3$ \\
-    \hline
-    Lorentz & $\frac{\Delta \epsilon_p \omega_p^2}{\sqrt{\omega_p^2 - \delta_p^2}}e^{-\delta_p t}\sin\left(\sqrt{\omega_p^2-\delta_p^2}\ t\right)$ & $\frac{2-\omega_p^2\Delta t^2}{1+\delta_p\Delta t}$ & $\frac{-1 + \delta_p\Delta t}{1+\delta_p\Delta t}$  & $\frac{\Delta\epsilon_p\omega_p^2\Delta t^2}{1+\delta_p\Delta t}$ \\
-    \hline
-    Drude & $\frac{\epsilon_0\omega_p^2}{j\omega\gamma_p-\omega^2}$ & $\frac{ 4}{ 2+\gamma_p\Delta t}$ & $\frac{ -2+\gamma_p\Delta t}{ 2+\gamma_p\Delta t}$ & $\frac{ 2\omega_p^2\Delta t^2}{ 2+\gamma_p \Delta t}$\\
+    Dispersion Type & Relation & $C_1$ & $C_2$ & $C_3$ \\[0.1cm]
+
+    Lorentz 
+    & $J_p= \displaystyle\frac{a}{b + jc\omega - d\omega^2}E$ 
+    & $\displaystyle\frac{2-\omega_p^2\Delta t^2}{1+\delta_p\Delta t}$ 
+    & $\displaystyle\frac{-1 + \delta_p\Delta t}{1+\delta_p\Delta t}$  
+    & $\displaystyle\frac{\Delta\epsilon_p\omega_p^2\Delta t^2}{1+\delta_p\Delta t}$ \\[0.5cm]
+
+    Drude 
+    & $J_p = \displaystyle\frac{a}{jc\omega - d\omega^2}E$ 
+    & $\displaystyle\frac{ 4}{ 2+\gamma_p\Delta t}$ 
+    & $\displaystyle\frac{ -2+\gamma_p\Delta t}{ 2+\gamma_p\Delta t}$ 
+    & $\displaystyle\frac{ 2\omega_p^2\Delta t^2}{ 2+\gamma_p \Delta t}$\\[0.5cm]
+
+    Plasma 
+    & $J_p = \displaystyle\frac{a}{\omega^2} E$ 
+    & $2$ 
+    & $-1$ 
+    & $2a\Delta t^2$\\[0.5cm]
+
+    Debye
+    & $J_p = \displaystyle\frac{a}{b+jc\omega} E$ 
+    & $\displaystyle\frac{-2b\Delta t}{c}$ 
+    & $1$ 
+    & $\displaystyle\frac{2a\Delta t}{c}$\\[0.5cm]
+
+    Conductivity
+    & $J_p = \displaystyle\frac{a}{jc\omega}E$ 
+    & 0 
+    & 1 
+    & $\displaystyle\frac{2a\Delta t}{c}$\\[0.3cm]
     \hline
   \end{tabular}
 \end{center}
