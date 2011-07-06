@@ -192,9 +192,9 @@ Drude pole lacks the b coefficient when comparing to general form.
 That is 
 \begin{gather*}
   \begin{array}{@{}lll@{}}
-    C_1 = \frac{4}{2+ \gamma_p\Delta t} &
-    C_2 = \frac{-2+\gamma_p\Delta t}{2+\gamma_p\Delta t} &
-    C_3 = \frac{2\omega_p^2(\Delta t)^2}{2+\gamma_p\Delta t}
+    C_1 = \displaystyle\frac{4}{2+ \gamma_p\Delta t} &
+    C_2 = \displaystyle\frac{-2+\gamma_p\Delta t}{2+\gamma_p\Delta t} &
+    C_3 = \displaystyle\frac{2\omega_p^2(\Delta t)^2}{2+\gamma_p\Delta t}
   \end{array}
 \end{gather*}
 
@@ -204,10 +204,10 @@ That is
 
 All coefficients of different dispersion types are summarized here
 \begin{center}
-  \begin{tabular}[c]{|rlccc|}
+  \begin{tabular}[c]{rlccc}
     \hline
     Dispersion Type & Relation & $C_1$ & $C_2$ & $C_3$ \\[0.1cm]
-
+    \hline\noalign{\smallskip}
     Lorentz 
     & $J_p= \displaystyle\frac{a}{b + jc\omega - d\omega^2}E$ 
     & $\displaystyle\frac{2-\omega_p^2\Delta t^2}{1+\delta_p\Delta t}$ 
