@@ -104,24 +104,24 @@ rearrange and approximate again
   \end{split}
 \end{equation}
 It would be helpful to define some variables here
-\begin{equation}
+\begin{equation}\label{eq:v3}
   v3 = \frac{\displaystyle 1 - \frac{\sigma_d\Delta t}{2\epsilon_0}}{\displaystyle 1 + \frac{\sigma_d\Delta t}{2\epsilon_0}}
 \end{equation}
-\begin{equation}
+\begin{equation}\label{eq:v2}
   v2 = \frac{1}{\displaystyle 1 + \frac{\sigma_d\Delta t}{2\epsilon_0}}
 \end{equation}
-\begin{equation}
+\begin{equation}\label{eq:v1}
   v1 = \frac{\sigma_d \Delta t}{\epsilon_0} 
 \end{equation}
 where $v = i,j,k$ and $d = x,y,z$, and the solution of $\widetilde{D}_x$ can be rewritten as 
-\begin{equation}
+\begin{equation}\label{eq:pmldx}
   \widetilde{D}_x|^{n+\frac{1}{2}} = j3 \cdot k3 \cdot \widetilde{D}_x|^{n-\frac{1}{2}} + j2 \cdot k2 \cdot 0.5 \cdot \left( curl\_hx + i1 \cdot \sum_0^T curl\_hx \right)
 \end{equation}
 The rest 5 update equations in UPML can be derived with similar procedure to be following.
-\begin{equation}
+\begin{equation}\label{eq:pmldy}
   \widetilde{D}_y|^{n+\frac{1}{2}} = i3 \cdot k3 \cdot \widetilde{D}_y|^{n-\frac{1}{2}} + i2 \cdot k2 \cdot 0.5 \cdot \left( curl\_hy + j1 \cdot \sum_0^T curl\_hy \right)
 \end{equation}
-\begin{equation}
+\begin{equation}\label{eq:pmldz}
   \widetilde{D}_z|^{n+\frac{1}{2}} = i3 \cdot j3 \cdot \widetilde{D}_z|^{n-\frac{1}{2}} + i2 \cdot j2 \cdot 0.5 \cdot \left( curl\_hz + k1 \cdot \sum_0^T curl\_hz \right)
 \end{equation}
 \begin{equation}

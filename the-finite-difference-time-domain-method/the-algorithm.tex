@@ -6,8 +6,8 @@ automatically satisfied and transient behavior of electromagnetics wave are offe
 
 Primitve Maxwell's equations are elegant enough to describe electromagnetics wave in mathematics. However, for the
 purpose of being programmable easily and preventing requiring different equations in simulation for different situation,
-the formulas need more symmetric properties in its form. To achieve to goal, some tuning propose by \textit{Sullivan} is
-applied on deriving of update equations to be as general as possible for handling freespace, dielectics, dispersive
+the formulas need more symmetric properties in its form. To achieve to goal, some tuning proposed by \textit{Sullivan}
+is applied on deriving of update equations to be as general as possible for handling freespace, dielectics, dispersive
 material, and even meta-material as well as varieties of PML at the same time.
 
 Moreover, by not only using E and H field but also importing D and B field, material-related terms were collected into
@@ -241,7 +241,7 @@ In the second step, semi-implicit scheme was applied.
   \end{split}
 \end{equation}
 Throughout this thesis, we use regular grid, that is, $\Delta x = \Delta y = \Delta z$. That means we could rewrite update equations as
-\begin{equation}
+\begin{equation}\label{eq:dx3d}
   \begin{split}
     \widetilde{D}_x|_{i+\frac{1}{2},j,k}^{n+\frac{1}{2}} & = \widetilde{D}_x|_{i+\frac{1}{2},j,k}^{n-\frac{1}{2}}\\
     & + \frac{c_0\Delta t}{\Delta x}\left(H_z|_{i+\frac{1}{2},j+\frac{1}{2},k}^{n} - H_z|_{i+\frac{1}{2},j-\frac{1}{2},k}^{n} - H_y|_{i+\frac{1}{2},j,k+\frac{1}{2}}^{n} + H_y|_{i+\frac{1}{2},j,k-\frac{1}{2}}^{n}\right)
@@ -278,7 +278,8 @@ Throughout this thesis, we use regular grid, that is, $\Delta x = \Delta y = \De
   \end{split}
 \end{equation}
 This is complete update equations derived for 3D cases. Also, $c_0\Delta t/\Delta x$ can be simply written as 0.5 for
-our convenience of Courant condition.
+our convenience of Courant condition. For short, the curl part in parentheses and be denoted as $curl\_hx$
+(Eq.\ref{eq:dx3d}), $curl\_ex$ (Eq.\ref{eq:bx3d}) and so on.
 
 Finally, non-integer index number can be mapped into array of computer language via
 \begin{equation}
