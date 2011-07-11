@@ -27,7 +27,9 @@ explained in Section \ref{sec:modeling}.
 
 The second part of dispersion component is $J_p$. The constructor of $J_p$ does two things. The first is calculating
 $C1$, $C2$, and $C3$ from $a,b,c,d$ coefficients. The other is appending instance variables for saving polarized
-displacement of recent three steps. From Eq.\ref{eq:polarized_displacement}, 
+displacement of recent three steps. From Eq.\ref{eq:polarized_displacement}, the method \textt{update} was implemented
+as following. The strategy to distinguish material is slightly different from modeling $\epsilon_r$. Logically, one pole
+saves one set of coefficients, so that it's not necessary saving coefficients as arrays. Masks are a better design here.
 \begin{code}
     def update(self, plane):
         self.xp2 = self.xp
@@ -40,4 +42,16 @@ displacement of recent three steps. From Eq.\ref{eq:polarized_displacement},
         self.y = self.c1*self.yp + self.c2*self.yp2 + self.c3*plane.eyfield*self.masky
         self.z = self.c1*self.zp + self.c2*self.zp2 + self.c3*plane.ezfield*self.maskz
         return self
+\end{code}
+In the main FDTD loop, the two parts constructed above collaborate after retrieving current $D$ field. All poles update
+themselves with previous $E$ field and $E$ field finds its current values from all poles.
+\begin{code}
+  plane.update_dfield()
+
+  # three poles are defined 
+  drude_pole.update(plane)
+  lorentz_pole1.update(plane)
+  lorentz_pole2.update(plane)
+
+  plane.update_efield(drude_pole, lorentz_pole1, lorentz_pole2) # allow arbitrary poles 
 \end{code}
