@@ -1,0 +1,44 @@
+\section{PBC Component}
+To make PBC component work, surrounded edges must be appended as instance variables and participate the calculation of
+curl part. For minimizing trivial code, this can be implenented in Freespace component. For example, the $curl\_ex$ in
+2D may invole edges as following.
+\begin{code}
+    def curl_ex(self):
+        res = numpy.zeros(self.shape)
+        (x,y) = self.shape
+        for i in range(x):
+            for j in range(y-1):
+                res[i,j] = self.ezfield[i,j+1] - self.ezfield[i,j]
+        for i in range(x):
+            res[i,y-1] = self.ezedgey[i] - self.ezfield[i,y-1]  # invole edges
+        return res
+\end{code}
+The duty of PBC component now remain locating the the PBC and update the edge components. Instance variables
+\texttt{pbcx} and \texttt{pbcy} are used to verify which edges should serve.
+\begin{code}
+    def pbc(self, x=True, y=True):
+        self.pbcx = x
+        self.pbcy = y
+        return self
+
+    def update_epbc(self):
+        if self.pbcx:
+            self.ezedgex = self.ezfield[0,:] # pbc x, TM
+            self.eyedgex = self.eyfield[0,:] # pbc x, TE
+        if self.pbcy:
+            self.ezedgey = self.ezfield[:,0] # pbc y, TM
+            self.exedgey = self.exfield[:,0] # pbc y, TE
+        return self
+
+    def update_hpbc(self):
+        xmax = self.shape[0]-1
+        ymax = self.shape[1]-1
+        if self.pbcx:
+            self.hyedgex = self.hyfield[xmax,:] # pbc x, TM
+            self.hzedgex = self.hzfield[xmax,:] # pbc x, TE
+        if self.pbcy:
+            self.hxedgey = self.hxfield[:,ymax] # pbc y, TM
+            self.hzedgey = self.hzfield[:,ymax] # pbc y, TE
+        return self
+\end{code}
+

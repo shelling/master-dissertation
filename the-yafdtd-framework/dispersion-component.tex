@@ -1,0 +1,43 @@
+\section{Dispersion Component}
+Owing to the demand of supports to multiple poles in Eq.\ref{eq:dispersive}, the dispersion component has to be splited
+into two part. The $\epsilon_r$ are saved in main decorated component to participate calculation after retrieving the
+summation of $J_p$. Oppositely, $J_p$ saving $a,b,c,d$ coefficients is implemented as a independent class not involving
+in Once Decorator inheritance structure.
+
+One more decorator is needed to append $\epsilon_r$ to main component and overwrite the \texttt{update\_efield} method
+as following. 
+\begin{code}
+    def update_efield(self, *polar):
+        self.exfield  = self.dxfield.copy()
+        self.eyfield  = self.dyfield.copy()
+        self.ezfield  = self.dzfield.copy()
+        for p in polar:
+            self.exfield -= p.x
+            self.eyfield -= p.y
+            self.ezfield -= p.z
+        self.exfield /= self.epsilon_rx
+        self.eyfield /= self.epsilon_ry
+        self.ezfield /= self.epsilon_rz
+        return self
+\end{code}
+The variable \texttt{*polar} with star declares it can receive arbitrary arguments and act as an array. In the middle
+for loop, $E$ field uses the values copied from $D$ field to subtract the $J_p$. Then $\epsilon_r$ divides $E - \sum
+J_p$ in latter three lines. The reason each E field component has its own appointment of $\epsilon_{r}$ has been
+explained in Section \ref{sec:modeling}.
+
+The second part of dispersion component is $J_p$. The constructor of $J_p$ does two things. The first is calculating
+$C1$, $C2$, and $C3$ from $a,b,c,d$ coefficients. The other is appending instance variables for saving polarized
+displacement of recent three steps. From Eq.\ref{eq:polarized_displacement}, 
+\begin{code}
+    def update(self, plane):
+        self.xp2 = self.xp
+        self.yp2 = self.yp
+        self.zp2 = self.zp
+        self.xp = self.x
+        self.yp = self.y
+        self.zp = self.z
+        self.x = self.c1*self.xp + self.c2*self.xp2 + self.c3*plane.exfield*self.maskx
+        self.y = self.c1*self.yp + self.c2*self.yp2 + self.c3*plane.eyfield*self.masky
+        self.z = self.c1*self.zp + self.c2*self.zp2 + self.c3*plane.ezfield*self.maskz
+        return self
+\end{code}

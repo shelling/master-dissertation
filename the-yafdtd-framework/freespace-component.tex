@@ -1,1 +1,58 @@
 \section{Freespace Component}
+The freespace component serve as main component in the architecture of Once Decorator. It stores fields components as
+instance variables and provides the interfaces to update fields by the rules of freespace. The fields components are
+utilized by concrete decorators which have to inherit main component. And about interfaces, there is a big trick
+here. Comparing the Eq.\ref{eq:pmldx} and Eq.\ref{eq:dx3d}, the curl part are are not changed. Apparently it necessary
+to provide interfaces for these reusable part. The $curl\_ex$ and $curl\_hx$ is a example here.
+\begin{code}
+    def curl_ex(self):
+        res = numpy.zeros(self.shape)
+        (x,y,z) = self.shape
+        for i in range(x):
+            for j in range(y-1):
+                for k in range(z-1):
+                    res[i,j,k] = self.ezfield[i,j+1,k] - self.ezfield[i,j,k] 
+                               - self.eyfield[i,j,k+1] + self.eyfield[i,j,k]
+        return res
+
+    def curl_hx(self):
+        res = numpy.zeros(self.shape)
+        (x,y,z) = self.shape
+        for i in range(x):
+            for j in range(y):
+                for k in range(z):
+                    res[i,j,k] = self.hzfield[i,j,k] - self.hzfield[i,j-1,k] 
+                               - self.hyfield[i,j,k] + self.hyfield[i,j,k-1]
+        return res
+\end{code}
+The return value is a 2D array saving the value of curl for each point. with the interface, Eq.\ref{eq:dx3d} and
+Eq.\ref{eq:bx3d} appear a elegant view in source code.
+\begin{code}
+    def update_dfield(self):
+        self.dxfield += 0.5 * self.curl_hx()
+        self.dyfield += 0.5 * self.curl_hy()
+        self.dzfield += 0.5 * self.curl_hz()
+        return self
+    def update_bfield(self):
+        self.bxfield -= 0.5 * self.curl_ex()
+        self.byfield -= 0.5 * self.curl_ey()
+        self.bzfield -= 0.5 * self.curl_ez()
+        return self
+\end{code}
+And the E field and H field are just copied from D and B in freespace. Handlers for material are left to implment in
+Dispersion concrete decorator. 
+\begin{code}
+    def update_efield(self):
+        self.exfield = self.dxfield.copy()
+        self.eyfield = self.dyfield.copy()
+        self.ezfield = self.dzfield.copy()
+        return self
+
+    def update_hfield(self):
+        self.hxfield = self.bxfield.copy()
+        self.hyfield = self.byfield.copy()
+        self.hzfield = self.bzfield.copy()
+        return self
+\end{code}
+
+

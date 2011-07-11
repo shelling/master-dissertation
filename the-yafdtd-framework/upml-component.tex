@@ -1,0 +1,26 @@
+\section{UPML Component}
+The hard part of UPML implementation is the summation term. The solution is deploying auxiliary variables to sum current
+values of curl and participate updating. In the case of 2D, Eq.\ref{eq:pmldx}, Eq.\ref{eq:pmldy}, and Eq.\ref{eq:pmldz}
+was implemented as following.
+\begin{code}
+    def update_dfield(self):
+        self.idx += self.curl_hx()
+        self.idy += self.curl_hy()
+        self.dxfield = self.j3 * self.dxfield 
+                     + self.j2 * 0.5 * ( self.curl_hx() + self.i1 * self.idx )
+        self.dyfield = self.i3 * self.dyfield 
+                     + self.i2 * 0.5 * ( self.curl_hy() + self.j1 * self.idy )
+        self.dzfield = self.i3 * self.j3 * self.dzfield 
+                     + self.i2 * self.j2 * 0.5 * self.curl_hz()
+        return self
+\end{code}
+The summation of $curl\_hx$ and $curl\_hy$ are saved in \texttt{idx} and \texttt{idy}. The variables defined in
+Eq.\ref{eq:v3}, Eq.\ref{eq:v2}, Eq.\ref{eq:v1} are saved as arrays \texttt{i1}, \texttt{i2}, \texttt{i3}, \texttt{j1},
+\texttt{j2}, \texttt{j3} which are mapping coefficients to every point in computation domain. In Sullivan's example, he
+used one dimension arrays to save memory here. However, it's more intuitive and programmable using array having
+dimension the same as fields component.
+
+The multiplication operator of numpy ndarray do multiplication for each pair having the same index like inner
+product. That makes the code clean as in mathematics. In any programming language allowing operator overloading,
+including Perl, Ruby, C++ and Java, it is a better alternative using a function as middleware to enclose for loops
+rather than writing for loop here directly.

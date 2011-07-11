@@ -8,8 +8,10 @@ transformation done with Eq.\ref{eq:coordinate_transform}, the center should be 
 fields.
 
 For example, there is a dielectric sphere with center $(i_0,j_0,k_0)$ and radius $r_0$. Due to the convenience, the
-$E_x|_{i+\frac{1}{2},j,k}$ field was saved as $E_x[i,j,k]$ in computer memory. Corresponding $\epsilon_{rx}[i,j,k]$ have
-to be marked with the sphere with center $(i_0-1/2, j_0, k_0)$ and radius $r_0$ in the coordinate in computer memory.
+$E_x|_{i+\frac{1}{2},j,k}$ field was saved as $E_x[i,j,k]$ in computer memory. Corresponding
+$\epsilon_{rx}|_{i+\frac{1}{2},j,k}$ or $\epsilon_{rx}[i,j,k]$ have to be marked with the sphere with center $(i_0-1/2,
+j_0, k_0)$ and radius $r_0$ in the coordinate in computer memory. That is, center of $\epsilon_{rx}$ has a shift
+quantity $(-1/2,0,0)$.
 
 The rest five components of fields should also be shifted as following
 \begin{displaymath}
