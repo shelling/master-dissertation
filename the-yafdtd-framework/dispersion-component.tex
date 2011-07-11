@@ -27,7 +27,7 @@ explained in Section \ref{sec:modeling}.
 
 The second part of dispersion component is $J_p$. The constructor of $J_p$ does two things. The first is calculating
 $C1$, $C2$, and $C3$ from $a,b,c,d$ coefficients. The other is appending instance variables for saving polarized
-displacement of recent three steps. From Eq.\ref{eq:polarized_displacement}, the method \textt{update} was implemented
+displacement of recent three steps. From Eq.\ref{eq:polarized_displacement}, the method \texttt{update} was implemented
 as following. The strategy to distinguish material is slightly different from modeling $\epsilon_r$. Logically, one pole
 saves one set of coefficients, so that it's not necessary saving coefficients as arrays. Masks are a better design here.
 \begin{code}
