@@ -162,7 +162,7 @@ Eq.\ref{eq:dispersion3d} was simplified into 1-D
 \end{equation}
 It gives a explcit commnet to the side effect of discretizing. For better accuracy, numerical dispersion shoulde be
 minimized. That is to say, the sampling rate should be raised ($\Delta t \rightarrow 0$) and cell size should be chose
-proper. [2005 \textit{Taflove}]
+proper. \cite[Taflove 2005]{taflove}
 
 
 \subsubsection{Courant Condition}
@@ -203,7 +203,10 @@ For first step, Our choice is Cartesian coordinate system and the results of ext
 \begin{equation}
   \overPartialT \widetilde{B}_z =-c_0 \curlEzThree \label{eq:up_b_z}
 \end{equation}
-In the second step, semi-implicit scheme was applied.
+In the second step, semi-implicit scheme was applied. Yee Mesh in Fig.\ref{fig:yee-grid} is taken as reference.
+\begin{center}\label{fig:yee-grid}
+  \includegraphics[scale=0.5]{images/yee-grid.jpg}
+\end{center}
 \begin{equation}
   \begin{split}
     \displaystyle & \frac{\widetilde{D}_x|_{i+\frac{1}{2},j,k}^{n+\frac{1}{2}} - \widetilde{D}_x|_{i+\frac{1}{2},j,k}^{n-\frac{1}{2}}}{\Delta t} = \\

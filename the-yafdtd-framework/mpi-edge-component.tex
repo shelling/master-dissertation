@@ -8,9 +8,27 @@ In the slant of MPI, computational domain of FDTD can be splited into many fragm
 manipulated by different CPU. Because data fragments are independent with others, at edges of computational domain, it
 needs to exchange data. APIs of MPI serve here.
 
-Invoking APIs of MPI in main script is a quick and dirty solution in vary examples and tutorials. It's possible wrapping
-MPI actions in a class as a Decorator in our architecture. 
+Invoking APIs of MPI in main script is a quick and dirty solution in vary examples and tutorials. However, it's possible
+wrapping MPI actions in a class as a Decorator in our architecture to hide ugly invoking of MPI. 
 \begin{code}
-  
-\end{code}
+    class MPIXEdgePlane(PlaneDecorator):
+        def __init__(self, orig):
+            super(MPIXEdgePlane, self).__init__(orig)
+            return None
 
+        def mpi(self, comm):
+            self.mpi_comm = comm
+            self.mpi_size = comm.Get_size
+            self.mpi_rank = comm.Get_rank
+            self.mpi_prev = self.mpi_rank-1
+            self.mpi_next = self.mpi_rank+1
+            return self
+
+        def send_hpbc(self):
+            self.mpi_comm.send(self.hyfield[self.shape[0]-1], dest=self.mpi_next, tag=0)
+            return self
+
+        def send_epbc(self):
+            self.mpi_comm.send(self.ezfield[0], dest=self.mpi_prev, tag=1)
+            return self
+\end{code}

@@ -1,94 +1,40 @@
 \section{Motivations}
-More Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec ligula a tortor mattis
-consectetur. Phasellus eget dictum quam. Pellentesque cursus, lacus ut rutrum suscipit, dolor sapien varius nisl, sed
-aliquam mi augue non magna. Maecenas dignissim aliquet porta. Sed elit purus, vestibulum a posuere ut, volutpat eget
-nibh. Phasellus eu dolor ante, a tincidunt massa. Pellentesque porttitor pharetra risus. Sed a sem neque. Etiam varius
-rutrum consequat. Donec sagittis nulla sed lectus tristique iaculis. Aliquam placerat sagittis enim nec
-aliquam. Phasellus in erat metus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+When observing the histories of the Finite-Difference Time-Domain (FDTD) method, the UNIX operating system, the Lisp and
+C programming languages which are ancestors of most other modern programming languages, they look like friends growing
+together. The flourishing of UNIX promotes whole computer industry and reduces the cost of numerical simulation. As the
+main language in UNIX environment, C gathers many many advocates in campuses with widespread distribution of licneses of
+UNIX. Comparing with Assembly Language family, C provides protability and clear code style of Structural Programming
+which can also benefit the programs of FDTD simulation.
 
-\hangindent=1.5cm
-\hspace*{1.5cm}Nullam nisl erat, pulvinar a fermentum ut, tempus eget enim. Vivamus vel odio id urna ultricies sollicitudin. Curabitur
-lobortis augue rhoncus purus sollicitudin ornare. Nullam sit amet quam quis neque mollis elementum. Cras dapibus felis
-eu mi vulputate ut rutrum dui molestie. Ut at venenatis purus. Nunc eget lacus blandit enim pharetra congue posuere in
-arcu. Duis pharetra, mi vitae venenatis pellentesque, quam nulla vulputate dui, at facilisis tortor tortor non orci. Sed
-lectus erat, suscipit quis aliquam et, lobortis at lorem. Quisque feugiat neque eros. Nunc rutrum adipiscing dolor eu
-pulvinar. Nunc elit diam, tincidunt at vulputate ornare, eleifend id ante. Aliquam a augue augue, a hendrerit eros.
+However, at present all of them become more mature and complex. UNIX and its derivations go beyond campuses and live in
+fabrication industries, business corporates, and families. Advocates come from different fields requiring and appending
+more abilities on this omnipotent operating system. Bunches of theorem of designing programming languages are developing
+on the operating system of rebirth. One of them is concepts of Object-Oriented Programming (OOP) introduced in Simula
+language of 1960s and reinvestigated in Smalltalk language of 1970s \cite[Sebesta 2008]{sebesta}. Soon after 1980s, OOP
+becomes popular on UNIX system along with the implementation on Common Lisp Object System (CLOS) and the birth of C++
+and Java in 1983 and 1995 respectively because of the possibility to devided a huge system into small independent
+fragments for different programmers. Programmers may not know details of the parts done by others any more but programs
+can work with correct invoking of interfaces. Unquestionably, one gaint leap for software developing.
 
-\hspace*{1cm}Praesent lectus enim, tincidunt id volutpat sit amet, varius sit amet lectus. Nam bibendum consequat tellus accumsan
-pellentesque. Nullam enim dolor, eleifend eu faucibus non, convallis congue nibh. Pellentesque vel urna ac lorem congue
-vehicula non ut massa. Quisque a metus et est faucibus sollicitudin viverra ut purus. Nullam a leo sit amet ipsum
-sagittis volutpat ut at tortor. Nullam quis adipiscing arcu. Nulla facilisi. Integer at dui turpis. Suspendisse luctus
-rutrum dui ac mattis. In hac habitasse platea dictumst. Duis pharetra fringilla nulla, at molestie arcu fermentum
-eu. Integer id metus vel enim auctor rutrum.
+FDTD also had huge advances. Varieties of Absorbing Boundary Conditions and transformation tools for scattering system
+are developed during 70s and 80s. Methods for arbitrary material and non-linear systems are also proposed in 90s. Along
+with more complex theorems came the obscure formulas. Complications were caused by bundling too many theorems in one
+equation and requiring numerous variables in procedural programming environment. Reviewing the evolution of Structural
+Programming and Object-Oriented Programming, we know those two problems are targeted by these two Concepts. That is, a
+modern FDTD simulator should be designed with modern concepts of programming. Unfortunately, almost all books and
+articles about FDTD focus on fundamental theorems and show their algorithms in primitive procedural style like Assembly
+languages. Apparently, the skill out-of-date before 30 years ago is bad smell in code. [Kerievsky, 2004]
 
-In hac habitasse platea dictumst. Pellentesque elementum dolor vel felis tincidunt in mollis lorem ornare. Fusce non
-ligula massa, varius tempus eros. Quisque nunc magna, facilisis at luctus ut, venenatis vel dolor. Mauris nec accumsan
-nulla. Fusce in lorem velit, non egestas mauris. Cras laoreet erat eu leo commodo aliquam. In eget mauris lacus, vitae
-scelerisque lacus. Proin id massa augue. Ut ac euismod risus. Integer vulputate turpis eu urna pulvinar sit amet ornare
-elit sagittis. Nunc mattis enim vel lectus mollis vitae viverra mauris sollicitudin. Proin id dui nunc. Ut ut quam
-iaculis est tincidunt venenatis. Nunc at felis in augue suscipit scelerisque. Pellentesque eget tellus at odio malesuada
-mollis aliquet ut magna. Suspendisse velit augue, rhoncus ut tempor non, tincidunt vel ligula. Proin elementum arcu sit
-amet eros hendrerit lacinia eget et lectus. Donec non justo vitae ipsum consequat scelerisque. Nunc tincidunt, lacus non
-fermentum molestie, tellus nibh aliquet diam, ac congue velit lacus eu diam.
-\[
-\begin{bmatrix}
-  1& 1& 3\\
-  4& 5& 6\\
-  7& 8& 9
-\end{bmatrix}
-\]
-\[
-\begin{pmatrix}
-  1& 1& 3\\
-  4& 5& 6\\
-  7& 8& 9
-\end{pmatrix}
-\]
-\[
-\begin{Bmatrix}
-  1& 1& 3\\
-  4& 5& 6\\
-  7& 8& 9
-\end{Bmatrix}
-\]
-Intro to \TeX\footnote{footnote}\marginpar{margin par}\\
-\textit{The TeX Book}\footnote{The TeX Book}\\
-{\msjh 中文} {\kai 楷書} {\arial Arial} \textcolor{blue}{blue} \fbox{float box}\\
-baseline \raisebox{1ex}{upward}\raisebox{-1ex}{downward}\\
-math expression $ (y^m)^n $
-tabbing
-\begin{tabbing}
-  column1 \= column2 \= column3 \\
-  item1   \> item2   \> item3
-\end{tabbing}
-tabular\\[1em]
-\begin{tabular}{|l|c|r|}
-  \hline
-  \multicolumn{3}{|c|}{Sample Tabular}\\
-  \hline
-  first & second & third \\
-  \cline{2-3}
-  left  & centered & right \\
-  \hline
-\end{tabular}
+Indeed, some people notice the inevitability to reform the architecture of FDTD. A well-known implementation, Meep
+(\texttt{http://ab-initio.mit.edu/wiki/index.php/Meep}), developed in Massachusetts Institute of Technology shows us the
+advantages and roadmap to develop components in high-level languages for reusing. However, lack of Periodic Boundary
+Conditions and Plane Wave Source Conditions make it impossible to be used in our environment. No support to OOP also
+limits the development of this package. For example, it may be insuperable to replace UPML with CPML in Meep without
+considerable changes.
 
-one - two -- three --- minus $ - $
-control\ space\\
-final\\
-\TeX\ ignore space behind it.\\
-\XeTeX\ does.\\
-'\TeX'\\
-Here is $\pi$ and $\Pi$\\
-the angle of whole circle is 2$\pi$.\\
-
-Common Accents
-P\'olya\i\\
-\'o \`o \^o \"o \.g \v{o} \^{o} \r{o}\\
-P$\tilde{a}$ri\\
-$\tilde{E}$\\
-$\widetilde{E}$\\
-
-
-
-
-
+In this thesis, we propose a elegant organization to theorems of FDTD. By applying the concepts of refactoring in OOP
+upon Maxwell's equations or Update Equations, formulas are presented in a bunch of small atoms which are easy to
+statisfy the concept of Structural Programming. And the way to arrange formulas into different components in OOP would
+also rise before our mind. Paradigm of OOP not only help us assemble proper simulation environment with handy components
+but also eliminate the obstacle to newbies of FDTD. UPML and CPML can be exchanged in seconds and newcomers may be able
+to do a correct simulation without understanding how a Perfectly Matched Layer works.

@@ -1,4 +1,79 @@
 \section{TF/SF Component}
-Concepts of TF/SF Component are easy to grasp. However, the theory left a big blank canvas for implementation. There are
-eight types in two dimension and twelve types in three dimension. That is, categorizing by incident direction, each one
-has four types.
+Concepts of TF/SF Component are easy to grasp. However, the theory left a big blank canvas for implementation because
+there are eight types in two dimension and twelve types in three dimension. A intuitive implementation is categorizing
+by incident direction to be XTFSF, YTFSF, and ZTFSF (only in 3D). An XTFSF can be TM or TE mode and each mode can be
+rectangle layout or infinite layout working with PBC (Fig.???), YTFSF and ZTFSF too. By example of YTFSF in two
+dimension, the constructor appends two auxiliary 1D source as well as masks boundary of TFSF in two direction. 
+\begin{code}
+    def __init__(self, orig):
+        super(YTFSFPlane, self).__init__(orig)
+        self.tminc = String(self.shape[1])
+        self.teinc = String(self.shape[1])
+        self.xtfsf = [10, self.shape[0]-10]
+        self.ytfsf = [10, self.shape[1]-10]
+        return None
+\end{code}
+The rest is two more interfaces to insert D and B at TFSF boundary. To simplify, TE and TM mode are inserted at the same
+time. If only one mode is needed, no updating on the unnecessary auxiliary 1D source in main script could disable
+it. This design leads to more overhead but creates elegant depiction. The next big trick is to examinate whether the
+boundaries in x direction are \texttt{[None, None]}. If the assertion is true, regard TFSF itself as a layout infinite
+at x direction. Otherwise, it's a rectangle layout should update boundaries in x direction.
+\begin{code}
+    def update_dtfsf(self):
+        if self.xtfsf == [None, None]:
+            self.dzfield[:, self.ytfsf[0]]
+            += 0.5 * self.tminc.hfield[self.ytfsf[0]-1]
+            self.dzfield[:, self.ytfsf[1]] 
+            -= 0.5 * self.tminc.hfield[self.ytfsf[1]]
+            self.dxfield[:, self.ytfsf[0]]  
+            -= 0.5 * self.teinc.hfield[self.ytfsf[0]-1]
+            self.dxfield[:, self.ytfsf[1]]  
+            += 0.5 * self.teinc.hfield[self.ytfsf[1]]
+        else:
+            # y edge
+            self.dzfield[self.xtfsf[0]:self.xtfsf[1]+1, self.ytfsf[0]]  
+            += 0.5 * self.tminc.hfield[self.ytfsf[0]-1]
+            self.dzfield[self.xtfsf[0]:self.xtfsf[1]+1, self.ytfsf[1]]  
+            -= 0.5 * self.tminc.hfield[self.ytfsf[1]]
+            self.dxfield[self.xtfsf[0]:self.xtfsf[1]+1, self.ytfsf[0]]  
+            -= 0.5 * self.teinc.hfield[self.ytfsf[0]-1]
+            self.dxfield[self.xtfsf[0]:self.xtfsf[1]+1, self.ytfsf[1]]  
+            += 0.5 * self.teinc.hfield[self.ytfsf[1]]
+
+            # x edge
+            self.dyfield[self.xtfsf[0],   self.ytfsf[0]:self.ytfsf[1]+1] 
+            += 0.5 * self.teinc.hfield[self.ytfsf[0]:self.ytfsf[1]+1]
+            self.dyfield[self.xtfsf[1]+1, self.ytfsf[0]:self.ytfsf[1]+1] 
+            -= 0.5 * self.teinc.hfield[self.ytfsf[0]:self.ytfsf[1]+1]
+        return self
+
+
+    def update_btfsf(self):
+        if self.xtfsf == [None, None]:
+            # y edge
+            self.bxfield[:, self.ytfsf[0]-1]
+            += 0.5 * self.tminc.efield[self.ytfsf[0]]
+            self.bxfield[:, self.ytfsf[1]]  
+            -= 0.5 * self.tminc.efield[self.ytfsf[1]]
+            self.bzfield[:, self.ytfsf[0]-1]
+            += 0.5 * self.teinc.efield[self.ytfsf[0]]
+            self.bzfield[:, self.ytfsf[1]]  
+            -= 0.5 * self.teinc.efield[self.ytfsf[1]]
+        else:
+            # y edge
+            self.bxfield[self.xtfsf[0]:self.xtfsf[1]+1, self.ytfsf[0]-1] 
+            += 0.5 * self.tminc.efield[self.ytfsf[0]]
+            self.bxfield[self.xtfsf[0]:self.xtfsf[1]+1, self.ytfsf[1]]   
+            -= 0.5 * self.tminc.efield[self.ytfsf[1]]
+            self.bzfield[self.xtfsf[0]:self.xtfsf[1]+1, self.ytfsf[0]-1] 
+            += 0.5 * self.teinc.efield[self.ytfsf[0]]
+            self.bzfield[self.xtfsf[0]:self.xtfsf[1]+1, self.ytfsf[1]]   
+            -= 0.5 * self.teinc.efield[self.ytfsf[1]]
+
+            # x edge
+            self.byfield[self.xtfsf[0]-1, self.ytfsf[0]:self.ytfsf[1]+1] 
+            -= 0.5 * self.tminc.efield[self.ytfsf[0]:self.ytfsf[1]+1]
+            self.byfield[self.xtfsf[1],   self.ytfsf[0]:self.ytfsf[1]+1]
+            += 0.5 * self.tminc.efield[self.ytfsf[0]:self.ytfsf[1]+1]
+        return self
+\end{code}
