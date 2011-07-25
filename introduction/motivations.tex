@@ -27,14 +27,15 @@ languages. Apparently, the skill out-of-date before 30 years ago is bad smell in
 
 Indeed, some people notice the inevitability to reform the architecture of FDTD. A well-known implementation, Meep
 (\texttt{http://ab-initio.mit.edu/wiki/index.php/Meep}), developed in Massachusetts Institute of Technology shows us the
-advantages and roadmap to develop components in high-level languages for reusing. However, lack of Periodic Boundary
-Conditions and Plane Wave Source Conditions make it impossible to be used in our environment. No support to OOP also
-limits the development of this package. For example, it may be insuperable to replace UPML with CPML in Meep without
-considerable changes.
+advantages to develop components for reusing in high-level languages such as Scheme. However, lack of good Periodic
+Boundary Conditions and Plane Wave Source Conditions makes it impossible to be used in our environment. No support to
+OOP also limits the development of this package. For example, it may be insuperable to replace UPML with CPML in Meep
+without considerable changes. Based on problems listed above, Developing our own general-purpose FDTD is worthy of
+giving a try rather than stacking upon Meep. 
 
 In this thesis, we propose a elegant organization to theorems of FDTD. By applying the concepts of refactoring in OOP
 upon Maxwell's equations or Update Equations, formulas are presented in a bunch of small atoms which are easy to
-statisfy the concept of Structural Programming. And the way to arrange formulas into different components in OOP would
-also rise before our mind. Paradigm of OOP not only help us assemble proper simulation environment with handy components
-but also eliminate the obstacle to newbies of FDTD. UPML and CPML can be exchanged in seconds and newcomers may be able
-to do a correct simulation without understanding how a Perfectly Matched Layer works.
+statisfy the concept of Structural Programming. Through the cutting, the way to arrange formulas into different
+components in OOP would also rise before our mind. Paradigm of OOP not only help us assemble proper simulation
+environment with handy components but also eliminate the obstacle to newbies of FDTD. UPML and CPML can be exchanged in
+seconds and newcomers may be able to do a correct simulation without understanding how a Perfectly Matched Layer works.
