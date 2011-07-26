@@ -15,7 +15,7 @@ behaviors of the former. Because a FDTD simulaion need only one main component, 
 Decorator for preventing modification of inheritance on identical subclass. Moreover, all subclasses save the singleton
 instance in main component to ensure one and only one singleton instance can be allowed to join the calculation.
 
-The architecture of Once Decorator is also similar to Decorator as shown in Fig.??. The trick is hidden in constructor
+The architecture of Once Decorator is also similar to Decorator as shown in Fig 3.1. The trick is hidden in constructor
 of Decorator. Assuming main component of two dimension is named as Plane, the Decorator can be implemented as following.
 \begin{code}
   class PlaneDecorator(Plane):

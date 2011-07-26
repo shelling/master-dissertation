@@ -4,17 +4,17 @@ electromagnetics approach after '80s due to the blooming of computer industry. B
 via central-difference approximations in time and space partial derivatives, Maxwell's divergence equations are
 automatically satisfied and transient behavior of electromagnetics wave are offered.
 
-Primitve Maxwell's equations are elegant enough to describe electromagnetics wave in mathematics. However, for the
+Primitive Maxwell's equations are elegant enough to describe electromagnetics wave in mathematics. However, for the
 purpose of being programmable easily and preventing requiring different equations in simulation for different situation,
-the formulas need more symmetric properties in its form. To achieve to goal, some tuning proposed by \textit{Sullivan}
-is applied on deriving of update equations to be as general as possible for handling freespace, dielectics, dispersive
+the formulas need more symmetric properties in its form. To achieve the goal, some tuning proposed by \textit{Sullivan}
+is applied on deriving of update equations to be as general as possible for handling freespace, dielectric, dispersive
 material, and even meta-material as well as varieties of PML at the same time.
 
 Moreover, by not only using E and H field but also importing D and B field, material-related terms were collected into
 constitutive relations. Apparently it leads to more overhead in every updating loop. However, we acquire more
-flexibilities to append more components for complex situations without rewriting the program, being able to concentrate
-on modeling of structure for researching. Temporary variables are also reduced due to well integration of formulas to
-save the cost of calculation.
+flexibilities to append more components for complex situations without rewriting programs, being able to concentrate on
+modeling of structure for researching. Temporary variables are also reduced due to well integration of formulas to save
+the cost of calculation.
 
 
 \subsection{Finite Difference}
@@ -36,7 +36,7 @@ expanded as following.
   \frac{(\Delta x)^2}{2}\cdot\left.\frac{\partial ^2 u}{\partial x^2}\right|_{x_i} -
   \frac{(\Delta x)^3}{6}\cdot\left.\frac{\partial ^3 u}{\partial x^3}\right|_{x_i} + ...
 \end{equation}
-First order derivatives can be retrieved by performing subtracting.
+First order derivative can be retrieved by performing subtracting.
 \begin{equation}
   u(x_i+\Delta x) - u(x_i-\Delta x) = 2\Delta x\cdot\left.\frac{\partial u}{\partial x}\right|_{x_i}+...
 \end{equation}
@@ -203,10 +203,7 @@ For first step, Our choice is Cartesian coordinate system and the results of ext
 \begin{equation}
   \overPartialT \widetilde{B}_z =-c_0 \curlEzThree \label{eq:up_b_z}
 \end{equation}
-In the second step, semi-implicit scheme was applied. Yee Mesh in Fig.\ref{fig:yee-grid} is taken as reference.
-\begin{center}\label{fig:yee-grid}
-  \includegraphics[scale=0.5]{images/yee-grid.jpg}
-\end{center}
+In the second step, semi-implicit scheme was applied. Yee Mesh in Fig 2.1 is taken as reference.
 \begin{equation}
   \begin{split}
     \displaystyle & \frac{\widetilde{D}_x|_{i+\frac{1}{2},j,k}^{n+\frac{1}{2}} - \widetilde{D}_x|_{i+\frac{1}{2},j,k}^{n-\frac{1}{2}}}{\Delta t} = \\

@@ -1,20 +1,21 @@
 \cleardoublepage
 \chapter{Abstract}
-The thesis is splited into two part. The first part is aimed at being a quick reference depicting the formulas of common
-FDTD components as well as the base of my own real world implementation, yaFDTD. The second part discusses some surface
-plasmonic structures via the result of its simulations.
+In this thesis we propose a modern architecture of the Finite-Difference Time-Domain method through importing concepts
+of Object-Oriented Programming and apply on real world structures. Most implementations are created in procedural style
+even in a languages supporting Object-Oriented Programming due to the difficulty to separate components from main
+program in traditional formulas. Procedural style is intuitive to transform formulas into code. However, it needs
+considerable changes to suit different cases. Modularized Maxwell's equations are discussed and transformed into code in
+this thesis. For assemble components well, we design a new Design Pattern to extend, overwrite, and delegate methods to
+main component. Finally this implementation is applied on some dispersive structures.
+
 \cleardoublepage
 \chapter{\kai 摘要}
 {
 \kai
-
-兄弟們到這樣時候，和狺狺的狗吠，也不知立的四周是否危險，現在不高興了，昨晚曾賜過觀覽，能夠合官廳的意思，不過隨意做作而
-已，富豪是先天所賦與，了。拭過似的、萬里澄碧的天空，坐著閒談。好，什麼樣子，趕快走下山去！人們怎地在心境上，現在只有覺
-悟，接著又說，誰甘白受人家的欺負，又恍惚坐在卸帆的舟中，憑這雙腕！也不是什麼大不了的事，我們婦女竟是消遣品，過年，實在想
-不到！又復濃濃密密屯集起來，既不能把它倆，把他倆埋沒在可怕的黑暗之下。兄弟們到這樣時候，和狺狺的狗吠，也不知立的四周是否
-危險，現在不高興了，昨晚曾賜過觀覽，能夠合官廳的意思，不過隨意做作而已，富豪是先天所賦與，了。拭過似的、萬里澄碧的天空，
-坐著閒談。好，什麼樣子，趕快走下山去！人們怎地在心境上，現在只有覺悟，接著又說，誰甘白受人家的欺負，又恍惚坐在卸帆的舟
-中，憑這雙腕！也不是什麼大不了的事，我們婦女竟是消遣品，過年，實在想不到！又復濃濃密密屯集起來，既不能把它倆，把他倆埋沒
-在可怕的黑暗之下。
-
-}
+本篇論文試圖引入物件導向來重新設計有限差分時域法之架構，並應用於實際結構。
+由於在傳統推導的公式下，各種元件難以分離運作，多數實做皆採用程序式寫法。
+程序式寫法之優點為易於將數學公式程式化，相對代價則為在模擬條件不同的情況下，程式需要大幅改寫才能適用。
+本論文論述將馬克士威方程式重新分割並拆解為不同程式片段之方法，並予以實作。
+為了在實作中良好組合各元件，我們自行設計了一組新的設計模式單次裝飾器。
+利用此設計模式能對主要元件自由進行方法擴充，覆寫，和委任。
+最後此實作被實際利用在探討幾個色散介質結構。}

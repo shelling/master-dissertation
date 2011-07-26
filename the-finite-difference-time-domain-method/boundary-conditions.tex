@@ -182,9 +182,10 @@ Follow coequal steps shown in three dimension, update equations can be written a
 
 
 \subsection{Periodic Boundary Conditions}
-Comparing with PML, PBC is relatively easy to implement.  The best design of PBC as shown in Fig.?? appends some
+Comparing with PML, PBC is relatively easy to implement.  The best design of PBC as shown in Fig 2.3 appends some
 auxiliary array surrounding the main domain for calculating. These auxiliary array copy the value of the row or column
 in opposed sides and participate the calculation at the edge they locate. This is just the original idea of how to
 create a fake view of infinite continuous periodic domain for calculating, which can be stolen by the design of
 Parallelization: by sending the row or column at the edge to adjacent calculation domains of MPI to be their auxiliary
 array, the feature of parallelization can be completed.
+
