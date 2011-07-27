@@ -1,0 +1,23 @@
+\section{examination}
+The surface plasmonic structures become popular in this two decades owing to plasmonic waveguides admit optical waves
+transmitting in subwavelength structures having metal-dielectric interfaces specially in nano-scale. The conduction
+electrons oscillate in the longitudinal direction and the Maxwell's equations show the solution is electromagnetic
+fields confined near the interface of metal.
+
+Single silver rod may one of the most simple metal-dielectric interface. Phasor distribution of single silver rod is
+easy to obtain via frequency domain method such as Multiple-Scattering method. By performing Fourier transform on
+timeline of FDTD result reaching steady state, a good approximation is expected. To ensure the yaFDTD framework to carry
+out a credible result, comparison result between exact solution and FDTD is a good index.
+
+The example here is a nano cylinder with radius 25 $nm$. The cylinder material is silver simulated using Drude Model
+with following parameters: $\epsilon_r = 8.926$, $\omega_p = 9.39 \times 10^{15}$ rad/s, $\gamma_p = 3.14 \times
+10^{13}$ rad/s.  There would be one more thing remarkable before starting simulation to acquire better result. Although
+the UPML has excellent performance for absorbing propagatin waves; however, the evanescent waves still grows field
+intensity up inside the UPML. To prevent the reflection from PML interact with the scatters. It need extra space between
+PML and scatters. Here we set the grid size to be 1 $nm$ and make whole space being $500 \times 500 nm^2$.
+
+Final arrangement is shown in Fig 4.1. Plane wave in $\mathrm{TE_z}$ mode is impinged in x-direction with wavelength
+347.5 $nm$. Fig 4.2 shows the Re\{$H_z$\} profiles of phasor distribution when reaching steady state after 100 periods of
+plane wave. Fig 4.3 shows the exact solution of Re\{$H_z$\} profiles. and numerical error shown in Fig 4.4 is calculated
+by subtracting the result from FDTD with the result from exact solution. The inaccuracy is small than 0.1 with the
+simplest Stair-Case scheme. In general, it good enough to apply the framework on more complex cases.

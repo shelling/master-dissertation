@@ -119,16 +119,78 @@ Fig 3.2
 
 
 
-
 \chapter{Applications about Surface Plasmon Structures}
 \input{applications-about-surface-plasmon-structures/examination}
 \input{applications-about-surface-plasmon-structures/silver-rods-open-cavity}
-\input{applications-about-surface-plasmon-structures/slit-surrounded-grooves}
-\input{applications-about-surface-plasmon-structures/grating-metal-insulator-interface}
+\clearpage
+\begin{center}
+\includegraphics[scale=0.5]{images/single-rod-config.jpg}\\
+Fig 4.1
+configuration of single silver rods
+\end{center}
+\begin{center}
+\includegraphics[scale=0.8]{images/phasor-exam-fdtd.png}\\
+Fig 4.2
+phasor distribution of $mathrm{H_z}$, calculated by yaFDTD
+\end{center}
+\begin{center}
+\includegraphics[scale=0.8]{images/phasor-exam-exact.png}\\
+Fig 4.3
+phasor distribution of $mathrm{H_z}$, exact solution
+\end{center}
+\begin{center}
+\includegraphics[scale=0.8]{images/errors.png}\\
+Fig 4.4
+numerical error between yaFDTD and exact solution
+\end{center}
+\begin{center}
+\includegraphics[scale=0.5]{images/open-cavity-config.jpg}\\
+Fig 4.5
+configuration of three pairs of silver nanocylinders
+\end{center}
+\begin{center}
+\includegraphics[scale=0.8]{images/etotal.png}\\
+Fig 4.6
+phasor distribution of $|E|$ for the case $\lambda = 460nm, r = 36nm, d = d_p = 20nm$, calculated by yaFDTD
+\end{center}
+\begin{center}
+\includegraphics[scale=0.1]{images/r36.png}\\
+Fig 4.8
+phasor distribution of $|E|$ for the case $\lambda = 460nm, r = 36nm, d = d_p = 20nm$, in previous study
+\end{center}
+\begin{center}
+\includegraphics[scale=0.8]{images/ex.png}\\
+Fig 4.9
+phasor distribution of $|E_x|$ for the case $\lambda = 460nm, r = 36nm, d = d_p = 20nm$, calculated by yaFDTD
+\end{center}
+\begin{center}
+\includegraphics[scale=0.8]{images/ey.png}\\
+Fig 4.10
+phasor distribution of $|E_y|$ for the case $\lambda = 460nm, r = 36nm, d = d_p = 20nm$, calculated by yaFDTD
+\end{center}
+
 
 
 
 \chapter{Conclusion}
+In this research, Maxwell's equations are reinvestigated to be a more symmetrical forms for being programmable easily
+And the possibility to refactor Maxwell's equtions into a bunch of fragments is also be studied. By importing the
+concepts of Structural Programming and Object-Oriented Programming, a blueprint of forming a FDTD simulator by assemble
+well-prepared components appears before our eyes. It admits the newbies starting simulations without understand details
+of each components. For design five common components in FDTD method: Freespace, Perfectly Matched Layers, Dispersive
+Materials, Total Field / Scatter Field plane wave source, and Bloch Periodic Boundary Conditions, fragments of Maxwell's
+equations are spreaded into different classes. For assembling all components well, a Design Pattern, Once Decorator, is
+proposed. By the abilities of this Design Pattern, It's possible to append or exchange new components into future
+simulation without considerable changes in other components have been written. Existed five components is also gathered
+as a tiny framework.
+
+The structures formed of silver nanocylinders are also studied. In single silver rods case, the phasor distribution
+calculated by FDTD is compared with exact solution. This case shows that the accuracy of the tiny framework is
+credible. An open cavity forms of three silver nanocylinders pairs are also studied. Phasor calculation shows the open
+cavity has the maximum resonance when the ratio of wevelength of impinging plane wave and the radius of nanocylinders is
+around 11 and 12. Partially phasor distribution of $|\mathrm{E_x}|$ and $|\mathrm{E_y}|$ also shows the details of
+dipole interaction. It implies increasing distance between pairs $|\mathrm{E_y}|$ would be weaken and $|\mathrm{E_x}|$
+has the same change when distance inside each pairs increase due to less coupling of near-field.
 
 
 
