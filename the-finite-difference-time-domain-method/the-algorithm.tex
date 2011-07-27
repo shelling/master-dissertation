@@ -64,8 +64,8 @@ derivatives can be showed as following.
 
 
 \subsection{The Update Equations}
-Following is the most well-known form of Maxwell's Equations\index{Maxwell's Equations} in time domain, for getting
-sysmetrical form and handling metamaterial, novel magnetic current $M$ was added into Faraday's Law.
+Following is the most well-known form of Maxwell's Equations\index{Maxwell's Equations} in time domain. For getting
+symmetrical form and handling metamaterial, novel magnetic current $M$ was added into Faraday's Law.
 \begin{gather}
   \label{eq:maxwell}
   \begin{array}{@{}rclr@{}}
@@ -101,7 +101,7 @@ Finally, the equations becomes
   \epsilon_r\frac{\partial}{\partial t}\widetilde{E}(t) + \frac{\sigma_e}{\epsilon_0}\widetilde{E}(t) = \frac{1}{\sqrt{\mu_0\epsilon_0}}\nabla\times H(t)\\
   \mu_r\frac{\partial}{\partial t} H(t) + \frac{\sigma_h}{\mu_0}H(t) = - \frac{1}{\sqrt{\mu_0\epsilon_0}}\nabla\times\widetilde{E}(t)
 \end{gather}
-It does really a magic trick. All of us know $1/\sqrt{\mu_0\epsilon_0}$ are speed of light in freespace and, by Fourier
+It does really a magic trick. All of us know $1/\sqrt{\mu_0\epsilon_0}$ is speed of light in freespace and, by Fourier
 transform, $\partial/\partial t \rightarrow j\omega$. A fairly beautiful form for implementing was acquired.
 \begin{gather}
   j\omega\left(\epsilon_r + \frac{\sigma_e}{j\omega\epsilon_0}\right)\widetilde{E}(\omega) = c_0\ \nabla\times H(\omega)\\

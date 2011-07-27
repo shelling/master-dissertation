@@ -4,7 +4,7 @@ Don't reinventing the wheels. This is a famous idiom handed down from the era of
 engineering, there is also a common derivation of the concept: Don't Repeat Yourself (DRY). It showed understanding how
 to reuse existed codes to accelerate new projects is just like earning a silver bullet for software developers. That's
 why the history of software devloping is also the history of seeking better ways to reuse softwares. A function as a
-resuable unit became well-known after the Structure Programming languages, such as Pascal, Ada and C, had become the
+resuable unit became well-known after the Structural Programming languages, such as Pascal, Ada and C, had become the
 mainstream. Not a long time after that, Object-Oriented Programming (OOP) languages took over the world with Class and
 Object, the more general reusable units containing functions and data structures.
 
@@ -13,7 +13,7 @@ the program and bundling relative functions to form Classes. By instancing a Cla
 different data but have identical data structures and behaviors. OOP promised a vision: through finding pertinent
 objects and factoring them into classes at right granularity, your program would be able to address future requirements
 without change too much code. Projects are also speeded up by spliting workforces for each independent piece of a
-program. The set of cooperting classes that make up a reusable design can form a framewok for targeted class of
+program. The set of cooperating classes making up a reusable design can form a framewok for targeted class of
 software. With a framework, creating a particular application is just creating some specific subclasses of abstract
 class from the framework. Actually, the road to fit the prerequisite is not flat.
 
@@ -21,10 +21,10 @@ The hard part about designing a framework is decomposing a system into objects d
 granularity, flexibility, evolution, reusability and so on [DP]. A framework designer has to gambles that one
 architecture will work for all applications in the domain so that a framework should be as flexible and extensible as
 possible. Loose coupling is another imperative issue for preventing major repercussion in applications when doing a
-minor change to the framework. Faceing challenges one after another, few researchers of FDTD are willing to spend time
+minor change to the framework. Facing challenges one after another, few researchers of FDTD are willing to spend time
 on proposing a design of FDTD framework of which they can take advantage.
 
-Fortunately, Components of FDTD simulator has given us a native prototype of architecture. Every components can be just
+Fortunately, Components of FDTD simulator has given us a native prototype of architecture. Every component can be just
 defined as a class. The emergent problem is they have some functionalities overlapping for simple or complex situation
 respectively. How to design a extensible way making complex component can be adopted when needed become the main
 delimma. This chapter is aimed at proposing a experimental framework of FDTD with a special Design Pattern: Once

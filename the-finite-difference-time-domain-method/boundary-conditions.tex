@@ -1,8 +1,8 @@
 \section{Boundary Conditions}
 \label{sec:bcs}
-Threeg kinds of Boundary Conditions (BCs) are applied in this research: Analytic Absorbing Boundary Conditions (ABC),
+Three kinds of Boundary Conditions (BCs) are applied in this research: Analytic Absorbing Boundary Conditions (ABC),
 Perfectly Matched Layer Absorbing Boundary Conditions (PML) and Periodic Boundary Conditions (PBC). All three kinds of
-BCs have the purpose to create a fake infinite space with finite computation domain. The difference is ABC and PML are
+BCs have the purpose to create a fake infinite space via finite computation domain. The difference is ABC and PML are
 design for making only one set of structure appear in computation domain rather than place infinite sets of identical
 structure like PBC.
 
@@ -26,7 +26,7 @@ For 2-D and 3-D simulation, the ABC discussed above is no longer useful due to t
 normally incident wave. The Berenger's PML (BPML) [\textit{Berenger} 1994], also known as Split-Field PML, was firstly
 proposed. Before long, Unaxial PML (UPML) [\textit{Sacks et al}, 1995] are proposed with similar performance in
 mathematics but different machenism. The two PML shown above require freespcace at interface of PML. The Convolution PML
-(CPML) proposed later allow arbitrary material and perform better on absorb evanescent wave.
+(CPML) proposed later allow arbitrary material and perform better on absorbing evanescent wave.
 
 By inserting coefficients of UPML into Eq.\ref{eq:up_d} and Eq.\ref{eq:up_b}, half of update equations become
 following. Owing to the $\bar{\bar{s}}$ parameter can be reduced to $1$ in non-PML region, the new update equations are
