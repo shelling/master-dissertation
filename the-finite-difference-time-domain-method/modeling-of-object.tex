@@ -1,19 +1,19 @@
 \section{Modeling of Objects}
 \label{sec:modeling}
 
-\subsection{center shift}
-In previous section, Eq.\ref{eq:dispersive} has provide clear view for modeling of objects: by marking $\epsilon_r$ and
-$a, b, c,d$ coefficients of $J_p$ for each point of computation domain, it does. However, in consequence of coordinate
-transformation done with Eq.\ref{eq:coordinate_transform}, the center should be shifted for different component of
-fields.
+\subsection{Center shift}
+In the previous section, (\ref{eq:dispersive}) has provided clear view for modeling of objects: by marking $\epsilon_r$
+and $a, b, c,d$ coefficients of $J_p$ for each point of the computational domain, it does. However, in consequence of
+coordinate transformation done with (\ref{eq:coordinate_transform}), the center should be shifted for different
+field components.
 
 For example, there is a dielectric sphere with center $(i_0,j_0,k_0)$ and radius $r_0$. Due to the convenience, the
-$E_x|_{i+\frac{1}{2},j,k}$ field was saved as $E_x[i,j,k]$ in computer memory. Corresponding
-$\epsilon_{rx}|_{i+\frac{1}{2},j,k}$ or $\epsilon_{rx}[i,j,k]$ have to be marked with the sphere with center $(i_0-1/2,
+$E_x|_{i+\frac{1}{2},j,k}$ field is saved as $E_x[i,j,k]$ in computer memory. Corresponding
+$\epsilon_{rx}|_{i+\frac{1}{2},j,k}$ or $\epsilon_{rx}[i,j,k]$ have to be marked with the sphere with the center $(i_0-1/2,
 j_0, k_0)$ and radius $r_0$ in the coordinate in computer memory. That is, center of $\epsilon_{rx}$ has a shift
 quantity $(-1/2,0,0)$.
 
-The rest five components of fields should also be shifted as following
+The rest five field components should also be shifted as 
 \begin{displaymath}
   E_y \rightarrow (0,-1/2,0)
 \end{displaymath}
@@ -30,10 +30,11 @@ The rest five components of fields should also be shifted as following
   H_z \rightarrow (-1/2,-1/2,0)
 \end{displaymath}
 
-\subsection{modeling scheme}
-Another issue of modeling is about curved surface. Finite-Difference strategy makes surface to be shape of sawteeth in
-original Stair-Case scheme: it's a flip-flop view on dispersive coefficents. The high reflection and non-linear effect
-on the surface increase error in Stair-Case. Index-Average scheme is a common impovement to Stair-Case by assigning
-average coefficents to points at the edge through the proportion. The Conformal scheme is another solution proposed by
-\textit{Mohzmmadi et al}. By importing a fourth order time-stepping scheme, it performs better that Index-Average.
+\subsection{Modeling scheme}
+Another issue of modeling is about the curved surface. The finite-difference strategy makes the surface to be a shape of
+sawteeth in the original Stair-Case scheme: it is a flip-flop view on dispersive coefficents. The high reflection and
+non-linear effect on the surface increases the error in the stair-case approximation. Index-average scheme is a common
+impovement to stair-case by assigning average coefficents to points at the edge of objects through the proportion. The
+Conformal scheme is another solution proposed by [\textit{Mohzmmadi et al}, 2009]. By importing a fourth order
+time-stepping scheme, it performs better that the index-average.
 

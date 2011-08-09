@@ -1,38 +1,38 @@
 \section{Incident Source Conditions}
-Primarily there are two kinds of sources in FDTD: point sources and plane wave sources.
+Primarily there are two kinds of sources in the FDTD method: point sources and plane wave sources.
 
 Point source can be classified as hard source or soft source. If the source value is directly assigned to the certain
-point, this is referred to as a hard source. Oppositely, it can be called a soft source if the source value is added to
+point, it is referred to as a hard source. Oppositely, it can be called a soft source if the source value is added to
 the field at that point. A hard source would lead to some reflection between certain points and adjacent points and a
-soft source allows wave just pass through. Point source is not common used in 2D and 3D simulation but play a important
-role on constructing plane wave source conditions.
+soft source allows the wave just passes through. Point source is not common used in 2D and 3D simulations but plays an
+important role on constructing plane-wave source conditions.
 
-For investigating nano structures, it's often of interest to impinge plane wave source upon structures and measure
-transmission and reflection. The calculation of radar cross section also deals with plane wave. Total Field / Scatter
-Field (TFSF) is a technique to to simulate a plane wave by dividing problem space into Totol Field region and Scatter
-Field region m(Fig 2.3).
+For investigating nano structures, it is often of interest to impinge plane wave source upon structures and measure
+transmission and reflection. The calculation of radar cross section also deals with the plane wave. Total Field /
+Scatter Field (TFSF) [Taflove and Hagness, 2005] is a technique to simulate a plane wave by dividing the problem space
+into the Totol Field region and the Scatter Field region, as shown in Fig 2.3.
 
-The TFSF formulas can be observed through complete update equation and totol/scatter field theory as
+The TFSF formulas can be observed through the complete update equations and the totol/scatter field theory as
 \begin{displaymath}\label{eq:e_ts}
   E_{total}=E_{scatter}+E_{incident}
 \end{displaymath}
 \begin{displaymath}\label{eq:h_ts}
   H_{total}=H_{scatter}+H_{incident}  
 \end{displaymath}
-By example of the Y incident plane wave of TM polarization in TFSF region $x=ia:ib, y=ja:jb, z=ka:kb$, Eq.\ref{eq:dz3d}
-performed on edage $y=ja$ of main computation domain is actually 
-\begin{equation}
+As an example, consider a the y-incident plane wave of TM polarization in the TFSF region $x=ia:ib, y=ja:jb, z=ka:kb$,
+(\ref{eq:dz3d}) performed on the edage $y=ja$ of the main computation domain is actually
+\begin{equation}\label{eq:tsedge}
   \begin{split}
     \widetilde{D}_{z,total}|_{i,ja,k} = \widetilde{D}_{z,total}|_{i,ja,k} &+ 0.5 \cdot \left( H_{y,total}|_{i+\frac{1}{2},ja,k+\frac{1}{2}} - H_{y,total}|_{i-\frac{1}{2},ja,k+\frac{1}{2}} \right) \\
     &- 0.5 \cdot \left( H_{x,total}|_{i,ja+\frac{1}{2},k+\frac{1}{2}} - H_{x,scatter}|_{i,ja-\frac{1}{2},k+\frac{1}{2}} \right)    
   \end{split}
 \end{equation}
-Remark the last $H_x$ belongs to scatter field outside the TFSF boundary. By applying Eq.\ref{eq:h_ts} to complete the
-curl operation, the insertion of TFSF source of $\widetilde{D}_z$ is described as following.
+In (\ref{eq:tsedge}), the last $H_x$ belongs to the scattered field outside the TFSF boundary. By applying
+(\ref{eq:h_ts}) to complete the curl operation, the insertion of the TFSF source of $\widetilde{D}_z$ is described by
 \begin{displaymath}
   \widetilde{D}_z|_{i,ja,k} = \widetilde{D}_z|_{i,ja,k} + 0.5 \cdot H_{inc}|_{ja-\frac{1}{2}}
 \end{displaymath}
-The rest insertion of TFSF can also be dervied.
+The rest equations for the insertion of the TFSF can also be dervied as
 \begin{displaymath}
   \widetilde{D}_z|_{i,jb,k} = \widetilde{D}_z|_{i,jb,k} - 0.5 \cdot H_{inc}|_{jb+\frac{1}{2}}  
 \end{displaymath}

@@ -1,16 +1,16 @@
 \section{Boundary Conditions}
 \label{sec:bcs}
-Three kinds of Boundary Conditions (BCs) are applied in this research: Analytic Absorbing Boundary Conditions (ABC),
-Perfectly Matched Layer Absorbing Boundary Conditions (PML) and Periodic Boundary Conditions (PBC). All three kinds of
-BCs have the purpose to create a fake infinite space via finite computation domain. The difference is ABC and PML are
-design for making only one set of structure appear in computation domain rather than place infinite sets of identical
-structure like PBC.
+Three kinds of boundary conditions (BCs) are applied in this research: Analytic Absorbing Boundary Conditions (ABCs),
+Perfectly Matched Layer (PMLs) Absorbing Boundary Conditions and Periodic Boundary Conditions (PBCs). All three kinds of
+BCs have the purpose to create a fake infinite space via finite computation domain. One difference is that the ABC and
+PML are designed for making only one set of structure appearing in the computation domain rather than place infinite
+sets of identical structure like in the PBC.
 
 
 \subsection{Analytic Absorbing Boundary Conditions}
-To hold the outgoing field from being reflected at boundary, the ABC is operative in one dimension FDTD lattice. Once we
-assume there are no sources outside the computation region, the wave must be porpagaing outward directly and the value
-of field at two ends can be estimate with the relation through Courant Condition.
+To hold the outgoing field from being reflected at boundary, the ABC is operative in 1D FDTD lattice. Once we assume
+there are no sources outside the computation region, the wave must be porpagaing outward directly and the value of field
+at two ends can be estimated with the relation through the Courant Condition.
 \begin{equation}
   E|_0^n = E|_1^{n-2}
 \end{equation}
@@ -22,15 +22,15 @@ of field at two ends can be estimate with the relation through Courant Condition
 
 \subsection{Perfectly Matched Layer Absorbing Boundary Conditions}
 \label{subsec:pml}
-For 2-D and 3-D simulation, the ABC discussed above is no longer useful due to the reason the ABC can only absorb
-normally incident wave. The Berenger's PML (BPML) [\textit{Berenger} 1994], also known as Split-Field PML, was firstly
-proposed. Before long, Unaxial PML (UPML) [\textit{Sacks et al}, 1995] are proposed with similar performance in
-mathematics but different machenism. The two PML shown above require freespcace at interface of PML. The Convolution PML
-(CPML) proposed later allow arbitrary material and perform better on absorbing evanescent wave.
+For 2-D and 3-D simulations, the ABC discussed above is no longer useful due to that the ABC can only absorb normally
+incident waves. The Berenger's PML (BPML) [\textit{Berenger} 1994], also known as the Split-Field PML, was firstly
+proposed. Then, the Unaxial PML (UPML) [\textit{Sacks et al}, 1995] was proposed with similar performance in mathematics
+but different machenism. The two PMLs shown above require free space at the interface of PML. The Convolution PML (CPML)
+proposed later allows arbitrary material and performs better on absorbing evanescent wave.
 
-By inserting coefficients of UPML into Eq.\ref{eq:up_d} and Eq.\ref{eq:up_b}, half of update equations become
-following. Owing to the $\bar{\bar{s}}$ parameter can be reduced to $1$ in non-PML region, the new update equations are
-apt to be applied on whole computation domain.
+By inserting coefficients of UPML into (\ref{eq:up_d}) and (\ref{eq:up_b}), half of the update equations become what
+follows. Owing to that the $\bar{\bar{s}}$ parameters can be reduced to $1$ in non-PML regions, the new update equations
+are apt to be applied in the whole computation domain.
 \begin{gather}
   j\omega\bar{\bar{s}}\ \widetilde{D}(\omega) = c_0\curlH(\omega)\\
   j\omega\bar{\bar{s}}\ \widetilde{B}(\omega) = -c_0\curlE(\omega)
@@ -44,20 +44,20 @@ where $\bar{\bar{s}}$ should satisfy
     0& 0& \displaystyle\frac{s_xs_y}{s_z}
   \end{bmatrix}
 \end{equation}
-and 
-\begin{equation}
+with 
+\begin{equation}\label{eq:pmlco}
   s_x = 1 + \frac{\sigma_x}{j\omega\epsilon_0},\ 
   s_y = 1 + \frac{\sigma_y}{j\omega\epsilon_0},\ 
   s_z = 1 + \frac{\sigma_z}{j\omega\epsilon_0}
 \end{equation}
 Several profiles have been suggested for grading $\sigma_d(n)$, The most successfully used one is expressed as
 \begin{equation}
-  \sigma_d(n) = (n/d)^2\sigma_{d,max}
+  \sigma_d(n) = (l/d)^2\sigma_{d,max}
 \end{equation}
-where $n$ is the distance apart from the edge of computation domain, and $d = x,y,z$.
+where $l$ is the distance apart from the edge of computation domain, and $d = x,y,z$.
 
-expand to three dimension
-\begin{equation}
+In three dimension
+\begin{equation}\label{eq:up_d_x_pml}
   j\omega s_y s_z \widetilde{D}_x = c_0 s_x \curlHxThree
 \end{equation}
 \begin{equation}
@@ -75,19 +75,19 @@ expand to three dimension
 \begin{equation}
   j\omega s_x s_y \widetilde{B}_z =-c_0 s_z \curlEzThree
 \end{equation}
-Expanding for solving
+substituting (\ref{eq:pmlco}) into (\ref{eq:up_d_x_pml}) result in
 \begin{equation}
   j\omega
   \left( 1 + \frac{\sigma_y}{j\omega \epsilon_0} \right)
   \left( 1 + \frac{\sigma_z}{j\omega \epsilon_0} \right)\widetilde{D}_x 
   = c_0 \left( 1+\frac{\sigma_x}{j\omega \epsilon_0} \right) \curlHxThree
 \end{equation}
-Perform inverse Fourier transform and approximate 
-\begin{equation}
+Then performing inverse Fourier transform and approximation gives 
+\begin{equation}\label{eq:pmlapp}
   \frac{\partial}{\partial t}\widetilde{D}_x + \left( \frac{\sigma_y}{\epsilon_0} + \frac{\sigma_z}{\epsilon_0} \right) \widetilde{D}_x
   = c_0 \left( 1+\int_0^T\frac{\sigma_x}{\epsilon_0} \right) \curlHxThree
 \end{equation}
-Discrete
+Discretization of (\ref{eq:pmlapp}) leads to
 \begin{equation}
   \begin{split}
     \frac{\widetilde{D}_x|^{n+\frac{1}{2}} - \widetilde{D}_x|^{n+\frac{1}{2}}}{\Delta t} &+
@@ -95,7 +95,7 @@ Discrete
     &=\frac{c_0}{\Delta x} \left( 1 + \sum_0^T \frac{\sigma_x}{\epsilon_0} \right) curl\_hx
   \end{split}
 \end{equation}
-rearrange and approximate again
+and after rearrangement and approximation
 \begin{equation}
   \begin{split}
     \widetilde{D}_x|^{n+\frac{1}{2}} &=
@@ -117,7 +117,7 @@ where $v = i,j,k$ and $d = x,y,z$, and the solution of $\widetilde{D}_x$ can be 
 \begin{equation}\label{eq:pmldx}
   \widetilde{D}_x|^{n+\frac{1}{2}} = j3 \cdot k3 \cdot \widetilde{D}_x|^{n-\frac{1}{2}} + j2 \cdot k2 \cdot 0.5 \cdot \left( curl\_hx + i1 \cdot \sum_0^T curl\_hx \right)
 \end{equation}
-The rest 5 update equations in UPML can be derived with similar procedure to be following.
+The rest five update equations in the UPML region can be derived with similar procedure as
 \begin{equation}\label{eq:pmldy}
   \widetilde{D}_y|^{n+\frac{1}{2}} = i3 \cdot k3 \cdot \widetilde{D}_y|^{n-\frac{1}{2}} + i2 \cdot k2 \cdot 0.5 \cdot \left( curl\_hy + j1 \cdot \sum_0^T curl\_hy \right)
 \end{equation}
@@ -138,8 +138,8 @@ The rest 5 update equations in UPML can be derived with similar procedure to be 
 
 
 
-\subsubsection{Reduce to Two Dimension}
-reduce to two dimension $\partial / \partial z \rightarrow 0$ and $s_z \rightarrow 1$
+\subsubsection{Reduction to Two Dimensions}
+For 2D cases, $\partial / \partial z = 0$ and $s_z = 1$, and the equations becme
 \begin{equation}
   j\omega s_y \widetilde{D}_x = c_0 s_x \curlHxTwo
 \end{equation}
@@ -158,7 +158,7 @@ reduce to two dimension $\partial / \partial z \rightarrow 0$ and $s_z \rightarr
 \begin{equation}
   j\omega s_x s_y \widetilde{B}_z = c_0 \curlEzTwo
 \end{equation}
-Follow coequal steps shown in three dimension, update equations can be written as 
+Following similar steps in deriving 3D equtions, the update equations can be written as
 \begin{equation}
   \widetilde{D}_x|^{n+\frac{1}{2}} = j3 \cdot \widetilde{D}_x|^{n-\frac{1}{2}} + j2 \cdot 0.5 \cdot \left( curl\_hx + i1 \cdot \sum_0^T curl\_hx \right)
 \end{equation}
@@ -182,10 +182,10 @@ Follow coequal steps shown in three dimension, update equations can be written a
 
 
 \subsection{Periodic Boundary Conditions}
-Comparing with PML, PBC is relatively easy to implement.  The best design of PBC as shown in Fig 2.3 appends some
-auxiliary array surrounding the main domain for calculating. These auxiliary array copy the value of the row or column
-in opposed sides and participate the calculation at the edge they locate. This is just the original idea of how to
-create a fake view of infinite continuous periodic domain for calculating, which can be stolen by the design of
-Parallelization: by sending the row or column at the edge to adjacent calculation domains of MPI to be their auxiliary
-array, the feature of parallelization can be completed.
+Comparing with PML, PBC is relatively easy to implement.  The best design of PBC is as shown in Fig 2.3 and some
+auxiliary arrays surrounding the main domain are added for calculation. These auxiliary arrays copy the values of the
+rows or columns in opposed sides and participate in the calculation at the edges they are located. This is just the
+original idea of how to create a fake view of infinite continuous periodic domain for calculating, which can be used by
+the design of Parallelization: by sending the row or column at the edge to adjacent calculation domains of MPI to be
+their auxiliary array, the feature of parallelization can be completed.
 

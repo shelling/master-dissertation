@@ -1,66 +1,66 @@
-\section{Dispersive Material}
+\section{Dispersive Materials}
 \label{sec:dispersive}
-This section conerns of how to retrieve the update equations could apply in dispersive material. What would be discussed
-below are only about material having dispersive electic permittivity. The material having dispersive magnetic
+This section concerns how to retrieve the update equations for applied to dispersive materials. What would be discussed
+below is only about material having dispersive electic permittivity. The material having dispersive magnetic
 permeability could be investigated via duality.
 
-In fundamental Electromagnetics, an indispersive material having a electrical polarization $P$ when there is a foreign
+In fundamental electromagnetics, a nondispersive material having an electrical polarization $P$ when there is a foreign
 electric field and the phasor of electric flux would become $D(\omega) = \epsilon_0 E(\omega) + P$. $P$ was also defined
 as $\epsilon_0 \chi_e E(\omega)$, so that we could rewrite $D(\omega)$ as $\epsilon_0 (1+\chi_e)E(\omega)$ and give the middle term a notation
 $\epsilon_r$ named relative permittivity.
 
-By definition, dispersive material is the material having different electic permeability when encountering EM wave
-having different frequency that means the relative permittivity should be a function of frequency ordinarily coming with
-image part. So, $\epsilon_r^*(\omega)$ was given as the notation of dispersive electic permittivity and the phasor of
-electic flux in dispersive material was defined as $D(\omega) = \epsilon_0 \epsilon_r^*(\omega)E(\omega)$ or
-$\widetilde{D} = \epsilon_r^*(\omega)\widetilde{E}$ in Gaussian Unit.
-\subsection{Common Isotropic Dispersive Material}
+The dispersive material has its electic permittivity depending on the frequency of the interacting EM wave and usually
+contains an imaginary part. So, $\epsilon_r^*(\omega)$ is given as the notation of the dispersive electic permittivity,
+and the phasor of the electic flux in dispersive materials was defined as $D(\omega) = \epsilon_0
+\epsilon_r^*(\omega)E(\omega)$ or $\widetilde{D} = \epsilon_r^*(\omega)\widetilde{E}$ in Gaussian unit.
+\subsection{Common Isotropic Dispersive Materials}
 The dispersive permittivity is defined as $\epsilon_r^*(\omega) = 1 + \chi_e + \sum \chi_p(\omega)$ and usually, $1 +
-\chi_e$ are written as $\epsilon_r$ to be identical with fundamental electromagnetics. Many theorems are proposed to
-describe the response characteristics of dispersive material exposed to external fields. Here are brief introduction to
-Simple Lossy Media, Debye Media, Drude Media and Lorentz Media.
+\chi_e$ is written as $\epsilon_r$. Many theorems have been proposed to describe the response characteristics of
+dispersive material exposed to external fields. Here we briefly introduce Simple Lossy Media, Debye Media, Drude Media
+and Lorentz Media.
 
 \subsubsection{Simple Lossy Media}
-Simple Lossy Media is a novel material with constant electric conductivity $\sigma_e$, which respond a constant current
-J to an external electric field. By substituting $J=\sigma E$ into Maxwell eqution, the relationship can be obtained as
-following.
+Simple Lossy Media are materials with constant electric conductivity $\sigma_e$, which respond a current J to an
+external electric field with the relation $J = \sigma_e E$. By substituting $J=\sigma_e E$ into
+Maxwell's equtions, the following relationships are obtained.
 \begin{gather}
   \chi_p(\omega) = \frac{\sigma_e}{j\omega\epsilon_0}\\
   \epsilon_r^*(\omega) = \epsilon_r + \frac{\sigma_e}{j\omega\epsilon_0}
 \end{gather}
 
 \subsubsection{Debye Media}
-Debye Model are used to describe the dieletric relaxation response of an noninteracting population of dipoles to an
-external field. Debye pole and Multipole Debye Media can be describe as following
+The Debye model is used to describe the dieletric relaxation response of an noninteracting population of dipoles to an
+external field. The material response can be described by 
 \begin{equation}
   \label{eq:debye_chi}
   \chi_p(\omega) = \frac{\Delta\epsilon_p}{1+j\omega\tau_p}  
 \end{equation}
-Multipole Debye Model has following form
+The multipole Debye Model has the following form
 \begin{equation}
   \epsilon_r^*(\omega) = \epsilon_r + \sum_{p=1}^P \frac{\Delta\epsilon_p}{1+j\omega\tau_p}  
 \end{equation}
 
 
 \subsubsection{Drude Media}
-Drude Model are frequently used to explain optical properties of metal through the theory of free electron gas moving
-against a fixed positive ion cores. The electrons oscillate in response to the applied field, and meantime damped due to
-collision with characteristic frequency $\gamma_p$, also known as the inverse of the pole relaxation time. The motion
-equation of free eletron gas can be written as
+The Drude model is frequently used to explain optical properties of metal through the theory of free electron gas moving
+against a fixed positive ion cores. The electrons oscillate in response to the applied field, and in the meantime damped
+due to collision with characteristic frequency $\gamma_p$, also known as the inverse of the pole relaxation time. The
+equation of motion of free eletron gas can be written as
 \begin{equation}
   m_e\frac{\partial^2 x(t)}{\partial t^2} + m_e\gamma_p\frac{\partial x(t)}{\partial t} = -eE(t)
 \end{equation}
-By assuming $x(t)$ and $E(t)$ are time-harmonic, $x(t) = \mathrm{Re}\{x_0e^{j\omega t}\}$ and $E(t) =
-\mathrm{Re}\{E_0e^{j\omega t}\}$, the displacement of eletron can be solved.
+By assuming $x(t)$ and $E(t)$ are time-harmonic, $x(t) = \mathrm{Re}\{x_0(t)e^{j\omega t}\}$ and $E(t) =
+\mathrm{Re}\{E_0(t)e^{j\omega t}\}$, the displacement of eletron can be solved to be
 \begin{equation}
   x(t) = \frac{e}{m_e(\omega^2 - j\omega\gamma_p)}E(t)
 \end{equation}
 Because the macroscopic polarization $P = -Ne\cdot x(t)$ should also satisfy $P = \epsilon_0\chi_pE(t)$, $\chi_p$ can be
-solved
+solved to be
 \begin{equation}
   \chi_p = \frac{-Ne^2/m_e\epsilon_0}{\omega^2 - j\omega\gamma_p}
 \end{equation}
-where $Ne^2/m_e\epsilon_0$ is usually denoted as plasma frequency $\omega_p^2$ to be the common form of Drude Model
+where $(Ne^2/m_e\epsilon_0)^{1/2}$ is defined as the plasma frequency $\omega_p$ to be the common form of the Drude
+model is expressed as
 \begin{equation}
   \label{eq:drude_chi}
   \chi_p(\omega) = -\frac{\omega_p^2}{\omega^2 - j\omega\gamma_p}  
@@ -73,13 +73,13 @@ Multipole Drude Media can be denote as
 
 
 \subsubsection{Lorentz Media}
-Drude Model are not perfectly fitting experimental result at some frequency in which interband transitions involving
-[Stefan]. The Lorentz Oscillator mechanism provides description to motion between nucleus and smaller mass, and
-interband transitions through appending a damping term into the motion equation of free electron gas
-\begin{equation}
+The Drude model does not fit experimental result of noble metal over some frequency region in which interband
+transitions take place [Maier, 200?]. The Lorentz oscillator mechanism provides the description to the motion, and
+interband transitions through appending a damping term into the equation of motion of a bound electron.
+\begin{equation}\label{eq:lorentz_def}
     m_e\frac{\partial^2 x(t)}{\partial t^2} + 2m_e\delta_p\frac{\partial x(t)}{t} + m_e\omega_p^2x(t) = -eE(t)
 \end{equation}
-Assuming $x(t)$ and $E(t)$ are time-harmonic again, Lorentz Oscillator can be solve as following. 
+Assuming $x(t)$ and $E(t)$ are time-harmonic again, (\ref{eq:lorentz_def}) can be solved to obtain
 \begin{equation}
   \label{eq:lorentz_chi}
   \chi_p(\omega) = \frac{\Delta\epsilon_p\omega_p^2}{\omega_p^2 + 2j\omega\delta_p - \omega^2}  
@@ -87,40 +87,37 @@ Assuming $x(t)$ and $E(t)$ are time-harmonic again, Lorentz Oscillator can be so
 \begin{equation}
   \epsilon_r^*(\omega) = \epsilon_r + \sum_{p=1}^P \frac{\Delta\epsilon_p\omega_p^2}{\omega_p^2 + 2j\omega\delta_p - \omega^2}  
 \end{equation}
-Where $\Delta\epsilon_p$ is a weighting factor associated with the specified Lorentz pole. It's often describing
-dispersion in terms of linear combination of one Drude pole and multiple Lorentz poles to earn a better fitting.
-[\textit{Taflove}].
+where $\Delta\epsilon_p$ is a weighting factor associated with the specified Lorentz pole. The linear combination of one
+Drude pole and multiple Lorentz poles isoften employed to earn a better fitting for the nobel metal. [Taflove and
+  Hagness, 2005].
 
 
 
 \subsection{Dispersion-Compatible Update Equations}
-For the analysis of dispersive materials shown above, numbers of algorithms have already been proposed in literature.
-Most of these frequency-dependent algorithms can be categorized into three types:\begin{inparaenum}[(1)]
+For the analysis of dispersive materials shown above, a numbers of algorithms have already been proposed in literature.
+Most of these frequency-dependent algorithms can be categorized into three types: \begin{inparaenum}[(1)]
 \item the Recursive Convolution (RC) method
-\item the Auxiliary Differential Equation (ADE) method
+\item the Auxiliary Differential Equation (ADE) method, and
 \item the Z-transform (ZT) method\end{inparaenum}.
 Any of these methods focuses on tranforming the dispersive relations between $D(\omega)$ and $E(\omega)$ in frequency
 domain back to the time doamin for discretization.
 
 
-The RC method is the most basic method inheriting the convolution theorem in Laplace transform and Fourier
-transform. The pros and cons are easy to understand with background of engineering mathematics and difficult to handle
-complex material with multiple poles. Many varieties, such as
-\begin{inparaenum}[(1)]
-\item Piecewise-Linear Recursive Convolution (PLRC) Method
-\item Trapezoidal Recursive Convolution(TRC) Method
-\end{inparaenum} are proposed to improve the performance of RC method.
+The RC method is the most basic method inheriting the convolution theorem in Laplace transform and Fourier transform. It
+is are easy to understand with background of engineering mathematics but difficult to handle complex material with
+multiple poles. Many varieties, such as the Piecewise-Linear Recursive Convolution (PLRC) Method and the Trapezoidal
+Recursive Convolution (TRC) Method have been proposed to improve the performance of the RC method.
 
 
-The ADE method and Z-transform method offer high flexibility in fitting arbitrary permittivity functions, modeling
-nonlinear effects and arbitrary numbers of poles. Primitive ADE method and Z-transform method shown in literature
-require deriving formulations for each dispersion type, however, a generalized way \textit{Alsunaidi et al.} proposed
-finds its strength in unifying the formulation of different dispersion models into one form. Not only performing
-concisely in mathmetics but also reducing source code in developing, since, the generalized ADE method are picked up
-here.
+The ADE method and the Z-transform method offer high flexibility in fitting arbitrary permittivity functions, modeling
+nonlinear effects and arbitrary numbers of poles. The primitive ADE and Z-transform methods shown in the literature
+require deriving formulations for each dispersion type, On the contrary, a generalized way [\textit{Alsunaidi et al.},
+  2009] proposed finds its strength in unifying the formulations of different dispersion models into one form, which not
+only performs concisely in mathmetics but also reduces source code in developing. The generalized ADE method
+is chosen in this work.
 
 The central idea of the Auxiliary Differential Equation (ADE) Method is to detach the phasor polarization displacement
-$J_p(\omega)$, that is, $\chi_p(\omega)E(\omega)$, from original dispersive relation.
+$J_p(\omega)$, that is, $\chi_p(\omega)E(\omega)$, from the original dispersive relation, that is
 \begin{equation}
   \begin{split}
     \widetilde{D}(\omega) &= \epsilon_r^*(\omega)\widetilde{E}(\omega)\\
@@ -128,8 +125,8 @@ $J_p(\omega)$, that is, $\chi_p(\omega)E(\omega)$, from original dispersive rela
     & = \epsilon_r\widetilde{E}(\omega) + \sum_{p=1}^{P}J_p(\omega)
   \end{split}
 \end{equation}
-For multipole material composed of different dispersions, $J_p$ were solved for each pole individually to attend the
-updating loop, and then $E$ can be solved via rearrangment of previous relation.
+For the multipole material composed of different dispersions, $J_p$ is solved for each pole individually to attend the
+updating loop, and then $E$ can be solved via rearrangment of the previous relation, that is,
 \begin{equation}\label{eq:dispersive}
   \widetilde{E}^n = \frac{1}{\epsilon_r}\left(\widetilde{D}^n - \sum_{p=1}^PJ_p^n\right)
 \end{equation}
@@ -139,28 +136,28 @@ as
 \begin{equation}
   J_p(\omega) = \frac{a}{b + j\omega c - d\omega^2}\widetilde{E}(\omega)
 \end{equation}
-Rearranging and performming inverse Fourier transform 
+By rearranging and performming inverse Fourier transforms, the following equations is obtained.
 \begin{equation}
   bJ_p(t) + c \frac{\partial}{\partial t}J_p(t) + d \frac{\partial ^2}{\partial t^2}J_p(t) = a\widetilde{E}(t)
 \end{equation}
-Applying leapfrog scheme to replace $\partial/\partial t$
+Applying the leapfrog scheme to replace $\partial/\partial t$ gives
 \begin{equation}
   bJ_p^{n-1} + c \frac{J_p^n - J_p^{n-1}}{2\Delta t} + d \frac{J_p^n + 2J_p^{n-1} + J_p^{n-2}}{(\Delta t)^2} = a\widetilde{E}^{n-1}
 \end{equation}
-$J_p$ can be Solved as following
-\begin{equation}
+where $J_p$ can be solved as 
+\begin{equation}\label{eq:polarized_displacement_math}
   J_p^n = \frac{4d-2b(\Delta t)^2}{2d+c\Delta t}J_p^{n-1} + \frac{-2d+c\Delta t}{2d+c\Delta t}J_p^{n-2} + \frac{2a(\Delta t)^2}{2d+c\Delta t}\widetilde{E}^{n-1}
 \end{equation}
 which can be written in the form 
 \begin{equation}\label{eq:polarized_displacement}
   J_p^n = C_1 J_p^{n-1} + C_2 J_p^{n-2} + C_3 \widetilde{E}^{n-1}
 \end{equation}
-where $C_1$, $C_2$ and $C_3$ can be found for any form of dispersion relation.
+where $C_1$, $C_2$, and $C_3$ can be found for any form of the dispersion relation.
 
 
-\paragraph{\msjh Coefficients of Lorentz Pole}
-Lorentz pole completely matches the general form used in previous introduction of ADE method. The coefficients are as
-following.
+\paragraph{\msjh Coefficients of The Lorentz Pole}
+The Lorentz pole completely matches the general form used in previous introduction of the ADE method. The coefficients
+are as 
 \begin{equation*}
   \begin{array}{@{}llll@{}}
     a = \Delta\epsilon_p\omega_p^2 &
@@ -169,7 +166,7 @@ following.
     d = 1
   \end{array}
 \end{equation*}
-substitute into ...
+By substituting into (\ref{eq:polarized_displacement_math})
 \begin{gather*}
   \begin{array}{@{}lll@{}}
     C_1 = \frac{\displaystyle 2-\omega_p^2\Delta t^2}{\displaystyle 1+\delta_p\Delta t} &
@@ -179,8 +176,8 @@ substitute into ...
 \end{gather*}
 
 
-\paragraph{\msjh Coefficients of Drude Pole}
-Drude pole lacks the b coefficient when comparing to general form.
+\paragraph{\msjh Coefficients of The Drude Poles}
+The Drude pole lacks the b coefficient when comparing to the general form:
 \begin{equation*}
   \begin{array}{@{}llll@{}}
     a = \omega_p^2 &
@@ -189,7 +186,7 @@ Drude pole lacks the b coefficient when comparing to general form.
     d = 1
   \end{array}
 \end{equation*}
-That is 
+That is,
 \begin{gather*}
   \begin{array}{@{}lll@{}}
     C_1 = \displaystyle\frac{4}{2+ \gamma_p\Delta t} &
@@ -202,8 +199,9 @@ That is
 
 
 
-All coefficients of different dispersion types are summarized here
+All coefficients of different dispersion types are summarized in Table 2.1
 \begin{center}
+  Table 2.1\\[0.3cm]
   \begin{tabular}[c]{rlccc}
     \hline
     Dispersion Type & Relation & $C_1$ & $C_2$ & $C_3$ \\[0.1cm]
