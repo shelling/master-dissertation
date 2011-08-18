@@ -1,5 +1,5 @@
 \section{Motivations}
-When observing the histories of the Finite-Difference Time-Domain (FDTD) method, the UNIX operating system, and the Lisp and
+When observing the histories of the Finite-Difference Time-Domain (FDTD) method [Yee, 1966], the UNIX operating system, and the Lisp and
 C programming languages which are ancestors of most other modern programming languages, they look like friends growing
 together. The flourishing of UNIX promotes the whole computer industry and reduces the cost of numerical simulation. As the
 main language in UNIX environment, C gathers many many advocates in campuses with widespread distribution of licneses of
@@ -25,11 +25,11 @@ modern FDTD simulator should be designed with modern concepts of programming. Un
 articles about the FDTD method focus on fundamental theorems and show their algorithms in primitive procedural style like Assembly
 languages. Apparently, the skill out-of-date before 30 years ago is bad smell in code. [Kerievsky, 2004]
 
-Indeed, some people notice the inevitability to reform the architecture of the FDTD method. A well-known implementation, Meep
+Indeed, some people notice the inevitability to reform the architecture of the FDTD method. A famous implementation, Meep
 (\texttt{http://ab-initio.mit.edu/wiki/index.php/Meep}), developed at Massachusetts Institute of Technology, shows us the
 advantages to develop components for reusing in high-level languages such as Scheme. However, lack of good Periodic
 Boundary Conditions and Plane Wave Source Conditions makes it impossible to be used in our environment. No support to
-OOP also limits the development of this package. For example, it may be insuperable to replace the uniaxial perfectly matched layer (UPML) with the convolution perfectly matched layer (CPML) in Meep
+OOP also limits the development of this package. For example, it may be insuperable to replace the uniaxial perfectly matched layer (UPML) [Sack et al, 1995] with the convolution perfectly matched layer (CPML) [Roden and Gedney, 2000] in Meep
 without considerable changes. Based on problems listed above, Developing our own general-purpose FDTD simulator is worthy of
 giving a try rather than stacking upon Meep. 
 
