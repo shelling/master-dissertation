@@ -1,19 +1,19 @@
 \section{Chapter Outline}
-This thesis are organized into three parts. In the first part, chapter 2, some fundamental concepts in FDTD are
+The rest of this thesis is organized into three parts. In the first part, Chapter 2, some fundamental concepts in the FDTD method are
 reviewed. As discussed above, in this chapter Maxwell's equations are tried to be reorganized into scraps excluding
-different concepts. Overlaping functionalities between Freespace, Perfectly Matched Layer, and Dispersive Material are
+different concepts. Overlaping functionalities between Free-space, Perfectly Matched Layer, and dispersive material are
 taken apart for reusing. A recent research to improve processing of Dispersive Material is also shown. Collaboration
-between Periodic Boundary Conditions and Total Field / Scatter Field is discussed. All formulas are derived for three
-dimensions case and specialized for two dimensions and one dimension cases.
+between Periodic Boundary Conditions and Total Field / Scatter Field is discussed. All formulas are derived for the
+three-dimension (3-D) case and specialized for 2-D and one 1-D cases.
 
-With a great blueprint, in chapter 3, formulas are transformed into code in real world. In popular list of Design
+With a great blueprint, in chapter 3, formulas are transformed into codes in real world. In popular list of Design
 Patterns we have no suitable choice to integrate our components well. The one can be referred to is Decorator Pattern
-which isn't be able to append more functions without defining in all subclasses. Following the main idea of Decorator
-Pattern, we designed a similar pattern named Once Decorator. By having the aid of dynamic inheritance, Once Decorator
-has no previous problems and allow components being assembled easily.
+which is not be able to append more functions without defining in all subclasses. Following the main idea of Decorator
+Pattern, we design a similar pattern named Once Decorator. By having the aid of dynamic inheritance, Once Decorator
+has no previous problems and allows components being assembled easily.
 
-In the final part, chapter 4, we would test some cases with our implementation. First we examinate our code with a
-well-known exact solution, phasor of single silver rod in steady state. This simple case show us the accuracy of the
-implementation. Furthermore, an open cavity formed with multiple silver rods is studied. Phasor distribution is also
+In the final part, Chapter 4, we would test some cases with our implementation. First we examinate our code with a
+well-known exact solution, field phasor of light scattering by a single silver rod in steady state. This simple case show us the accuracy of the
+implementation. Furthermore, an open cavity formed with multiple silver rods is studied. Field phasor distribution is also
 shown.
 

@@ -1,41 +1,41 @@
 \section{Motivations}
-When observing the histories of the Finite-Difference Time-Domain (FDTD) method, the UNIX operating system, the Lisp and
+When observing the histories of the Finite-Difference Time-Domain (FDTD) method, the UNIX operating system, and the Lisp and
 C programming languages which are ancestors of most other modern programming languages, they look like friends growing
-together. The flourishing of UNIX promotes whole computer industry and reduces the cost of numerical simulation. As the
+together. The flourishing of UNIX promotes the whole computer industry and reduces the cost of numerical simulation. As the
 main language in UNIX environment, C gathers many many advocates in campuses with widespread distribution of licneses of
 UNIX. Comparing with Assembly Language family, C provides protability and clear code style of Structural Programming
-which can also benefit the programs of FDTD simulation.
+which can also benefit the programs of FDTD simulations.
 
 However, at present all of them become more mature and complex. UNIX and its derivations go beyond campuses and live in
 fabrication industries, business corporates, and families. Advocates come from different fields requiring and appending
-more abilities on this omnipotent operating system. Bunches of theorem of designing programming languages are developing
+more abilities on this omnipotent operating system. Bunches of theorems of designing programming languages are developing
 on the operating system of rebirth. One of them is concepts of Object-Oriented Programming (OOP) introduced in Simula
 language of 1960s and reinvestigated in Smalltalk language of 1970s \cite[Sebesta 2008]{sebesta}. Soon after 1980s, OOP
 becomes popular on UNIX system along with the implementation on Common Lisp Object System (CLOS) and the birth of C++
-and Java in 1983 and 1995 respectively because of the possibility to devided a huge system into small independent
+and Java in 1983 and 1995 respectively because of the possibility to devide a huge system into small independent
 fragments for different programmers. Programmers may not know details of the parts done by others any more but programs
-can work with correct invoking of interfaces. Unquestionably, one gaint leap for software developing.
+can work with correct invoking of interfaces. Unquestionably, it is one gaint leap for software developing.
 
-FDTD also had huge advances. Varieties of Absorbing Boundary Conditions and transformation tools for scattering system
-are developed during 70s and 80s. Methods for arbitrary material and non-linear systems are also proposed in 90s. Along
+The FDTD method also had huge advances. Varieties of Absorbing Boundary Conditions and transformation tools for scattering systems
+were developed during 70s and 80s. Methods for arbitrary material and non-linear systems were also proposed in 90s. Along
 with more complex theorems came the obscure formulas. Complications were caused by bundling too many theorems in one
 equation and requiring numerous variables in procedural programming environment. Reviewing the evolution of Structural
-Programming and Object-Oriented Programming, we know those two problems are targeted by these two Concepts. That is, a
+Programming and Object-Oriented Programming, we know those two problems are targeted by these two concepts. That is, a
 modern FDTD simulator should be designed with modern concepts of programming. Unfortunately, almost all books and
-articles about FDTD focus on fundamental theorems and show their algorithms in primitive procedural style like Assembly
+articles about the FDTD method focus on fundamental theorems and show their algorithms in primitive procedural style like Assembly
 languages. Apparently, the skill out-of-date before 30 years ago is bad smell in code. [Kerievsky, 2004]
 
-Indeed, some people notice the inevitability to reform the architecture of FDTD. A well-known implementation, Meep
-(\texttt{http://ab-initio.mit.edu/wiki/index.php/Meep}), developed in Massachusetts Institute of Technology shows us the
+Indeed, some people notice the inevitability to reform the architecture of the FDTD method. A well-known implementation, Meep
+(\texttt{http://ab-initio.mit.edu/wiki/index.php/Meep}), developed at Massachusetts Institute of Technology, shows us the
 advantages to develop components for reusing in high-level languages such as Scheme. However, lack of good Periodic
 Boundary Conditions and Plane Wave Source Conditions makes it impossible to be used in our environment. No support to
-OOP also limits the development of this package. For example, it may be insuperable to replace UPML with CPML in Meep
-without considerable changes. Based on problems listed above, Developing our own general-purpose FDTD is worthy of
+OOP also limits the development of this package. For example, it may be insuperable to replace the uniaxial perfectly matched layer (UPML) with the convolution perfectly matched layer (CPML) in Meep
+without considerable changes. Based on problems listed above, Developing our own general-purpose FDTD simulator is worthy of
 giving a try rather than stacking upon Meep. 
 
-In this thesis, we propose a elegant organization to theorems of FDTD. By applying the concepts of refactoring in OOP
+In this thesis, we propose a elegant organization to theorems of the FDTD method. By applying the concepts of refactoring in OOP
 upon Maxwell's equations or Update Equations, formulas are presented in a bunch of small atoms which are easy to
 statisfy the concept of Structural Programming. Through the cutting, the way to arrange formulas into different
-components in OOP would also rise before our mind. Paradigm of OOP not only help us assemble proper simulation
-environment with handy components but also eliminate the obstacle to newbies of FDTD. UPML and CPML can be exchanged in
+components in OOP would also rise before our mind. Paradigm of OOP not only helps us assemble proper simulation
+environment with handy components but also eliminates the obstacle to newbies of the FDTD method. UPML and CPML can be exchanged in
 seconds and newcomers may be able to do a correct simulation without understanding how a Perfectly Matched Layer works.
