@@ -1,21 +1,24 @@
 \section{Once Decoractor}
-Decoractor Pattern is a well-known Design Pattern listed in the bestseller of Gang of Four, \textit{Design Patterns:
-  Elements of Reusable Object-Oriented Software}. The book describe the purpose of Decorator Pattern is attaching
-additional responsibilities to an object dynamically. Decorators provide a flexible alternative to subclassing for
-extending functinoality.
+The Decoractor Pattern is a well-known Design Pattern listed in the bestseller of Gang of Four, \textit{Design Patterns:
+  Elements of Reusable Object-Oriented Software}. The book describe the purpose of the Decorator Pattern is attaching
+additional responsibilities to an object dynamically. The role of Decorators in ths pattern provide a flexible
+alternative to subclassing for extending functinoality.
 
-Similar name imply similar behavior. Once Decorator is the mixing of Singleton Pattern and Dynamic Inheritance acting
-like Decorator but actually not. The most remarkable difference is Decorator Pattern delegates the method call to main
-component, i.e. all subclasses should have the same interface as main component but the Once Decorator inherit the main
-component dynamically when initializing. Dynamic Inheritance allows subclasses overwriting interfaces to adapt more
-complex situation as well as attaching additional interfaces without providiong in every related class.
+Similar name implies similar behavior. The Once Decorator is the mixing of Singleton Pattern and Dynamic Inheritance,
+which is acting like Decorator but actually not. The most remarkable difference is the Decorator Pattern delegates all
+method calls to what it decorates, i.e. all subclasses should provide the same interfaces as main component when the
+Once Decorator inherits the main component dynamically to retrieve the interfaces from what it decorates when
+initializing. Dynamic Inheritance also allows subclasses overwriting interfaces to adapt more complex situations as well
+as attaching additional interfaces without providiong in every related class. These are advantages of the Once Decorator
+Pattern.
 
-Dynamic Inheritance induces another problem: once two instances perform inheritance, the latter would change the
-behaviors of the former. Because a FDTD simulaion need only one main component, Singleton Pattern act inside of the Once
-Decorator for preventing modification of inheritance on identical subclass. Moreover, all subclasses save the singleton
-instance in main component to ensure one and only one singleton instance can be allowed to join the calculation.
+Dynamic Inheritance induces another problem: once two instances perform inheritance, the latter would changes the
+behaviors of the former. Because a FDTD simulaion needs only one main component, Singleton Pattern acts inside of the
+Once Decorator for preventing modification of inheritance on identical subclass. Moreover, all subclasses save the
+singleton instance in main component to ensure one and only one singleton instance can be allowed to join the
+calculation.
 
-The architecture of Once Decorator is also similar to Decorator as shown in Fig 3.1. The trick is hidden in constructor
+The architecture of Once Decorator is also similar to Decorator as shown in Fig 3.1. The magic is hidden in constructor
 of Decorator. Assuming main component of two dimension is named as Plane, the Decorator can be implemented as following.
 \begin{code}
   class PlaneDecorator(Plane):
@@ -31,9 +34,10 @@ of Decorator. Assuming main component of two dimension is named as Plane, the De
             self.__class__.__bases__ = (orig.__class__,)
         return None
 \end{code}
-The concrete decorator subclasses would inhert the abstract decorator class and invoke the constructor when
-initializing. The constructor do two things: exporting all instance variables to new instance created from any concrete
-decorator and make the concrete decorator inherting the another concrete decorator from original instance.
+The concrete decorator subclasses would inherit the abstract decorator class and invoke the constructor when
+initializing. The constructor does two things: exporting all instance variables to a new instance created from any
+concrete decorator and making the concrete decorator inheriting the another concrete decorator from the original
+instance.
 
-It's clear the two action save the instance variables and make later decorators can overwrite interfaces of prior
-decorators through inheritance in concise relation.
+The two actions save the instance variables and make later decorators can overwrite interfaces of prior decorators
+through inheritance in concise relation.

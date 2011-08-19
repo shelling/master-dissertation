@@ -9,7 +9,7 @@ mainstream. Not a long time after that, Object-Oriented Programming (OOP) langua
 Object, the more general reusable units containing functions and data structures. [Sebesta, 2007]
 
 OOP encourages developers grouping data structures under a namespace where it's not directly accessible by the rest of
-the program and bundling relative functions to form Classes. By instancing a Class, Objects are created to contain
+the program and bundling relative functions to form classes. By instancing a class, objects are created to contain
 different data but have identical data structures and behaviors. OOP promised a vision: through finding pertinent
 objects and factoring them into classes at right granularity, your program would be able to address future requirements
 without change too much code. [Gamma et al, 1994] Projects are also speeded up by spliting workforces for each
@@ -24,11 +24,43 @@ as possible. Loose coupling is another imperative issue for preventing major rep
 minor change to the framework. Facing challenges one after another, few researchers of FDTD are willing to spend time on
 proposing a design of FDTD framework of which they can take advantage.
 
-Fortunately, Components of FDTD simulator has given us a native prototype of architecture. Every component can be just
-defined as a class. The emergent problem is they have some functionalities overlapping for simple or complex situation
-respectively. How to design a extensible way making complex component can be adopted when needed become the main
-delimma. This chapter is aimed at proposing a experimental framework of FDTD with a special Design Pattern: Once
-Decorator, making the framework can be extended with arbitrary compoments for complex situations. Whole project named
-Yet Another FDTD (yaFDTD) framework was released under GPL v2 license and hosted at
+Fortunately, Components of FDTD simulator has given us a native prototype of architecture. Every component can just
+corresponds to a class. The emergent problem is they have some functionalities overlapping for simple or complex
+situations respectively. How to design a extensible way making complex components can be adopted when needed becomes the
+main delimma. This chapter is aimed at proposing a experimental framework of FDTD. Whole project named Yet Another FDTD
+(yaFDTD) framework was released under GPL v2 license and hosted at
 \texttt{\url{http://github.com/shelling/yafdtd}}. Even it's a implementation in Python programming language, the
 concepts about the split of data structures and classes can be transplanted into other languages easily.
+
+This experimental framework has some goals here. The first is to assemle components easily. We may hope components can
+be convened like following codes in a 2D simulation.
+\begin{code}
+  plane = PBC(plane)
+  plane = UPML(plane)
+  plane = TFSF(plane)
+\end{code}
+In this way, a usable plane are standby in a few lines. All field variables are hidden in the object
+\texttt{plane}. Unnecessary components can be dropped without marking as commnets along with the variables used by these
+components.
+
+Next, configuration should be done through calling the interfaces to wrap the logic inside the components. Following are
+some possible usages of the interfaces. Configuring through calling interfaces helps developers thinking the arrangement
+in abstract, reducing possibility to make errors, and starting simulations soon.
+\begin{code}
+  plane.pml(
+    x = False,
+    y = True
+    thick = 20
+  )
+  plane.pbc(
+    x = True,
+    y = False
+  )
+  plane.tfsf(
+    x = 0,
+    y = 20
+  )
+\end{code}
+Finally, to allow developers extend this framework with arbitrary compoments for complex situations, it needs a class to
+play this role to connect components together. A new Design Pattern named Once Decorator is proposed here due to the
+fact there is no proper pattern recorded in popular lists.
