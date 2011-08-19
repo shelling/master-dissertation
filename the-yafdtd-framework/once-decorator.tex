@@ -4,15 +4,15 @@ The Decoractor Pattern is a well-known Design Pattern listed in the bestseller o
 attaching additional responsibilities to an object dynamically. The role of Decorators in this pattern provides a
 flexible alternative to subclassing for extending functionality.
 
-Similar name implies similar behavior. The Once Decorator is the mixing of Singleton Pattern and Dynamic Inheritance,
-which is acting like Decorator but actually not. The most remarkable difference is the Decorator Pattern delegates all
-method calls to what it decorates, i.e. all subclasses should provide the same interfaces as main component when the
-Once Decorator inherits the main component dynamically to retrieve the interfaces from what it decorates when
-initializing. Dynamic Inheritance also allows subclasses overwriting interfaces to adapt more complex situations as well
-as attaching additional interfaces without providing in every related class. These are advantages of the Once Decorator
-Pattern.
+Similar name implies similar behaviors. The Once Decorator Pattern is the mixing of Singleton Pattern and Dynamic
+Inheritance, which is acting like the Decorator Pattern but actually not. The most remarkable difference is the
+Decorator Pattern delegates all method calls to what it decorates, i.e. all subclasses should provide the same
+interfaces as main component when the Once Decorator inherits the main component dynamically to retrieve the interfaces
+from what it decorates when initializing. Dynamic Inheritance also allows subclasses overwriting interfaces to adapt
+more complex situations as well as attaching additional interfaces without providing in every related class. These are
+advantages of the Once Decorator Pattern.
 
-Dynamic Inheritance induces another problem: once two instances perform inheritance, the latter would change the
+Dynamic Inheritance induces another problems: once two instances perform inheritance, the latter would change the
 behaviors of the former. Because a FDTD simulaion needs only one main component, Singleton Pattern acts inside of the
 Once Decorator for preventing modification of inheritance on identical subclass. Moreover, all subclasses save the
 singleton instance in main component to ensure one and only one singleton instance can be allowed to join the
