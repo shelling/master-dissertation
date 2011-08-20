@@ -1,5 +1,5 @@
 \section{Dispersion Component}
-Owing to the demand of supports to multiple poles in Eq.\ref{eq:dispersive}, the dispersion component has to be splited
+Owing to the demand of supports to multiple poles in (\ref{eq:dispersive}), the dispersion component has to be splited
 into two part. The $\epsilon_r$ are saved in main decorated component to participate calculation after retrieving the
 summation of $J_p$. Oppositely, $J_p$ saving $a,b,c,d$ coefficients is implemented as a independent class not involving
 in Once Decorator inheritance architecture.
@@ -27,7 +27,7 @@ explained in Section \ref{sec:modeling}.
 
 The second part of dispersion component is $J_p$. The constructor of $J_p$ does two things. The first is calculating
 $C1$, $C2$, and $C3$ from $a,b,c,d$ coefficients. The other is appending instance variables for saving polarized
-displacement of recent three steps. From Eq.\ref{eq:polarized_displacement}, the method \texttt{update} was implemented
+displacement of recent three steps. From (\ref{eq:polarized_displacement}), the method \texttt{update} was implemented
 as following. The strategy to distinguish material is slightly different from modeling $\epsilon_r$. Logically, one pole
 saves one set of coefficients, so that it's not necessary saving coefficients as arrays. Masks are a better design here.
 \begin{code}
@@ -53,5 +53,6 @@ themselves with previous $E$ field and $E$ field finds its current values from a
   lorentz_pole1.update(plane)
   lorentz_pole2.update(plane)
 
-  plane.update_efield(drude_pole, lorentz_pole1, lorentz_pole2) # allow arbitrary poles 
+  # allow arbitrary poles 
+  plane.update_efield(drude_pole, lorentz_pole1, lorentz_pole2) 
 \end{code}

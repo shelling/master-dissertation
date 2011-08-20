@@ -1,8 +1,8 @@
 \section{Freespace Component}
 The freespace component serves as main component in the architecture of the Once Decorator Pattern. It stores field
 variables (arrays for storing $D, E, B, H$) as instance variables and provides the interfaces to update fields by the
-rules in freespace. The fields variables are also utilized by concrete decorators which inherit the main component. And
-about interfaces, there is a big point here. Comparing the Eq.\ref{eq:pmldx} and Eq.\ref{eq:dx3d}, the curl parts are
+rules in freespace. The field variables are also utilized by concrete decorators which inherit the main component. And
+about interfaces, there is a big point here. Comparing the (\ref{eq:pmldx}) and (\ref{eq:dx3d}), the curl parts are
 are not changed. Apparently it is necessary to provide interfaces for these reusable parts. The $curl\_ex$ and
 $curl\_hx$ is a example here.
 \begin{code}
@@ -26,8 +26,8 @@ $curl\_hx$ is a example here.
                                - self.hyfield[i,j,k] + self.hyfield[i,j,k-1]
         return res
 \end{code}
-The return value is a 2D array saving the values of curl for each point. with thees interfaces, Eq.\ref{eq:dx3d} and
-Eq.\ref{eq:bx3d} appear a elegant view in source code.
+The return value is a 2D array saving the values of curl for each point. With these interfaces, (\ref{eq:dx3d}) and
+(\ref{eq:bx3d}) appear a elegant view in source code.
 \begin{code}
     def update_dfield(self):
         self.dxfield += 0.5 * self.curl_hx()
