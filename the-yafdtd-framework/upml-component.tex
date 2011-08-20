@@ -16,8 +16,8 @@ was implemented as following.
 \end{code}
 The summation of $curl\_hx$ and $curl\_hy$ are saved in \texttt{idx} and \texttt{idy}. The variables defined in
 Eq.\ref{eq:v3}, Eq.\ref{eq:v2}, Eq.\ref{eq:v1} are saved as arrays \texttt{i1}, \texttt{i2}, \texttt{i3}, \texttt{j1},
-\texttt{j2}, \texttt{j3} which are mapping coefficients to every point in computation domain. In Sullivan's example, he
-used one dimension arrays to save memory here. However, it's more intuitive and programmable using array having
+\texttt{j2}, \texttt{j3} which are mapping coefficients to every point in computational domain. In Sullivan's example,
+he used one dimension arrays to save memory here. However, it's more intuitive and programmable using array having
 dimension the same as fields component.
 
 The multiplication operator of numpy ndarray do multiplication for each pair having the same index like inner

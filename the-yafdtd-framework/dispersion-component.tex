@@ -2,7 +2,7 @@
 Owing to the demand of supports to multiple poles in Eq.\ref{eq:dispersive}, the dispersion component has to be splited
 into two part. The $\epsilon_r$ are saved in main decorated component to participate calculation after retrieving the
 summation of $J_p$. Oppositely, $J_p$ saving $a,b,c,d$ coefficients is implemented as a independent class not involving
-in Once Decorator inheritance structure.
+in Once Decorator inheritance architecture.
 
 One more decorator is needed to append $\epsilon_r$ to main component and overwrite the \texttt{update\_efield} method
 as following. 

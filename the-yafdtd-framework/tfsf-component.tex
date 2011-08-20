@@ -14,8 +14,8 @@ dimension, the constructor appends two auxiliary 1D source as well as masks boun
         return None
 \end{code}
 The rest is two more interfaces to insert D and B at TFSF boundary. To simplify, TE and TM mode are inserted at the same
-time. If only one mode is needed, no updating on the unnecessary auxiliary 1D source in main script could disable
-it. This design leads to more overhead but creates elegant depiction. The next big trick is to examinate whether the
+time. If only one mode is needed, making no updating on the unnecessary auxiliary 1D source in main script could disable
+it. This design leads to more overhead but creates elegant depiction. The next big magic is to examinate whether the
 boundaries in x direction are \texttt{[None, None]}. If the assertion is true, regard TFSF itself as a layout infinite
 at x direction. Otherwise, it's a rectangle layout should update boundaries in x direction.
 \begin{code}

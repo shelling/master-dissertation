@@ -2,14 +2,14 @@
 \label{sec:bcs}
 Three kinds of boundary conditions (BCs) are applied in this research: Analytic Absorbing Boundary Conditions (ABCs),
 Perfectly Matched Layer (PMLs) Absorbing Boundary Conditions and Periodic Boundary Conditions (PBCs). All three kinds of
-BCs have the purpose to create a fake infinite space via finite computation domain. One difference is that the ABC and
-PML are designed for making only one set of structure appearing in the computation domain rather than place infinite
+BCs have the purpose to create a fake infinite space via finite computational domain. One difference is that the ABC and
+PML are designed for making only one set of structure appearing in the computational domain rather than place infinite
 sets of identical structure like in the PBC.
 
 
 \subsection{Analytic Absorbing Boundary Conditions}
 To hold the outgoing field from being reflected at boundary, the ABC is operative in 1D FDTD lattice. Once we assume
-there are no sources outside the computation region, the wave must be porpagaing outward directly and the value of field
+there are no sources outside the computational region, the wave must be porpagaing outward directly and the value of field
 at two ends can be estimated with the relation through the Courant Condition.
 \begin{equation}
   E|_0^n = E|_1^{n-2}
@@ -30,7 +30,7 @@ proposed later allows arbitrary material and performs better on absorbing evanes
 
 By inserting coefficients of UPML into (\ref{eq:up_d}) and (\ref{eq:up_b}), half of the update equations become what
 follows. Owing to that the $\bar{\bar{s}}$ parameters can be reduced to $1$ in non-PML regions, the new update equations
-are apt to be applied in the whole computation domain.
+are apt to be applied in the whole computational domain.
 \begin{gather}
   j\omega\bar{\bar{s}}\ \widetilde{D}(\omega) = c_0\curlH(\omega)\\
   j\omega\bar{\bar{s}}\ \widetilde{B}(\omega) = -c_0\curlE(\omega)
@@ -54,7 +54,7 @@ Several profiles have been suggested for grading $\sigma_d(n)$, The most success
 \begin{equation}
   \sigma_d(n) = (l/d)^2\sigma_{d,max}
 \end{equation}
-where $l$ is the distance apart from the edge of computation domain, and $d = x,y,z$.
+where $l$ is the distance apart from the edge of computational domain, and $d = x,y,z$.
 
 In three dimension
 \begin{equation}\label{eq:up_d_x_pml}
