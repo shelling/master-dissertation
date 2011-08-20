@@ -17,8 +17,8 @@ was implemented as following.
 The summation of $curl\_hx$ and $curl\_hy$ are saved in \texttt{idx} and \texttt{idy}. The variables defined in
 (\ref{eq:v3}), (\ref{eq:v2}), (\ref{eq:v1}) are saved as arrays \texttt{i1}, \texttt{i2}, \texttt{i3}, \texttt{j1},
 \texttt{j2}, \texttt{j3} which are mapping coefficients to every point in computational domain. In Sullivan's example,
-he used one dimension arrays to save memory here. However, it's more intuitive and programmable using array having
-dimension the same as fields component.
+he used one dimension arrays to save memory. However, it's more intuitive and programmable using array having
+dimension(s) the same as field variables.
 
 The multiplication operator of numpy ndarray do multiplication for each pair having the same index like inner
 product. That makes the code clean as in mathematics. In any programming language allowing operator overloading,

@@ -1,7 +1,7 @@
 \section{PBC Component}
 To make PBC component work, surrounded edges must be appended as instance variables and participate the calculation of
-curl part. For minimizing trivial code, this can be implenented in Freespace component. For example, the $curl\_ex$ in
-2D may invoke edges as following.
+the curl parts. For minimizing trivial codes, this parts can be implenented in Freespace component. For example, the
+$curl\_ex$ in 2D may invoke edges as following.
 \begin{code}
     def curl_ex(self):
         res = numpy.zeros(self.shape)
@@ -13,9 +13,9 @@ curl part. For minimizing trivial code, this can be implenented in Freespace com
             res[i,y-1] = self.ezedgey[i] - self.ezfield[i,y-1]  # invoke edges
         return res
 \end{code}
-The duty of PBC component now remain locating the the PBC and update the edge components. Instance variables
-\texttt{pbcx} and \texttt{pbcy} are used to verify which edges should serve and manipulated in the interface for
-configuring.
+The duty of PBC component now remains locating the the PBC and updating the edge components. Instance variables
+\texttt{pbcx} and \texttt{pbcy} are used to verify which edges should serve and manipulated in the interface
+\texttt{pbc}.
 \begin{code}
     def pbc(self, x=True, y=True):
         self.pbcx = x

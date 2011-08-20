@@ -1,12 +1,12 @@
 \section{MPI Edge Component}
 Because there is no possibility to overcome the time complexity $O(3)$ in 3D and $O(2)$ in 2D. For investigating some
-huge structures, parallelization support is imperative in FDTD. Recently famous tactics to parallelization include the
-Cuda API, the Pthreads API, the OpenMP API, and the MPI standard. For well integrating with numpy used in yaFDTD, the
-brother package mpi4py, implementing MPI Standard, was picked out here.
+huge structures, parallelization support is imperative in a FDTD simulator. Recently famous tactics to parallelization
+include the Cuda API, the Pthreads API, the OpenMP API, and the MPI standard. For well integrating with numpy used in
+the yaFDTD framework, the brother package mpi4py, implementing MPI Standard, was picked out here.
 
 In the slant of the MPI standard, computational domain of FDTD can be splited into many fragments on different memory
-block and manipulated by different CPU. Because data fragments are independent with others, at edges of computational
-domain, it needs to exchange data. APIs of MPI serve here.
+block and manipulated by different CPUs. Because all data fragments are independent with others, at edges of
+computational domain, it needs to exchange data. APIs of MPI serve here.
 
 Invoking APIs of MPI in main script is a quick and dirty solution in vary examples and tutorials. However, it's possible
 wrapping MPI actions in a class as a Decorator in our architecture to hide ugly invoking of MPI. 

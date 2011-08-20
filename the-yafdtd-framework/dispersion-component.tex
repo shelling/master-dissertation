@@ -1,11 +1,11 @@
 \section{Dispersion Component}
 Owing to the demand of supports to multiple poles in (\ref{eq:dispersive}), the dispersion component has to be splited
-into two part. The $\epsilon_r$ are saved in main decorated component to participate calculation after retrieving the
+into two part. The $\epsilon_r$ are saved in main decorator component to participate calculation after retrieving the
 summation of $J_p$. Oppositely, $J_p$ saving $a,b,c,d$ coefficients is implemented as a independent class not involving
 in Once Decorator inheritance architecture.
 
-One more decorator is needed to append $\epsilon_r$ to main component and overwrite the \texttt{update\_efield} method
-as following. 
+The one more decorator needs to append $\epsilon_r$ to main component and overwrites the \texttt{update\_efield} method
+as following.
 \begin{code}
     def update_efield(self, *polar):
         self.exfield  = self.dxfield.copy()
@@ -20,12 +20,12 @@ as following.
         self.ezfield /= self.epsilon_rz
         return self
 \end{code}
-The variable \texttt{*polar} with star declares it can receive arbitrary arguments and act as an array. In the middle
-for loop, $E$ field uses the values copied from $D$ field to subtract the $J_p$. Then $\epsilon_r$ divides $E - \sum
-J_p$ in latter three lines. The reason each E field component has its own appointment of $\epsilon_{r}$ has been
+The variable \texttt{*polar} with star declares it can receive arbitrary arguments and act as an array. In the
+\texttt{for} loop, $E$ field uses the values copied from $D$ field to subtract the $J_p$. Then $\epsilon_r$ divides $E -
+\sum J_p$ in latter three lines. The reason each E field component has its own appointment of $\epsilon_{r}$ has been
 explained in Section \ref{sec:modeling}.
 
-The second part of dispersion component is $J_p$. The constructor of $J_p$ does two things. The first is calculating
+The second part of the dispersion component is $J_p$. The constructor of $J_p$ does two things. The first is calculating
 $C1$, $C2$, and $C3$ from $a,b,c,d$ coefficients. The other is appending instance variables for saving polarized
 displacement of recent three steps. From (\ref{eq:polarized_displacement}), the method \texttt{update} was implemented
 as following. The strategy to distinguish material is slightly different from modeling $\epsilon_r$. Logically, one pole
